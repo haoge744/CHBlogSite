@@ -1,28 +1,28 @@
 $(document).ready(function () {
-  $('.header-nav-search').on('click', function () {
+  $('.header-nav-search').on('click', function (e) {
+    e.stopPropagation();
+
     $('body').css('overflow', 'hidden');
-    $('.algolia-popup')
+    $('.search-popup')
       .velocity('stop')
       .velocity('transition.expandIn', {
         duration: 300,
         complete: function () {
-          $('.algolia-popup input').focus();
+          $('.search-popup input').focus();
         }
       });
-    $('.algolia-mask')
+    $('.search-mask')
       .velocity('stop')
       .velocity('transition.fadeIn', {
         duration: 300
       });
   });
 
-  $('.algolia-mask, .algolia-close').on('click', function () {
+  $('.search-mask, .search-close').on('click', function () {
     closeSearch();
   });
 
-  $(document).on('keydown', function (ev) {
-    var e = ev || window.event;
-
+  $(document).on('keydown', function (e) {
     // Escape <=> 27
     if (e.keyCode === Stun.utils.codeToKeyCode('Escape')) {
       closeSearch();
@@ -43,7 +43,7 @@ $(document).ready(function () {
       hitsPerPage: algolia.hits.per_page || 10
     },
     searchFunction: function (helper) {
-      var searchInput = $('.algolia-input-wrapper').find('input');
+      var searchInput = $('.search-input').find('input');
 
       if (searchInput.val()) {
         helper.search();
@@ -53,7 +53,7 @@ $(document).ready(function () {
 
   search.addWidget(
     instantsearch.widgets.searchBox({
-      container: '.algolia-input-wrapper',
+      container: '.search-input',
       reset: false,
       magnifier: false,
       placeholder: algolia.languages.input_placeholder
@@ -136,12 +136,12 @@ $(document).ready(function () {
 
   function closeSearch () {
     $('body').css('overflow', 'auto');
-    $('.algolia-popup')
+    $('.search-popup')
       .velocity('stop')
       .velocity('transition.expandOut', {
         duration: 300
       });
-    $('.algolia-mask')
+    $('.search-mask')
       .velocity('stop')
       .velocity('transition.fadeOut', {
         duration: 300

@@ -1,13 +1,32 @@
 $(document).ready(function () {
-  CONFIG.shortcuts.switch_post && Stun.utils.registerSwitchPost();
-  CONFIG.reward && Stun.utils.registerShowReward();
-  CONFIG.back2top && Stun.utils.back2Top();
-  CONFIG.gallery_waterfall && Stun.utils.galleryWaterFall();
-  CONFIG.external_link && Stun.utils.addIconToExternalLink();
+  CONFIG.shortcuts.switch_post && Stun.utils.registerHotkeyToSwitchPost();
 
-  if (CONFIG.fancybox) {
-    Stun.utils.wrapImageWithFancyBox();
-  } else if (CONFIG.zoom_image) {
-    Stun.utils.registerClickToZoomImage();
+  // Not reload this, because it's changeless.
+  if (CONFIG.external_link) {
+    Stun.utils.addIconToExternalLink('#footer');
   }
+
+  Stun.utils.pjaxReloadBoot = function () {
+    this.initTocDisplay();
+    this.addCopyButtonToCopyright();
+    this.registerCopyEvent();
+    CONFIG.reward && this.registerShowReward();
+    CONFIG.gallery_waterfall && this.showImageToWaterfall();
+    CONFIG.lazyload && this.lazyLoadImage();
+
+    if (CONFIG.external_link) {
+      var WRAPPER = '.archive-inner, .post-title';
+
+      this.addIconToExternalLink(WRAPPER);
+    }
+
+    if (CONFIG.fancybox) {
+      this.wrapImageWithFancyBox();
+    } else if (CONFIG.zoom_image) {
+      this.registerClickToZoomImage();
+    }
+  };
+
+  // Initializaiton
+  Stun.utils.pjaxReloadBoot();
 });

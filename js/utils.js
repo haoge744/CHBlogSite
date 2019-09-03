@@ -66,6 +66,22 @@ Stun.utils = Stun.$u = {
     };
     return throttled;
   },
+  hasMobileUA: function () {
+    var nav = window.navigator;
+    var ua = nav.userAgent;
+    var pa = /iPad|iPhone|Android|Opera Mini|BlackBerry|webOS|UCWEB|Blazer|PSP|IEMobile|Symbian/g;
+
+    return pa.test(ua);
+  },
+  isTablet: function () {
+    return window.screen.width > 767 && window.screen.width < 992 && this.hasMobileUA();
+  },
+  isMobile: function () {
+    return window.screen.width < 767 && this.hasMobileUA();
+  },
+  isDesktop: function () {
+    return !this.isTablet() && !this.isMobile();
+  },
   /**
    * Change the event code to keyCode.
    * @param {String} code Event code
@@ -74,14 +90,15 @@ Stun.utils = Stun.$u = {
     var codes = {
       ArrowLeft: 37,
       ArrowRight: 39,
-      Escape: 27
+      Escape: 27,
+      Enter: 13
     };
 
     return codes[code];
   },
   /**
-   * A UI component for notification prompts.
-   * @param {String} status The Status of message.
+   * "Alert" component
+   * @param {String} status The Status of message. Values: success / info / warning / error.
    * @param {String} text The text to show.
    * @param {Number} delay Message stay time (unit is 's', default 5s).
    */
@@ -157,15 +174,29 @@ Stun.utils = Stun.$u = {
       return false;
     }
   },
+  initTocDisplay: function () {
+    if ($('.post-body').find('h1,h2,h3,h4,h5,h6')[0]) return;
+
+    $('.sidebar-nav').addClass('hide');
+    $('.sidebar-toc').addClass('hide');
+    $('.sidebar-overview').removeClass('hide');
+  },
   // Wrap images with fancybox support.
   wrapImageWithFancyBox: function () {
     $('.content img').not(':hidden').each(function () {
       var $img = $(this);
       var imgTitle = $img.attr('title') || $img.attr('alt');
       var $imgWrap = $img.parent('a');
+      var imgSource = ['data-src', 'data-original', 'src'];
+      var imgSrc = '';
 
       if (!$imgWrap[0]) {
-        var imgSrc = $img.attr('data-original') || $img.attr('src');
+        for (var i = 0; i < imgSource.length; i++) {
+          if ($img.attr(imgSource[i])) {
+            imgSrc = $img.attr(imgSource[i]);
+            break;
+          }
+        }
 
         $imgWrap = $img.wrap('<a class="fancybox" href="' + imgSrc +
           '" itemscope itemtype="http://schema.org/ImageObject" itemprop="url"></a>'
@@ -187,6 +218,7 @@ Stun.utils = Stun.$u = {
       selector: '[data-fancybox]',
       loop: true,
       transitionEffect: 'slide',
+      hash: false,
       buttons: [
         'share',
         'slideShow',
@@ -197,91 +229,48 @@ Stun.utils = Stun.$u = {
       ]
     });
   },
-  galleryWaterFall: function () {
+  // Display the image in the gallery as a waterfall.
+  showImageToWaterfall: function () {
     var gConfig = CONFIG.gallery_waterfall;
     var colWidth = parseInt(gConfig.col_width);
     var colGapX = parseInt(gConfig.gap_x);
 
-    $('.gallery').masonry({
-      itemSelector: '.gallery-image',
-      columnWidth: colWidth,
-      percentPosition: true,
-      gutter: colGapX,
-      transitionDuration: 0
+    this.waitAllImageLoad('.gallery img', function () {
+      $('.gallery').masonry({
+        itemSelector: '.gallery-image',
+        columnWidth: colWidth,
+        percentPosition: true,
+        gutter: colGapX,
+        transitionDuration: 0
+      });
     });
   },
-  // Add a container outside the tables to make it scroll when needed.
-  addContainerToTable: function () {
-    var $wrapper = $('<div style="overflow: auto"></div>');
-    $('table').wrap($wrapper);
-  },
-  // Adjust the size of images by the parameter "size".
-  adjustImageSize: function () {
-    $('img').each(function () {
-      if (this.src.includes('?size=')) {
-        var size = this.src.split('?size=')[1] &&
-          this.src.split('?size=')[1].toLowerCase();
-        var w = size.split('x')[0];
-        var h = size.split('x')[1];
-
-        $(this).css('width', w);
-        $(this).css('height', h);
-      }
-    });
+  // Lazy load the images of post.
+  lazyLoadImage: function () {
+    $('img.lazyload').lazyload();
   },
   // Add a mark icon to the link with `target="_blank"` attribute.
-  addIconToExternalLink: function () {
-    var CONTAINER = '.content, #footer';
-    if (!$(CONTAINER)[0]) return;
+  addIconToExternalLink: function (container) {
+    if (!$(container)[0]) return;
 
+    var $wrapper = $('<span class="external-link"></span>');
     var $icon = $(
-      '<i class="external-link fa fa-' +
+      '<i class="fa fa-' +
         CONFIG.external_link.icon.name +
       '"></i>'
     );
-    // Insert icon after link.
-    // $icon.insertAfter($(CONTAINER).find('a[target="_blank"]'));
 
-    // Insert icon inner link.
-    $(CONTAINER).find('a[target="_blank"]').append($icon);
-  },
-  // Back the page to top.
-  back2Top: function () {
-    function runBack2Top () {
-      var $top = $('#back-top');
-      var scrollTop = $(window).scrollTop();
-
-      if (scrollTop !== 0) {
-        $top.css('visibility', 'visible');
-      } else {
-        $top.css('visibility', 'hidden');
-      }
-    }
-
-    $(window).on('load', function () {
-      runBack2Top();
-    });
-
-    $(window).on('scroll', function () {
-      runBack2Top();
-    });
-
-    $('#back-top').on('click', function () {
-      $('body').velocity('stop').velocity('scroll');
-
-      if (CONFIG.back2top.animation) {
-        $('#back-top')
-          .velocity({ translateY: '-100vh' }, { duration: 500 })
-          .velocity('reverse', { duration: 10 });
-      }
-    });
+    $(container)
+      .find('a[target="_blank"]')
+      .wrap($wrapper)
+      .parent('.external-link')
+      .append($icon);
   },
   // Switch to the prev / next post by shortcuts.
-  registerSwitchPost: function () {
+  registerHotkeyToSwitchPost: function () {
     var _this = this;
 
-    $(document).on('keydown', function (ev) {
-      var e = ev || window.event;
+    $(document).on('keydown', function (e) {
       var isPrev = e.keyCode === _this.codeToKeyCode('ArrowLeft');
       var isNext = e.keyCode === _this.codeToKeyCode('ArrowRight');
 
@@ -331,8 +320,7 @@ Stun.utils = Stun.$u = {
       closeZoom();
     });
 
-    $('.zoom-image').on('click', function (ev) {
-      var e = ev || window.event;
+    $('.zoom-image').on('click', function (e) {
       e.stopPropagation();
       isZoom = true;
 
@@ -382,11 +370,80 @@ Stun.utils = Stun.$u = {
         }
       });
     }
+  },
+  addCopyButtonToCopyright: function () {
+    $('figure.highlight').each(function () {
+      if (!$(this).find('figcaption')[0]) {
+        var CODEBLOCK_CLASS_NAME = 'highlight';
+        var lang = $(this)
+          .attr('class')
+          .split(/\s/)
+          .filter(function (e) { return e !== CODEBLOCK_CLASS_NAME; });
+        var $codeHeader = $(
+          '<figcaption class="custom">' +
+            '<div class="custom-lang">' + lang + '</div>' +
+          '</figcaption>'
+        );
+
+        $codeHeader.insertBefore($(this).children().first());
+      }
+    });
+
+    var $copyIcon = $(
+      '<div class="copy-button" data-popover=' +
+        CONFIG.prompt.copy_button +
+        ' data-popover-pos="up">' +
+        '<i class="fa fa-clipboard"></i>' +
+      '</div>'
+    );
+
+    var COPY_BUTTON_CONTAINER =
+      'figure.highlight figcaption, .post-copyright';
+    // Add a copy button to the selected elements.
+    $(COPY_BUTTON_CONTAINER).append($copyIcon);
+  },
+  registerCopyEvent: function () {
+    $('.copy-button').on('click', function () {
+      var container = null;
+      // Select the container of code block.
+      var codeContainer =
+        $(this).parents('figure.highlight').find('td.code')[0];
+
+      if (codeContainer) {
+        container = codeContainer;
+      } else {
+        // Select the container of text.
+        container = $(this).parent()[0];
+      }
+
+      if (Stun.utils.copyText(container)) {
+        Stun.utils.popAlert('success', CONFIG.prompt.copy_success);
+      } else {
+        Stun.utils.popAlert('error', CONFIG.prompt.copy_error);
+      }
+    });
+  },
+  /**
+   * Wait for all images to load.
+   * @param {String} selector jQuery selector.
+   * @param {Function} callback Callback.
+   */
+  waitAllImageLoad: function (selector, callback) {
+    var imgDefereds = [];
+
+    $(selector).each(function () {
+      var dfd = $.Deferred();
+      $(this).bind('load', function () {
+        dfd.resolve();
+      });
+
+      if (this.complete) {
+        setTimeout(function () {
+          dfd.resolve();
+        }, 500);
+      }
+      imgDefereds.push(dfd);
+    });
+    $.when.apply(null, imgDefereds).then(callback);
   }
 };
-
-$(document).ready(function () {
-  Stun.utils.addContainerToTable();
-  Stun.utils.adjustImageSize();
-  Stun.utils.copyText();
-});
