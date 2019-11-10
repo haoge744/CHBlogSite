@@ -826,7 +826,7 @@ table td {
   -webkit-background-size: cover;
   -moz-background-size: cover;
   background-size: cover;
-  background: url("https://w.wallhaven.cc/full/k9/wallhaven-k9vlzm.jpg") no-repeat center center;
+  background: url("http://q0838auuh.bkt.clouddn.com/wallper2.jpg") no-repeat center center;
 }
 .header-nav {
   position: fixed;
@@ -2222,6 +2222,13 @@ table td {
 }
 .post-title .external-link i {
   font-size: 0.7em;
+}
+a.fancybox {
+  border-bottom: 0;
+  cursor: zoom-in;
+}
+a.fancybox:hover {
+  border-bottom: 0;
 }
 .loading-bar {
   position: fixed;
