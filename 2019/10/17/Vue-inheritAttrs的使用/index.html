@@ -1,0 +1,359 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="keywords" content="lelouch, lelouch‘s blog, blog"><meta name="author" content="lelouch"><meta name="description" content="Vue inheritAttrs的使用"><meta name="copyright" content="lelouch"><title>Vue inheritAttrs的使用 | lelouch‘s blog</title><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/haoge744.github.io/images/icons/favicon-16x16.png?v=1.3.1" type="image/png" sizes="16x16"><link rel="icon" href="/haoge744.github.io/images/icons/favicon-32x32.png?v=1.3.1" type="image/png" sizes="32x32"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" type="text/css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" type="text/css"><link rel="stylesheet" href="/haoge744.github.io/css/index.css?v=1.3.1"><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/haoge744.github.io/',
+  algolia: undefined,
+  sidebar: {"offsetTop":"20px","renderTocDepth":6},
+  back2top: {"enable":true},
+  reward: false,
+  fancybox: true,
+  zoom_image: {"enable":true,"mask_color":"rgba(0,0,0,0.6)"},
+  gallery_waterfall: undefined,
+  lazyload: undefined,
+  external_link: {"icon":{"enable":true,"name":"external-link"}},
+  shortcuts: {"switch_post":false},
+  prompt: {"copy_success":"复制成功","copy_error":"复制失败","creative_commons":"知识共享","copy_button":"点击复制"}
+};
+
+window.CONFIG = CONFIG;</script></head><body><div id="container"><header id="header"><div class="loading-bar"><div class="progress"></div></div><nav class="header-nav"><div class="header-nav-inner"><div class="fa fa-bars header-nav-menu-icon"></div><div class="header-nav-search"><i class="fa fa-search"></i><span>搜索</span></div><div class="header-nav-menu"><div class="menu-item"><a class="menu-item-inner" href="/"><i class="fa fa-home"></i>首页</a></div><div class="menu-item"><a class="menu-item-inner" href="/archives/"><i class="fa fa-folder-open"></i>归档</a></div><div class="menu-item"><a class="menu-item-inner" href="/categories/"><i class="fa fa-th"></i>分类</a></div><div class="menu-item"><a class="menu-item-inner" href="/tags/"><i class="fa fa-tags"></i>标签</a></div><div class="menu-item"><a class="menu-item-inner" href="/about/"><i class="fa fa-user"></i>关于</a></div></div></div></nav><div class="header-info"><div class="header-info-inner"><div class="header-info-title">lelouch‘s blog</div><div class="header-info-subtitle">JUST DO IT</div></div></div></header><main id="main"><div class="main-inner"><aside id="sidebar"><div class="sidebar-inner"><div class="sidebar-nav"><span class="sidebar-nav-toc current">文章目录</span><span class="sidebar-nav-overview">站点概览</span></div><section class="sidebar-toc"><div><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#介绍"><span class="toc-number">1.</span> <span class="toc-text">介绍</span></a></li></ol></div></section><section class="hide sidebar-overview"><div class="sidebar-author"><img class="sidebar-author-avatar" src="http://q0838auuh.bkt.clouddn.com/avatar.png" alt="avatar"><p class="sidebar-author-motto">hello world</p></div><div class="sidebar-state"><span class="sidebar-state-item sidebar-state-posts"><a href="/archives/"><div class="sidebar-state-item-count">24</div><div class="sidebar-state-item-name">归档</div></a></span><span class="sidebar-state-item sidebar-state-categories"><a href="/categories/"><div class="sidebar-state-item-count">9</div><div class="sidebar-state-item-name">分类</div></a></span><span class="sidebar-state-item sidebar-state-tags"><a href="/tags/"><div class="sidebar-state-item-count">12</div><div class="sidebar-state-item-name">标签</div></a></span></div><div class="sidebar-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" target="_blank" rel="noopener" data-popover="知识共享" data-popover-pos="up"><img src="/haoge744.github.io/images/cc-by-nc-sa.svg" alt="知识共享"></a></div></section><div class="sidebar-progress"><div class="sidebar-progress-read"><span>你已阅读了</span><span class="sidebar-progress-number"></span></div><div class="sidebar-progress-line"></div></div></div></aside><div class="content headings code-highlight"><header class="post-header"><h1 class="post-title">Vue inheritAttrs的使用</h1><div class="post-meta"><span class="post-create"><i class="fa fa-calendar-o"></i><span>发表于 </span><span>2019-10-17</span></span><span class="post-update"><i class="fa fa-calendar-check-o"></i><span>更新于 </span><span>2019-11-17</span></span><span class="post-reading-count"><i class="fa fa-eye"></i><span>阅读次数 </span><span id="busuanzi_value_page_pv"></span></span></div></header><div class="post-body"><h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p><code>Vue inheritAttrs</code>诞生于vue2.4.0版本,目的是为了解决父孙组件传递参数的问题。<br>在以前如果要父组件要给孙组件传值只能给子组件设置一套值，然后再给孙组件再设置一套相同的值，这样代码太过冗余并且工作量，还有一个方法就是用<code>provide</code>和<code>inject</code>,但是貌似这个方法也不是很好，组件多的话很难控制。<br>所以vue2.4发布后解决了这个问题，还增加了关于事件向上传递的相关api <code>$listeners</code></p>
+<a id="more"></a>
+
+<p>如果你使用的是vue2.4之后的版本，那么当前的vue组件实例中会默认带一个属性，这个就是<code>$attrs</code>属性,这个属性用来保存没有在<code>props</code>中声明的参数属性。什么意思呢，就是你定义一个组件，这个组件的props只有一个count，但是我父组件调用的时候除了给了count，比如说还传递了一个:age=”12”,那么子组件就可以通过<code>$attrs</code>来获取到age。</p>
+<figure class="highlight plain"><div style="overflow: auto"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">// parent.vue</span><br><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">      &lt;children :count=&quot;10&quot; :age=&quot;15&quot;/&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">import children from &apos;./children&apos;</span><br><span class="line">export default &#123;</span><br><span class="line">    components: &#123;</span><br><span class="line">        children</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></div></figure>
+
+<figure class="highlight plain"><div style="overflow: auto"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">//  children.vue</span><br><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">      &#123;&#123; count &#125;&#125;</span><br><span class="line">      &#123;&#123; $attrs.age &#125;&#125;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">export default &#123;</span><br><span class="line">    props: &#123;</span><br><span class="line">        count: Number</span><br><span class="line">    &#125;,</span><br><span class="line">    mounted() &#123;</span><br><span class="line">        console.log(this)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></div></figure>
+
+<p>把children.vue实例打印出来如下图。<br><img src="/haoge744.github.io/2019/10/17/Vue-inheritAttrs的使用/attrs.png" alt="attrs"></p>
+<p>比如说项目中有这样有个功能，弹出一个有table的dialog，只是表格的字段和查询条件不一样。并且很多地方用得到，这样最好是封装成一个组件，然后我要用element的dialog和table进行封装。</p>
+<p><img src="/haoge744.github.io/2019/10/17/Vue-inheritAttrs的使用/table.png" alt="dialogTable"></p>
+<figure class="highlight plain"><div style="overflow: auto"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;el-dialog</span><br><span class="line">    &lt;!-- sync是不支持的,所以要额外写参数 --&gt;</span><br><span class="line">    :visible.sync=&quot;visible&quot;</span><br><span class="line">    &lt;!-- 给dialog组件传递参数 --&gt;</span><br><span class="line">    v-bind=&quot;$attrs&quot;&gt;</span><br><span class="line">    &lt;div style=&quot;padding: 5px;&quot;&gt;</span><br><span class="line">      &lt;el-table class=&quot;data-table-container&quot; :data=&quot;tableData&quot; style=&quot;width: 100%&quot; v-loading=&quot;loading&quot; border&gt;</span><br><span class="line">        &lt;el-table-column type=&quot;index&quot; align=&quot;center&quot; label=&quot;序号&quot; v-if=&quot;showNumber&quot; width=&quot;50&quot;&gt;</span><br><span class="line">        &lt;/el-table-column&gt;</span><br><span class="line">        &lt;!-- 循环表格的列，并且给表格列设置绑定属性为item --&gt;</span><br><span class="line">        &lt;el-table-column v-for=&quot;(item, index) in head&quot; v-bind=&quot;item&quot; :key=&quot;index&quot;&gt;</span><br><span class="line">          &lt;template v-slot=&quot;scope&quot;&gt;</span><br><span class="line">            &lt;!-- 如果类型是slot的话给表格的列设置插槽 --&gt;</span><br><span class="line">            &lt;slot :name=&quot;item.prop&quot; v-if=&quot;item.type === &apos;slot&apos;&quot; :data=&quot;scope.row&quot;&gt;&lt;/slot&gt;</span><br><span class="line">            &lt;template v-else&gt;</span><br><span class="line">              &#123;&#123; scope.row[scope.column.property] &#125;&#125;</span><br><span class="line">            &lt;/template&gt;</span><br><span class="line">          &lt;/template&gt;</span><br><span class="line">        &lt;/el-table-column&gt;</span><br><span class="line">      &lt;/el-table&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">  &lt;/el-dialog&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">  import request from &apos;@/utils/request&apos;</span><br><span class="line"></span><br><span class="line">  export default &#123;</span><br><span class="line">    name: &apos;tableGridDialog&apos;,</span><br><span class="line">    props: &#123;</span><br><span class="line">      head: &#123; // 表格的列</span><br><span class="line">        required: true</span><br><span class="line">      &#125;,</span><br><span class="line">      showNumber: &#123;</span><br><span class="line">        type: Boolean,</span><br><span class="line">        default: true</span><br><span class="line">      &#125;,</span><br><span class="line">      url: &#123;</span><br><span class="line">        type: String</span><br><span class="line">      &#125;,</span><br><span class="line">      params: &#123;</span><br><span class="line">        type: Object</span><br><span class="line">      &#125;,</span><br><span class="line">      httpMethod: &#123;</span><br><span class="line">        type: String,</span><br><span class="line">        default: &apos;get&apos;</span><br><span class="line">      &#125;,</span><br><span class="line">      show: &#123;</span><br><span class="line">        type: Boolean</span><br><span class="line">      &#125;,</span><br><span class="line">      formatDataMethod: &#123;</span><br><span class="line">        type: Function</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    data() &#123;</span><br><span class="line">      return &#123;</span><br><span class="line">        tableData: [],</span><br><span class="line">        loading: false,</span><br><span class="line">        visible: false,</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    methods: &#123;</span><br><span class="line">      initList() &#123;</span><br><span class="line">        const queryData = &#123;</span><br><span class="line">          url: this.url,</span><br><span class="line">          method: this.httpMethod</span><br><span class="line">        &#125;</span><br><span class="line">        if (this.params) &#123;</span><br><span class="line">          if (this.httpMethod.toLowerCase() === &apos;get&apos;) &#123;</span><br><span class="line">            queryData.params = this.params</span><br><span class="line">          &#125; else &#123;</span><br><span class="line">            queryData.data = this.params</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        this.loading = true</span><br><span class="line">        request(queryData).then(res =&gt; &#123;</span><br><span class="line">          this.loading = false</span><br><span class="line">          if (res.status === 200) &#123;</span><br><span class="line">            // 如果有数据格式化方法，执行完之后赋值</span><br><span class="line">            if (this.formatDataMethod) &#123;</span><br><span class="line">              this.tableData = this.formatDataMethod(res.data)</span><br><span class="line">            &#125; else &#123;</span><br><span class="line">              this.tableData = res.data</span><br><span class="line">            &#125;</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;).catch(error =&gt; &#123;</span><br><span class="line">          console.log(error)</span><br><span class="line">          this.loading = false</span><br><span class="line">        &#125;)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    created() &#123;</span><br><span class="line"></span><br><span class="line">    &#125;,</span><br><span class="line">    watch: &#123;</span><br><span class="line">      params: &#123;</span><br><span class="line">        handler(val) &#123;</span><br><span class="line">          if (val) this.initList()</span><br><span class="line">        &#125;,</span><br><span class="line">        immediate: true</span><br><span class="line">      &#125;,</span><br><span class="line">      url (val) &#123;</span><br><span class="line">        if (val) this.initList()</span><br><span class="line">      &#125;,</span><br><span class="line">      show: &#123;</span><br><span class="line">        handler(val) &#123;</span><br><span class="line">          if (val !== this.visible) &#123;</span><br><span class="line">            this.visible = val</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        immediate: true</span><br><span class="line">      &#125;,</span><br><span class="line">      visible(val) &#123;</span><br><span class="line">        if (val !== this.show) &#123;</span><br><span class="line">          this.$emit(&apos;update:show&apos;, val)</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></div></figure>
+
+<p>使用</p>
+<figure class="highlight plain"><div style="overflow: auto"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">	&lt;tableGridDialog</span><br><span class="line">      :url=&quot;changeUrl&quot;</span><br><span class="line">      width=&quot;740px&quot;</span><br><span class="line">      title=&quot;xx明细&quot;</span><br><span class="line">      :params=&quot;param&quot;</span><br><span class="line">      :head=&quot;changeDesignHead&quot;</span><br><span class="line">      :show.sync=&quot;showchangeDesign&quot;&gt;</span><br><span class="line">      &lt;template v-slot:createTime=&quot;&#123;data&#125;&quot;&gt;</span><br><span class="line">        &#123;&#123; data.createTime | dateFormat&#125;&#125;</span><br><span class="line">      &lt;/template&gt;</span><br><span class="line">    &lt;/tableGridDialog&gt;</span><br><span class="line"></span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">export default &#123;</span><br><span class="line">    data () &#123;</span><br><span class="line">        changeUrl: &apos;xxx&apos;,</span><br><span class="line">        param: &#123;</span><br><span class="line">          queryId: &apos;xxx&apos;  </span><br><span class="line">        &#125;,</span><br><span class="line">        changeDesignHead: [</span><br><span class="line">          &#123;</span><br><span class="line">            prop: &apos;createTime&apos;,</span><br><span class="line">            label: &apos;日期&apos;,</span><br><span class="line">            align: &apos;center&apos;,</span><br><span class="line">            type: &apos;slot&apos;</span><br><span class="line">          &#125;, &#123;</span><br><span class="line">            prop: &apos;name&apos;,</span><br><span class="line">            label: &apos;变更名称&apos;,</span><br><span class="line">            align: &apos;center&apos;,</span><br><span class="line">            type: &apos;slot&apos;</span><br><span class="line">          &#125;, &#123;</span><br><span class="line">            prop: &apos;content&apos;,</span><br><span class="line">            label: &apos;内容&apos;,</span><br><span class="line">            align: &apos;center&apos;,</span><br><span class="line">            width: &apos;200px&apos;</span><br><span class="line">          &#125;</span><br><span class="line">        ]</span><br><span class="line">    &#125;,</span><br><span class="line">    // ...</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></div></figure>
+
+<p>使用的话代码也比较简单，不作太多讲解了。总结来说在组件嵌套这块解决了很大的问题。</p>
+</div><footer class="post-footer"><div class="post-footer-end"><span>------</span><span>本文结束，感谢您的阅读</span><span>------</span></div><div class="post-copyright"><div class="copyright-author"><span class="copyright-name">本文作者:</span><span class="copyright-value"><a href="https://haoge744.github.io">lelouch</a></span></div><div class="copyright-link"><span class="copyright-name">本文链接:</span><span class="copyright-value"><a href="https://haoge744.github.io/2019/10/17/Vue-inheritAttrs的使用/">https://haoge744.github.io/2019/10/17/Vue-inheritAttrs的使用/</a></span></div><div class="copyright-notice"><span class="copyright-name">版权声明:</span><span class="copyright-value">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" rel="external nofollow" target="_blank">BY-NC-SA</a> 许可协议。转载请注明出处！</span></div></div><div class="post-footer-tags"><i class="fa fa-tags icon"></i><span><a href="https://haoge744.github.io/tags/vue/" title="vue">vue</a></span></div><nav id="paginator"><div class="post-paginator"><div class="article-prev pull-left"><a href="/haoge744.github.io/2019/10/29/东野圭吾-《秘密》读后感/"><i class="fa fa-chevron-left"></i><span class="title">东野圭吾-《秘密》读后感</span></a></div><div class="article-next pull-right"><a href="/haoge744.github.io/2019/10/10/win10更新后提示未安装任何音频设备/"><span class="title">win10更新后提示未安装任何音频设备</span><i class="fa fa-chevron-right"></i></a></div></div></nav></footer></div><div class="comments content" id="comments"><div id="lv-container" data-id="city" data-uid="MTAyMC80NjQ3NC8yMjk4NQ=="></div></div><div class="clearfix"></div></div></main><footer id="footer"><div class="footer-inner"><div><span>&copy; 2019</span><span class="fa fa-heart heart-beat footer-separator" style="color: #ff0000"></span><span>lelouch.</span></div><div><span class="footer-powered">由 <a href="http://hexo.io/" title="hexo" target="_blank" rel="noopener">hexo</a> 强力驱动</span><span> v3.9.0.</span><span class="footer-separator">|</span><span>主题 - <a href="https://github.com/liuyib/hexo-theme-stun/" title="stun" target="_blank" rel="noopener">stun</a></span><span> v1.3.1.</span></div><div class="busuanzi"><span class="busuanzi-uv"><i class="fa fa-user"></i><span>访问人数 </span><span id="busuanzi_value_site_uv"></span></span><span class="separator">|</span><span class="busuanzi-pv"><i class="fa fa-eye"></i><span>浏览总量 </span><span id="busuanzi_value_site_pv"></span></span><script src="https://cdn.jsdelivr.net/gh/sukkaw/busuanzi@latest/bsz.pure.mini.js" async data-pjax></script></div></div></footer><div id="back-top"><div class="back-top-inner" data-popover="回到顶部" data-popover-pos="up"><i class="fa fa-rocket"></i></div></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/ribbon.js@latest/dist/ribbon.min.js" size="120" alpha="0.6" zindex="-1"></script><script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script><script>window.addEventListener('load', function () {
+  $('.header-nav-search').on('click', function (e) {
+    e.stopPropagation();
+
+    $('body').css('overflow', 'hidden');
+    $('.search-popup')
+      .velocity('stop')
+      .velocity('transition.expandIn', {
+        duration: 300,
+        complete: function () {
+          $('.search-popup input').focus();
+        }
+      });
+    $('.search-mask')
+      .velocity('stop')
+      .velocity('transition.fadeIn', {
+        duration: 300
+      });
+    
+    initSearch();
+  });
+
+  $('.search-mask, .search-close').on('click', function () {
+    closeSearch();
+  });
+
+  $(document).on('keydown', function (e) {
+    // Escape <=> 27
+    if (e.keyCode === Stun.utils.codeToKeyCode('Escape')) {
+      closeSearch();
+    }
+  });
+
+  var isXML = true;
+  var search_path = 'search.json';
+  
+  if (!search_path) {
+    search_path = 'search.xml';
+  } else if (/json$/i.test(search_path)) {
+    isXML = false;
+  }
+  
+  var path = '/haoge744.github.io/' + search_path;
+
+  function initSearch() {
+    $.ajax({
+      url: path,
+      dataType: isXML ? 'xml' : 'json',
+      async: true,
+      success: function (res) {
+        var datas = isXML ? $('entry', res).map(function () {
+          // 将 XML 转为 JSON
+          return {
+            title: $('title', this).text(),
+            content: $('content', this).text(),
+            url: $('url', this).text()
+          };
+        }).get() : res;
+
+        var $input = $('.search-input input');
+        var $result = $('.search-results');
+
+        // 搜索对象（标题、内容）的权重，影响显示顺序
+        var WEIGHT = { title: 100, content: 1 };
+
+        var searchPost = function () {
+          var searchText = $input.val().toLowerCase().trim();
+          // 根据空白字符分隔关键字
+          var keywords = searchText.split(/[\s]+/);
+          // 搜索结果
+          var matchPosts = [];
+
+          // 有多个关键字时，将原文字整个保存下来
+          if (keywords.length > 1) {
+            keywords.push(searchText);
+          }
+          
+          // 防止未输入字符时搜索
+          if (searchText.length > 0) {
+            datas.forEach(function (data) {
+              var isMatch  = false;
+              
+              // 没有标题的文章使用预设的 i18n 变量代替
+              var title = (data.title && data.title.trim()) || '( 文章无标题 )';
+              var titleLower = title && title.toLowerCase();
+              // 删除 HTML 标签 和 所有空白字符
+              var content = data.content && data.content.replace(/<[^>]+>|\s+/, '');
+              var contentLower = content && content.toLowerCase();
+              // 删除重复的 /
+              var postURL = data.url && decodeURI(data.url).replace(/\/{2,}/, '/');
+              
+              // 标题中匹配到的关键词
+              var titleHitSlice = [];
+              // 内容中匹配到的关键词
+              var contentHitSlice = [];
+
+              keywords.forEach(function (keyword) {
+                /**
+                 * 获取匹配的关键词的索引
+                 * @param {String} keyword 要匹配的关键字
+                 * @param {String} text 原文字
+                 * @param {Boolean} caseSensitive 是否区分大小写
+                 * @param {Number} weight 匹配对象的权重。权重大的优先显示
+                 * @return {Array}
+                 */
+                function getIndexByword (word, text, caseSensitive, weight) {
+                  if (!word || !text) return [];
+                  
+                  var startIndex = 0; // 每次匹配的开始索引
+                  var index = -1;     // 匹配到的索引值
+                  var result = [];    // 匹配结果
+
+                  if (!caseSensitive) {
+                    word = word.toLowerCase();
+                    text = text.toLowerCase();
+                  }
+
+                  while((index = text.indexOf(word, startIndex)) !== -1) {
+                    var hasMatch = false;
+
+                    // 索引位置相同的关键词，保留长度较长的
+                    titleHitSlice.forEach(function (hit) {
+                      if (hit.index === index && hit.word.length < word.length) {
+                        hit.word = word;
+                        hasMatch = true;
+                      }
+                    });
+                    startIndex = index + word.length;
+                    !hasMatch && result.push({ index: index, word: word, weight: weight });
+                  }
+
+                  return result;
+                }
+                
+                titleHitSlice = titleHitSlice.concat(
+                  getIndexByword(keyword, titleLower, false, WEIGHT.title));
+                contentHitSlice = contentHitSlice.concat(
+                  getIndexByword(keyword, contentLower, false, WEIGHT.content));
+              });
+              
+              var hitTitle = titleHitSlice.length;
+              var hitContent = contentHitSlice.length;
+
+              if (hitTitle > 0 || hitContent > 0) {
+                isMatch = true;
+              }
+
+              if (isMatch) {
+                ;[titleHitSlice, contentHitSlice].forEach(function (hit) {
+                  // 按照匹配文字的索引的递增顺序排序
+                  hit.sort(function (left, right) {
+                    return left.index - right.index;
+                  });
+                });
+                
+                /**
+                 * 给文本中匹配到的关键词添加标记，从而进行高亮显示
+                 * @param {String} text 原文本
+                 * @param {Array} hitSlice 匹配项的索引信息
+                 * @param {Number} start 开始索引
+                 * @param {Number} end 结束索引
+                 * @return {String}
+                 */
+                function highlightKeyword (text, hitSlice, start, end) {
+                  if (!text || !hitSlice || !hitSlice.length) return;
+
+                  var result = '';
+                  var startIndex = start;
+                  var endIndex = end;
+
+                  hitSlice.forEach(function (hit) {
+                    if (hit.index < startIndex) return;
+
+                    var hitWordEnd = hit.index + hit.word.length;
+
+                    result += text.slice(startIndex, hit.index);
+                    result += '<b>' + text.slice(hit.index, hitWordEnd) + '</b>';
+                    startIndex = hitWordEnd;
+                  });
+                  result += text.slice(startIndex, endIndex);
+
+                  return result;
+                }
+
+                var postData = {};
+                // 文章总的搜索权重
+                var postWeight = titleHitSlice.length * 100 + contentHitSlice.length;
+                // 标记匹配关键词后的标题
+                var postTitle = highlightKeyword(title, titleHitSlice, 0, title.length) || title;
+                // 标记匹配关键词后的内容
+                var postContent;
+                
+                // 截取匹配的第一个字符，前后共 200 个字符来显示
+                if (contentHitSlice.length > 0) {
+                  var firstIndex = contentHitSlice[0].index;
+                  var start = firstIndex > 20 ? firstIndex - 20 : 0;
+                  var end = firstIndex + 180;
+
+                  postContent = highlightKeyword(content, contentHitSlice, start, end);
+                } else { // 未匹配到内容，直接截取前 200 个字符来显示
+                  postContent = content.slice(0, 200);
+                }
+                
+                postData.title = postTitle;
+                postData.content = postContent;
+                postData.url = postURL;
+                postData.weight = postWeight;
+                matchPosts.push(postData);
+              }
+            });
+          }
+
+          var resultInnerHtml = '<ul>';
+          
+          // 按权重递增的顺序排序，使权重大的优先显示
+          matchPosts.sort(function (left, right) {
+            return right.weight - left.weight;
+          });
+          
+          matchPosts.forEach(function (post) {
+            resultInnerHtml += '<li><a class="search-results-title" href="' + post.url + '">';
+            resultInnerHtml += post.title;
+            resultInnerHtml += '</a><div class="search-results-content">';
+            resultInnerHtml += post.content;
+            resultInnerHtml += '</div></li>';
+          });
+          resultInnerHtml += '</ul>';
+          $result.html(resultInnerHtml);
+        };
+
+        $input.on('input', searchPost);
+        $input.on('keypress', function (e) {
+          if (e.keyCode === Stun.utils.codeToKeyCode('Enter')) {
+            searchPost();
+          }
+        });
+      }
+    });
+  }
+
+  function closeSearch () {
+    $('body').css('overflow', 'auto');
+    $('.search-popup')
+      .velocity('stop')
+      .velocity('transition.expandOut', {
+        duration: 300
+      });
+    $('.search-mask')
+      .velocity('stop')
+      .velocity('transition.fadeOut', {
+        duration: 300
+      });
+  }
+}, false);</script><script src="https://cdn.jsdelivr.net/npm/pjax@latest/pjax.min.js"></script><script>window.addEventListener('load', function () {
+  var pjax = new Pjax({"elements":["a:not([target=_blank])"],"selectors":["head title","meta[name=description]","#main",".pjax-reload"],"history":true,"scrollTo":false,"scrollRestoration":false,"cacheBust":false,"debug":false,"currentUrlFullReload":false,"timeout":0});
+  // 加载进度条的计时器
+  var loadingTimer = null;
+  // 是否第一次加载 pjax
+  var isFirstLoad = true;
+
+  // 重置页面 Y 方向上的滚动偏移量
+  document.addEventListener('pjax:send', function () {
+    isFirstLoad = false;
+
+    $('html').velocity('scroll', {
+      duration: 500,
+      offset: $('#header').height(),
+      easing: 'easeInOutCubic'
+    });
+
+    var loadingBarWidth = 0;
+    var MAX_LOADING_WIDTH = 95;
+
+    $('.loading-bar .progress').css('transform', 'translateX(-100%)');
+    $('.loading-bar').addClass('loading');
+
+    clearInterval(loadingTimer);
+    loadingTimer = setInterval(function () {
+      loadingBarWidth += 2;
+
+      if (loadingBarWidth > MAX_LOADING_WIDTH) {
+        loadingBarWidth = MAX_LOADING_WIDTH;
+      }
+
+      $('.loading-bar .progress').css(
+        'transform', 'translateX(' + (loadingBarWidth - 100) + '%)'
+      );
+    }, 100);
+  }, false);
+
+  window.addEventListener('pjax:complete', function () {
+    clearInterval(loadingTimer);
+    $('.loading-bar .progress').css('transform', 'translateX(0%)');
+    setTimeout(function () {
+      $('.loading-bar').removeClass('loading');
+      $('.loading-bar .progress').css('transform', 'translateX(-100%)');
+    }, 400);
+
+    $('link[rel=prefetch], script[data-pjax-rm]').each(function () {
+      $(this).remove();
+    });
+
+    $('script[data-pjax], #pjax-reload script').each(function () {
+      $(this).parent().append($(this).remove());
+    });
+
+    Stun.utils.pjaxReloadBoot();
+    Stun.utils.pjaxReloadScroll();
+    Stun.utils.pjaxReloadSidebar();
+  }, false);
+}, false);</script><div id="pjax-reload"></div><script data-pjax>function loadLivere () {
+  var d = document, s = d.createElement('script');
+
+  if (!d.getElementById('lv-container')) return;
+  if (typeof LivereTower === 'function') return;
+
+  s.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+  s.setAttribute('data-pjax-rm', '');
+  (d.head || d.body).appendChild(s);
+}
+
+if (true) {
+  loadLivere();
+} else {
+  window.addEventListener('load', loadLivere, false);
+}</script><script src="/haoge744.github.io/js/utils.js?v=1.3.1"></script><script src="/haoge744.github.io/js/stun-boot.js?v=1.3.1"></script><script src="/haoge744.github.io/js/scroll.js?v=1.3.1"></script><script src="/haoge744.github.io/js/header.js?v=1.3.1"></script><script src="/haoge744.github.io/js/sidebar.js?v=1.3.1"></script><script src="/haoge744.github.io/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/haoge744.github.io/live2dw/assets/z16.model.json"},"display":{"position":"right","width":250,"height":500,"hOffset":30,"vOffset":0},"react":{"opacity":0.7},"mobile":{"show":true}});</script></body></html>
