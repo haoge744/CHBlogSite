@@ -1,378 +1,278 @@
-<!DOCTYPE html><html lang="zh-CN"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="keywords" content="lelouch, lelouch‘s blog, blog"><meta name="author" content="lelouch"><meta name="description" content="webpack打包优化配置"><meta name="copyright" content="lelouch"><title>webpack打包优化配置 | lelouch‘s blog</title><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/haoge744.github.io/images/icons/favicon-16x16.png?v=1.3.1" type="image/png" sizes="16x16"><link rel="icon" href="/haoge744.github.io/images/icons/favicon-32x32.png?v=1.3.1" type="image/png" sizes="32x32"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" type="text/css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" type="text/css"><link rel="stylesheet" href="/haoge744.github.io/css/index.css?v=1.3.1"><script>var Stun = window.Stun || {};
-var CONFIG = {
-  root: '/haoge744.github.io/',
-  algolia: undefined,
-  sidebar: {"offsetTop":"20px","renderTocDepth":6},
-  back2top: {"enable":true},
-  reward: false,
-  fancybox: true,
-  zoom_image: {"enable":true,"mask_color":"rgba(0,0,0,0.6)"},
-  gallery_waterfall: undefined,
-  lazyload: undefined,
-  external_link: {"icon":{"enable":true,"name":"external-link"}},
-  shortcuts: {"switch_post":false},
-  prompt: {"copy_success":"复制成功","copy_error":"复制失败","creative_commons":"知识共享","copy_button":"点击复制"}
-};
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
 
-window.CONFIG = CONFIG;</script></head><body><div id="container"><header id="header"><div class="loading-bar"><div class="progress"></div></div><nav class="header-nav"><div class="header-nav-inner"><div class="fa fa-bars header-nav-menu-icon"></div><div class="header-nav-search"><i class="fa fa-search"></i><span>搜索</span></div><div class="header-nav-menu"><div class="menu-item"><a class="menu-item-inner" href="/"><i class="fa fa-home"></i>首页</a></div><div class="menu-item"><a class="menu-item-inner" href="/archives/"><i class="fa fa-folder-open"></i>归档</a></div><div class="menu-item"><a class="menu-item-inner" href="/categories/"><i class="fa fa-th"></i>分类</a></div><div class="menu-item"><a class="menu-item-inner" href="/tags/"><i class="fa fa-tags"></i>标签</a></div><div class="menu-item"><a class="menu-item-inner" href="/about/"><i class="fa fa-user"></i>关于</a></div></div></div></nav><div class="header-info"><div class="header-info-inner"><div class="header-info-title">lelouch‘s blog</div><div class="header-info-subtitle">JUST DO IT</div></div></div></header><main id="main"><div class="main-inner"><aside id="sidebar"><div class="sidebar-inner"><div class="sidebar-nav"><span class="sidebar-nav-toc current">文章目录</span><span class="sidebar-nav-overview">站点概览</span></div><section class="sidebar-toc"><div><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#关闭source-map配置"><span class="toc-number">1.</span> <span class="toc-text">关闭source-map配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#gzip压缩优化"><span class="toc-number">2.</span> <span class="toc-text">gzip压缩优化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HappyPack插件优化"><span class="toc-number">3.</span> <span class="toc-text">HappyPack插件优化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#利用-DllPlugin-和-DllReferencePlugin-预编译资源模块"><span class="toc-number">4.</span> <span class="toc-text">利用 DllPlugin 和 DllReferencePlugin 预编译资源模块</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#按需引入组件实现优化打包体积"><span class="toc-number">5.</span> <span class="toc-text">按需引入组件实现优化打包体积</span></a></li></ol></div></section><section class="hide sidebar-overview"><div class="sidebar-author"><img class="sidebar-author-avatar" src="https://wx2.sinaimg.cn/mw690/00826fs8gy1ga5t1xrw3mj30b40b40ui.jpg" alt="avatar"><p class="sidebar-author-motto">hello world</p></div><div class="sidebar-state"><span class="sidebar-state-item sidebar-state-posts"><a href="/archives/"><div class="sidebar-state-item-count">33</div><div class="sidebar-state-item-name">归档</div></a></span><span class="sidebar-state-item sidebar-state-categories"><a href="/categories/"><div class="sidebar-state-item-count">12</div><div class="sidebar-state-item-name">分类</div></a></span><span class="sidebar-state-item sidebar-state-tags"><a href="/tags/"><div class="sidebar-state-item-count">17</div><div class="sidebar-state-item-name">标签</div></a></span></div><div class="sidebar-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" target="_blank" rel="noopener" data-popover="知识共享" data-popover-pos="up"><img src="/haoge744.github.io/images/cc-by-nc-sa.svg" alt="知识共享"></a></div></section><div class="sidebar-progress"><div class="sidebar-progress-read"><span>你已阅读了</span><span class="sidebar-progress-number"></span></div><div class="sidebar-progress-line"></div></div></div></aside><div class="content headings code-highlight"><header class="post-header"><h1 class="post-title">webpack打包优化配置</h1><div class="post-meta"><span class="post-create"><i class="fa fa-calendar-o"></i><span>发表于 </span><span>2019-09-03</span></span><span class="post-update"><i class="fa fa-calendar-check-o"></i><span>更新于 </span><span>2019-09-03</span></span><span class="post-reading-count"><i class="fa fa-eye"></i><span>阅读次数 </span><span id="busuanzi_value_page_pv"></span></span></div></header><div class="post-body"><h2 id="关闭source-map配置"><a href="#关闭source-map配置" class="headerlink" title="关闭source-map配置"></a>关闭source-map配置</h2><p>关闭source-map之后可以大大减少打包后文件体积，关掉之后出现的弊端是如果出现报错信息，无法准确判断问题在哪。</p>
-<figure class="highlight javascript"><div style="overflow: auto"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// config/index.js</span></span><br><span class="line"><span class="comment">// 把productionSourceMap属性的true改成false即可生效</span></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    build: &#123;</span><br><span class="line">        productionSourceMap: <span class="function"><span class="params">true</span> =&gt;</span> <span class="literal">false</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+  
+  <title>webpack打包优化配置 | lelouch‘s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="关闭source-map配置关闭source-map之后可以大大减少打包后文件体积，关掉之后出现的弊端是如果出现报错信息，无法准确判断问题在哪。 1234567// config/index.js// 把productionSourceMap属性的true改成false即可生效module.exports = &amp;#123;    build: &amp;#123;        productionSou">
+<meta name="keywords" content="webpack">
+<meta property="og:type" content="article">
+<meta property="og:title" content="webpack打包优化配置">
+<meta property="og:url" content="https://haoge744.github.io/2019/09/03/webpack打包优化配置/index.html">
+<meta property="og:site_name" content="lelouch‘s blog">
+<meta property="og:description" content="关闭source-map配置关闭source-map之后可以大大减少打包后文件体积，关掉之后出现的弊端是如果出现报错信息，无法准确判断问题在哪。 1234567// config/index.js// 把productionSourceMap属性的true改成false即可生效module.exports = &amp;#123;    build: &amp;#123;        productionSou">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-09-03T03:38:49.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="webpack打包优化配置">
+<meta name="twitter:description" content="关闭source-map配置关闭source-map之后可以大大减少打包后文件体积，关掉之后出现的弊端是如果出现报错信息，无法准确判断问题在哪。 1234567// config/index.js// 把productionSourceMap属性的true改成false即可生效module.exports = &amp;#123;    build: &amp;#123;        productionSou">
+  
+    <link rel="alternate" href="/haoge744.github.io/atom.xml" title="lelouch‘s blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/haoge744.github.io/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/haoge744.github.io/" id="logo">lelouch‘s blog</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/haoge744.github.io/" id="subtitle">JUST DO IT</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/haoge744.github.io/">Home</a>
+        
+          <a class="main-nav-link" href="/haoge744.github.io/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/haoge744.github.io/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://haoge744.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-webpack打包优化配置" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/haoge744.github.io/2019/09/03/webpack打包优化配置/" class="article-date">
+  <time datetime="2019-09-03T03:38:49.000Z" itemprop="datePublished">2019-09-03</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/haoge744.github.io/categories/webpack/">webpack</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      webpack打包优化配置
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="关闭source-map配置"><a href="#关闭source-map配置" class="headerlink" title="关闭source-map配置"></a>关闭source-map配置</h2><p>关闭source-map之后可以大大减少打包后文件体积，关掉之后出现的弊端是如果出现报错信息，无法准确判断问题在哪。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// config/index.js</span></span><br><span class="line"><span class="comment">// 把productionSourceMap属性的true改成false即可生效</span></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    build: &#123;</span><br><span class="line">        productionSourceMap: <span class="function"><span class="params">true</span> =&gt;</span> <span class="literal">false</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <a id="more"></a>
 
 <h2 id="gzip压缩优化"><a href="#gzip压缩优化" class="headerlink" title="gzip压缩优化"></a>gzip压缩优化</h2><p>gzip可以优化页面加载时的速度，这个操作需要后台配合开启gzip,并且安装<code>compression-webpack-plugin</code>的时候要注意版本，像我用的<code>webpack 3.6</code>安装了<code>compression-webpack-plugin 3.0.0</code>然后就出现错误了。</p>
 <p><strong>开启gzip后,js会生成<code>js.gz</code>文件，会略微增加打包文件的体积:</strong></p>
-<figure class="highlight javascript"><div style="overflow: auto"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">// Gzip off by default as many popular static hosts such as</span></span><br><span class="line"><span class="comment">// Surge or Netlify already gzip all static assets for you.</span></span><br><span class="line"><span class="comment">// Before setting to `true`, make sure to:</span></span><br><span class="line"><span class="comment">// npm install --save-dev compression-webpack-plugin</span></span><br><span class="line">productionGzip: <span class="literal">false</span>,</span><br></pre></td></tr></table></div></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">// Gzip off by default as many popular static hosts such as</span></span><br><span class="line"><span class="comment">// Surge or Netlify already gzip all static assets for you.</span></span><br><span class="line"><span class="comment">// Before setting to `true`, make sure to:</span></span><br><span class="line"><span class="comment">// npm install --save-dev compression-webpack-plugin</span></span><br><span class="line">productionGzip: <span class="literal">false</span>,</span><br></pre></td></tr></table></figure>
 
 <p><strong>服务端开启gzip压缩:</strong></p>
 <p>修改服务器的配置，这里的服务器是Nginx<br>找到conf目录下的nginx.conf ,开启gzip,并设置gzip的类型，如下<br>开启后，访问服务器的js文件时，会优先查找<code>.gz</code>文件，如果没有则会查找<code>.js</code>文件</p>
-<figure class="highlight plain"><div style="overflow: auto"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">gzip on; #开启或关闭gzip on off</span><br><span class="line">gzip_disable &quot;msie6&quot;; #不使用gzip IE6</span><br><span class="line">gzip_min_length 100k; #gzip压缩最小文件大小，超出进行压缩（自行调节）</span><br><span class="line">gzip_buffers 4 16k; #buffer 不用修改</span><br><span class="line">gzip_comp_level 5; #压缩级别:1-10，数字越大压缩的越好，时间也越长</span><br><span class="line">gzip_types text/plain application/x-javascript text/css application/xml text/javascript application/x-httpd-php image/jpeg image/gif image/png; #  压缩文件类型</span><br></pre></td></tr></table></div></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">gzip on; #开启或关闭gzip on off</span><br><span class="line">gzip_disable &quot;msie6&quot;; #不使用gzip IE6</span><br><span class="line">gzip_min_length 100k; #gzip压缩最小文件大小，超出进行压缩（自行调节）</span><br><span class="line">gzip_buffers 4 16k; #buffer 不用修改</span><br><span class="line">gzip_comp_level 5; #压缩级别:1-10，数字越大压缩的越好，时间也越长</span><br><span class="line">gzip_types text/plain application/x-javascript text/css application/xml text/javascript application/x-httpd-php image/jpeg image/gif image/png; #  压缩文件类型</span><br></pre></td></tr></table></figure>
 
-<h2 id="HappyPack插件优化"><a href="#HappyPack插件优化" class="headerlink" title="HappyPack插件优化"></a>HappyPack插件优化</h2><p>由于运行在 Node.js 之上的 Webpack 是单线程模型的，所以Webpack 需要处理的事情需要一件一件的做，不能多件事一起做。<br>我们需要Webpack 能同一时间处理多个任务，发挥多核 CPU 电脑的威力，<span class="external-link"><a href="https://link.jianshu.com/?t=https%3A%2F%2Fgithub.com%2Famireh%2Fhappypack" target="_blank" rel="noopener">HappyPack</a><i class="fa fa-external-link"></i></span> 就能让 Webpack 做到这点，它把任务分解给多个子进程去并发的执行，子进程处理完后再把结果发送给主进程。</p>
+<h2 id="HappyPack插件优化"><a href="#HappyPack插件优化" class="headerlink" title="HappyPack插件优化"></a>HappyPack插件优化</h2><p>由于运行在 Node.js 之上的 Webpack 是单线程模型的，所以Webpack 需要处理的事情需要一件一件的做，不能多件事一起做。<br>我们需要Webpack 能同一时间处理多个任务，发挥多核 CPU 电脑的威力，<a href="https://link.jianshu.com/?t=https%3A%2F%2Fgithub.com%2Famireh%2Fhappypack" target="_blank" rel="noopener">HappyPack</a> 就能让 Webpack 做到这点，它把任务分解给多个子进程去并发的执行，子进程处理完后再把结果发送给主进程。</p>
 <p>安装:</p>
-<figure class="highlight bash"><div style="overflow: auto"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i -D happypack</span><br></pre></td></tr></table></div></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i -D happypack</span><br></pre></td></tr></table></figure>
 
 <p>在webpack.config.js中添加plugins</p>
-<figure class="highlight javascript"><div style="overflow: auto"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    <span class="comment">// ... 一些模块配置</span></span><br><span class="line">    plugins: [</span><br><span class="line">            <span class="comment">// ... 一些插件配置</span></span><br><span class="line">        <span class="keyword">new</span> HappyPack(&#123;</span><br><span class="line">            <span class="comment">//用id来标识 happypack处理那里类文件</span></span><br><span class="line">          id: <span class="string">'happyBabel'</span>,</span><br><span class="line">          <span class="comment">//如何处理  用法和loader 的配置一样</span></span><br><span class="line">          loaders: [&#123;</span><br><span class="line">            loader: <span class="string">'babel-loader?cacheDirectory=true'</span>,</span><br><span class="line">          &#125;],</span><br><span class="line">          <span class="comment">//共享进程池</span></span><br><span class="line">          threadPool: happyThreadPool,</span><br><span class="line">          <span class="comment">//允许 HappyPack 输出日志</span></span><br><span class="line">          verbose: <span class="literal">true</span>,</span><br><span class="line">        &#125;)</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    <span class="comment">// ... 一些模块配置</span></span><br><span class="line">    plugins: [</span><br><span class="line">            <span class="comment">// ... 一些插件配置</span></span><br><span class="line">        <span class="keyword">new</span> HappyPack(&#123;</span><br><span class="line">            <span class="comment">//用id来标识 happypack处理那里类文件</span></span><br><span class="line">          id: <span class="string">'happyBabel'</span>,</span><br><span class="line">          <span class="comment">//如何处理  用法和loader 的配置一样</span></span><br><span class="line">          loaders: [&#123;</span><br><span class="line">            loader: <span class="string">'babel-loader?cacheDirectory=true'</span>,</span><br><span class="line">          &#125;],</span><br><span class="line">          <span class="comment">//共享进程池</span></span><br><span class="line">          threadPool: happyThreadPool,</span><br><span class="line">          <span class="comment">//允许 HappyPack 输出日志</span></span><br><span class="line">          verbose: <span class="literal">true</span>,</span><br><span class="line">        &#125;)</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h2 id="利用-DllPlugin-和-DllReferencePlugin-预编译资源模块"><a href="#利用-DllPlugin-和-DllReferencePlugin-预编译资源模块" class="headerlink" title="利用 DllPlugin 和 DllReferencePlugin 预编译资源模块"></a>利用 DllPlugin 和 DllReferencePlugin 预编译资源模块</h2><p>作用:优化打包速度</p>
 <p>因此我们首先需要在我们的项目根目录下创建一个 webpack.dll.config.js 文件。然后配置代码如下：</p>
-<figure class="highlight javascript"><div style="overflow: auto"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>);</span><br><span class="line"><span class="keyword">const</span> DllPlugin = <span class="built_in">require</span>(<span class="string">'webpack/lib/DllPlugin'</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  <span class="comment">// 入口文件</span></span><br><span class="line">  entry: &#123;</span><br><span class="line">    <span class="comment">// 项目中用到该两个依赖库文件</span></span><br><span class="line">    jquery: [<span class="string">'jquery'</span>],</span><br><span class="line">    echarts: [<span class="string">'echarts'</span>]</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="comment">// 输出文件</span></span><br><span class="line">  output: &#123;</span><br><span class="line">    <span class="comment">// 文件名称</span></span><br><span class="line">    filename: <span class="string">'[name].dll.js'</span>, </span><br><span class="line">    <span class="comment">// 将输出的文件放到dist目录下</span></span><br><span class="line">    path: path.resolve(__dirname, <span class="string">'dist'</span>),</span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">     存放相关的dll文件的全局变量名称，比如对于jquery来说的话就是 _dll_jquery, 在前面加 _dll</span></span><br><span class="line"><span class="comment">     是为了防止全局变量冲突。</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">    library: <span class="string">'_dll_[name]'</span></span><br><span class="line">  &#125;,</span><br><span class="line">  plugins: [</span><br><span class="line">    <span class="comment">// 使用插件 DllPlugin</span></span><br><span class="line">    <span class="keyword">new</span> DllPlugin(&#123;</span><br><span class="line">      <span class="comment">/*</span></span><br><span class="line"><span class="comment">       该插件的name属性值需要和 output.library保存一致，该字段值，也就是输出的 manifest.json文件中name字段的值。</span></span><br><span class="line"><span class="comment">       比如在jquery.manifest文件中有 name: '_dll_jquery'</span></span><br><span class="line"><span class="comment">      */</span></span><br><span class="line">      name: <span class="string">'_dll_[name]'</span>,</span><br><span class="line"></span><br><span class="line">      <span class="comment">/* 生成manifest文件输出的位置和文件名称 */</span></span><br><span class="line">      path: path.join(__dirname, <span class="string">'dist'</span>, <span class="string">'[name].manifest.json'</span>)</span><br><span class="line">    &#125;)</span><br><span class="line">  ]</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></div></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>);</span><br><span class="line"><span class="keyword">const</span> DllPlugin = <span class="built_in">require</span>(<span class="string">'webpack/lib/DllPlugin'</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  <span class="comment">// 入口文件</span></span><br><span class="line">  entry: &#123;</span><br><span class="line">    <span class="comment">// 项目中用到该两个依赖库文件</span></span><br><span class="line">    jquery: [<span class="string">'jquery'</span>],</span><br><span class="line">    echarts: [<span class="string">'echarts'</span>]</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="comment">// 输出文件</span></span><br><span class="line">  output: &#123;</span><br><span class="line">    <span class="comment">// 文件名称</span></span><br><span class="line">    filename: <span class="string">'[name].dll.js'</span>, </span><br><span class="line">    <span class="comment">// 将输出的文件放到dist目录下</span></span><br><span class="line">    path: path.resolve(__dirname, <span class="string">'dist'</span>),</span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">     存放相关的dll文件的全局变量名称，比如对于jquery来说的话就是 _dll_jquery, 在前面加 _dll</span></span><br><span class="line"><span class="comment">     是为了防止全局变量冲突。</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">    library: <span class="string">'_dll_[name]'</span></span><br><span class="line">  &#125;,</span><br><span class="line">  plugins: [</span><br><span class="line">    <span class="comment">// 使用插件 DllPlugin</span></span><br><span class="line">    <span class="keyword">new</span> DllPlugin(&#123;</span><br><span class="line">      <span class="comment">/*</span></span><br><span class="line"><span class="comment">       该插件的name属性值需要和 output.library保存一致，该字段值，也就是输出的 manifest.json文件中name字段的值。</span></span><br><span class="line"><span class="comment">       比如在jquery.manifest文件中有 name: '_dll_jquery'</span></span><br><span class="line"><span class="comment">      */</span></span><br><span class="line">      name: <span class="string">'_dll_[name]'</span>,</span><br><span class="line"></span><br><span class="line">      <span class="comment">/* 生成manifest文件输出的位置和文件名称 */</span></span><br><span class="line">      path: path.join(__dirname, <span class="string">'dist'</span>, <span class="string">'[name].manifest.json'</span>)</span><br><span class="line">    &#125;)</span><br><span class="line">  ]</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
 <p>在webpack.config.js中配置它:</p>
-<figure class="highlight javascript"><div style="overflow: auto"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 引入 DllReferencePlugin</span></span><br><span class="line"><span class="keyword">const</span> DllReferencePlugin = <span class="built_in">require</span>(<span class="string">'webpack/lib/DllReferencePlugin'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用插件</span></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  plugins: [</span><br><span class="line">    <span class="comment">// 告诉webpack使用了哪些第三方库代码</span></span><br><span class="line">    <span class="keyword">new</span> DllReferencePlugin(&#123;</span><br><span class="line">      <span class="comment">// jquery 映射到json文件上去</span></span><br><span class="line">      manifest: <span class="built_in">require</span>(<span class="string">'./dist/jquery.manifest.json'</span>)</span><br><span class="line">    &#125;),</span><br><span class="line">    <span class="keyword">new</span> DllReferencePlugin(&#123;</span><br><span class="line">      <span class="comment">// echarts 映射到json文件上去</span></span><br><span class="line">      manifest: <span class="built_in">require</span>(<span class="string">'./dist/echarts.manifest.json'</span>)</span><br><span class="line">    &#125;)</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 引入 DllReferencePlugin</span></span><br><span class="line"><span class="keyword">const</span> DllReferencePlugin = <span class="built_in">require</span>(<span class="string">'webpack/lib/DllReferencePlugin'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用插件</span></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  plugins: [</span><br><span class="line">    <span class="comment">// 告诉webpack使用了哪些第三方库代码</span></span><br><span class="line">    <span class="keyword">new</span> DllReferencePlugin(&#123;</span><br><span class="line">      <span class="comment">// jquery 映射到json文件上去</span></span><br><span class="line">      manifest: <span class="built_in">require</span>(<span class="string">'./dist/jquery.manifest.json'</span>)</span><br><span class="line">    &#125;),</span><br><span class="line">    <span class="keyword">new</span> DllReferencePlugin(&#123;</span><br><span class="line">      <span class="comment">// echarts 映射到json文件上去</span></span><br><span class="line">      manifest: <span class="built_in">require</span>(<span class="string">'./dist/echarts.manifest.json'</span>)</span><br><span class="line">    &#125;)</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p><strong>执行构建：</strong></p>
 <p>最后一步就是构建代码了，先生存第三方库文件，因此我们运行如下命令：</p>
-<figure class="highlight plain"><div style="overflow: auto"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">webpack --config webpack.dll.config.js</span><br></pre></td></tr></table></div></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">webpack --config webpack.dll.config.js</span><br></pre></td></tr></table></figure>
 
 <p>在<code>package.json</code>中添加如下代码:</p>
-<figure class="highlight plain"><div style="overflow: auto"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&quot;scripts&quot;: &#123;</span><br><span class="line">  &quot;dev&quot;: &quot;webpack-dev-server --progress --colors --devtool cheap-module-eval-source-map --hot --inline&quot;,</span><br><span class="line">  &quot;build&quot;: &quot;webpack --progress --colors --devtool cheap-module-source-map&quot;,</span><br><span class="line">  &quot;build:dll&quot;: &quot;webpack --config webpack.dll.config.js&quot;</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></div></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&quot;scripts&quot;: &#123;</span><br><span class="line">  &quot;dev&quot;: &quot;webpack-dev-server --progress --colors --devtool cheap-module-eval-source-map --hot --inline&quot;,</span><br><span class="line">  &quot;build&quot;: &quot;webpack --progress --colors --devtool cheap-module-source-map&quot;,</span><br><span class="line">  &quot;build:dll&quot;: &quot;webpack --config webpack.dll.config.js&quot;</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
 
 <p>最后运行<code>npm run build:dll</code>打包即可</p>
 <h2 id="按需引入组件实现优化打包体积"><a href="#按需引入组件实现优化打包体积" class="headerlink" title="按需引入组件实现优化打包体积"></a>按需引入组件实现优化打包体积</h2><p>如果只需要一个库的一部分功能，尽量按需导入而不是使用 <code>Vue.use(Plugin)</code></p>
-</div><footer class="post-footer"><div class="post-footer-end"><span>------</span><span>本文结束，感谢您的阅读</span><span>------</span></div><div class="post-copyright"><div class="copyright-author"><span class="copyright-name">本文作者:</span><span class="copyright-value"><a href="https://haoge744.github.io">lelouch</a></span></div><div class="copyright-link"><span class="copyright-name">本文链接:</span><span class="copyright-value"><a href="https://haoge744.github.io/2019/09/03/webpack打包优化配置/">https://haoge744.github.io/2019/09/03/webpack打包优化配置/</a></span></div><div class="copyright-notice"><span class="copyright-name">版权声明:</span><span class="copyright-value">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" rel="external nofollow" target="_blank">BY-NC-SA</a> 许可协议。转载请注明出处！</span></div></div><div class="post-footer-tags"><i class="fa fa-tags icon"></i><span><a href="https://haoge744.github.io/tags/webpack/" title="webpack">webpack</a></span></div><nav id="paginator"><div class="post-paginator"><div class="article-prev pull-left"><a href="/haoge744.github.io/2019/09/15/vue-cli3-0升级/"><i class="fa fa-chevron-left"></i><span class="title">vue-cli3.0升级</span></a></div><div class="article-next pull-right"><a href="/haoge744.github.io/2019/09/01/vue性能优化/"><span class="title">vue性能优化9法</span><i class="fa fa-chevron-right"></i></a></div></div></nav></footer></div><div class="comments content" id="comments"><div id="lv-container" data-id="city" data-uid="MTAyMC80NjQ3NC8yMjk4NQ=="></div></div><div class="clearfix"></div></div></main><footer id="footer"><div class="footer-inner"><div><span>&copy; 2020</span><span class="fa fa-heart heart-beat footer-separator" style="color: #ff0000"></span><span>lelouch.</span></div><div><span class="footer-powered">由 <a href="http://hexo.io/" title="hexo" target="_blank" rel="noopener">hexo</a> 强力驱动</span><span> v3.9.0.</span><span class="footer-separator">|</span><span>主题 - <a href="https://github.com/liuyib/hexo-theme-stun/" title="stun" target="_blank" rel="noopener">stun</a></span><span> v1.3.1.</span></div><div class="busuanzi"><span class="busuanzi-uv"><i class="fa fa-user"></i><span>访问人数 </span><span id="busuanzi_value_site_uv"></span></span><span class="separator">|</span><span class="busuanzi-pv"><i class="fa fa-eye"></i><span>浏览总量 </span><span id="busuanzi_value_site_pv"></span></span><script src="https://cdn.jsdelivr.net/gh/sukkaw/busuanzi@latest/bsz.pure.mini.js" async data-pjax></script></div></div></footer><div id="back-top"><div class="back-top-inner" data-popover="回到顶部" data-popover-pos="up"><i class="fa fa-rocket"></i></div></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/ribbon.js@latest/dist/ribbon.min.js" size="120" alpha="0.6" zindex="-1"></script><script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script><script>window.addEventListener('load', function () {
-  $('.header-nav-search').on('click', function (e) {
-    e.stopPropagation();
 
-    $('body').css('overflow', 'hidden');
-    $('.search-popup')
-      .velocity('stop')
-      .velocity('transition.expandIn', {
-        duration: 300,
-        complete: function () {
-          $('.search-popup input').focus();
-        }
-      });
-    $('.search-mask')
-      .velocity('stop')
-      .velocity('transition.fadeIn', {
-        duration: 300
-      });
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://haoge744.github.io/2019/09/03/webpack打包优化配置/" data-id="ck7q6nl80002aroujvq4yzyml" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/haoge744.github.io/tags/webpack/">webpack</a></li></ul>
+
+    </footer>
+  </div>
+  
     
-    initSearch();
-  });
-
-  $('.search-mask, .search-close').on('click', function () {
-    closeSearch();
-  });
-
-  $(document).on('keydown', function (e) {
-    // Escape <=> 27
-    if (e.keyCode === Stun.utils.codeToKeyCode('Escape')) {
-      closeSearch();
-    }
-  });
-
-  var isXML = true;
-  var search_path = 'search.json';
+<nav id="article-nav">
   
-  if (!search_path) {
-    search_path = 'search.xml';
-  } else if (/json$/i.test(search_path)) {
-    isXML = false;
-  }
+    <a href="/haoge744.github.io/2019/09/15/vue-cli3-0升级/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          vue-cli3.0升级
+        
+      </div>
+    </a>
   
-  var path = '/haoge744.github.io/' + search_path;
+  
+    <a href="/haoge744.github.io/2019/09/01/vue性能优化/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">vue性能优化9法</div>
+    </a>
+  
+</nav>
 
-  function initSearch() {
-    $.ajax({
-      url: path,
-      dataType: isXML ? 'xml' : 'json',
-      async: true,
-      success: function (res) {
-        var datas = isXML ? $('entry', res).map(function () {
-          // 将 XML 转为 JSON
-          return {
-            title: $('title', this).text(),
-            content: $('content', this).text(),
-            url: $('url', this).text()
-          };
-        }).get() : res;
+  
+</article>
 
-        var $input = $('.search-input input');
-        var $result = $('.search-results');
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/haoge744.github.io/categories/css/">css</a></li><li class="category-list-item"><a class="category-list-link" href="/haoge744.github.io/categories/echarts/">echarts</a></li><li class="category-list-item"><a class="category-list-link" href="/haoge744.github.io/categories/hexo/">hexo</a></li><li class="category-list-item"><a class="category-list-link" href="/haoge744.github.io/categories/html/">html</a></li><li class="category-list-item"><a class="category-list-link" href="/haoge744.github.io/categories/javascript/">javascript</a></li><li class="category-list-item"><a class="category-list-link" href="/haoge744.github.io/categories/nginx/">nginx</a></li><li class="category-list-item"><a class="category-list-link" href="/haoge744.github.io/categories/typescript/">typescript</a></li><li class="category-list-item"><a class="category-list-link" href="/haoge744.github.io/categories/uni-app/">uni-app</a></li><li class="category-list-item"><a class="category-list-link" href="/haoge744.github.io/categories/vue/">vue</a></li><li class="category-list-item"><a class="category-list-link" href="/haoge744.github.io/categories/webpack/">webpack</a></li><li class="category-list-item"><a class="category-list-link" href="/haoge744.github.io/categories/生活/">生活</a></li><li class="category-list-item"><a class="category-list-link" href="/haoge744.github.io/categories/生活记事/">生活记事</a></li></ul>
+    </div>
+  </div>
 
-        // 搜索对象（标题、内容）的权重，影响显示顺序
-        var WEIGHT = { title: 100, content: 1 };
 
-        var searchPost = function () {
-          var searchText = $input.val().toLowerCase().trim();
-          // 根据空白字符分隔关键字
-          var keywords = searchText.split(/[\s]+/);
-          // 搜索结果
-          var matchPosts = [];
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/haoge744.github.io/tags/css/">css</a></li><li class="tag-list-item"><a class="tag-list-link" href="/haoge744.github.io/tags/echarts/">echarts</a></li><li class="tag-list-item"><a class="tag-list-link" href="/haoge744.github.io/tags/hexo/">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/haoge744.github.io/tags/html/">html</a></li><li class="tag-list-item"><a class="tag-list-link" href="/haoge744.github.io/tags/javascript/">javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/haoge744.github.io/tags/moment/">moment</a></li><li class="tag-list-item"><a class="tag-list-link" href="/haoge744.github.io/tags/nginx/">nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/haoge744.github.io/tags/typescript/">typescript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/haoge744.github.io/tags/uni-app/">uni-app</a></li><li class="tag-list-item"><a class="tag-list-link" href="/haoge744.github.io/tags/vue/">vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/haoge744.github.io/tags/webpack/">webpack</a></li><li class="tag-list-item"><a class="tag-list-link" href="/haoge744.github.io/tags/前端构建化/">前端构建化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/haoge744.github.io/tags/围棋/">围棋</a></li><li class="tag-list-item"><a class="tag-list-link" href="/haoge744.github.io/tags/生活/">生活</a></li><li class="tag-list-item"><a class="tag-list-link" href="/haoge744.github.io/tags/生活记事/">生活记事</a></li><li class="tag-list-item"><a class="tag-list-link" href="/haoge744.github.io/tags/移动开发/">移动开发</a></li><li class="tag-list-item"><a class="tag-list-link" href="/haoge744.github.io/tags/读后感/">读后感</a></li></ul>
+    </div>
+  </div>
 
-          // 有多个关键字时，将原文字整个保存下来
-          if (keywords.length > 1) {
-            keywords.push(searchText);
-          }
-          
-          // 防止未输入字符时搜索
-          if (searchText.length > 0) {
-            datas.forEach(function (data) {
-              var isMatch  = false;
-              
-              // 没有标题的文章使用预设的 i18n 变量代替
-              var title = (data.title && data.title.trim()) || '( 文章无标题 )';
-              var titleLower = title && title.toLowerCase();
-              // 删除 HTML 标签 和 所有空白字符
-              var content = data.content && data.content.replace(/<[^>]+>|\s+/, '');
-              var contentLower = content && content.toLowerCase();
-              // 删除重复的 /
-              var postURL = data.url && decodeURI(data.url).replace(/\/{2,}/, '/');
-              
-              // 标题中匹配到的关键词
-              var titleHitSlice = [];
-              // 内容中匹配到的关键词
-              var contentHitSlice = [];
 
-              keywords.forEach(function (keyword) {
-                /**
-                 * 获取匹配的关键词的索引
-                 * @param {String} keyword 要匹配的关键字
-                 * @param {String} text 原文字
-                 * @param {Boolean} caseSensitive 是否区分大小写
-                 * @param {Number} weight 匹配对象的权重。权重大的优先显示
-                 * @return {Array}
-                 */
-                function getIndexByword (word, text, caseSensitive, weight) {
-                  if (!word || !text) return [];
-                  
-                  var startIndex = 0; // 每次匹配的开始索引
-                  var index = -1;     // 匹配到的索引值
-                  var result = [];    // 匹配结果
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/haoge744.github.io/tags/css/" style="font-size: 10px;">css</a> <a href="/haoge744.github.io/tags/echarts/" style="font-size: 10px;">echarts</a> <a href="/haoge744.github.io/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/haoge744.github.io/tags/html/" style="font-size: 10px;">html</a> <a href="/haoge744.github.io/tags/javascript/" style="font-size: 10px;">javascript</a> <a href="/haoge744.github.io/tags/moment/" style="font-size: 10px;">moment</a> <a href="/haoge744.github.io/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/haoge744.github.io/tags/typescript/" style="font-size: 10px;">typescript</a> <a href="/haoge744.github.io/tags/uni-app/" style="font-size: 12px;">uni-app</a> <a href="/haoge744.github.io/tags/vue/" style="font-size: 20px;">vue</a> <a href="/haoge744.github.io/tags/webpack/" style="font-size: 14px;">webpack</a> <a href="/haoge744.github.io/tags/前端构建化/" style="font-size: 10px;">前端构建化</a> <a href="/haoge744.github.io/tags/围棋/" style="font-size: 10px;">围棋</a> <a href="/haoge744.github.io/tags/生活/" style="font-size: 10px;">生活</a> <a href="/haoge744.github.io/tags/生活记事/" style="font-size: 18px;">生活记事</a> <a href="/haoge744.github.io/tags/移动开发/" style="font-size: 16px;">移动开发</a> <a href="/haoge744.github.io/tags/读后感/" style="font-size: 14px;">读后感</a>
+    </div>
+  </div>
 
-                  if (!caseSensitive) {
-                    word = word.toLowerCase();
-                    text = text.toLowerCase();
-                  }
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/haoge744.github.io/archives/2020/01/">一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/haoge744.github.io/archives/2019/12/">十二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/haoge744.github.io/archives/2019/11/">十一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/haoge744.github.io/archives/2019/10/">十月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/haoge744.github.io/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/haoge744.github.io/archives/2019/08/">八月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/haoge744.github.io/archives/2019/07/">七月 2019</a></li></ul>
+    </div>
+  </div>
 
-                  while((index = text.indexOf(word, startIndex)) !== -1) {
-                    var hasMatch = false;
 
-                    // 索引位置相同的关键词，保留长度较长的
-                    titleHitSlice.forEach(function (hit) {
-                      if (hit.index === index && hit.word.length < word.length) {
-                        hit.word = word;
-                        hasMatch = true;
-                      }
-                    });
-                    startIndex = index + word.length;
-                    !hasMatch && result.push({ index: index, word: word, weight: weight });
-                  }
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/haoge744.github.io/2020/01/05/css选择器的命名是一个哲学问题/">css选择器的命名是一个哲学问题</a>
+          </li>
+        
+          <li>
+            <a href="/haoge744.github.io/2020/01/02/nginx部署vue项目及配置路由模式/">nginx部署vue项目及配置路由模式</a>
+          </li>
+        
+          <li>
+            <a href="/haoge744.github.io/2019/12/28/vue-cli2-x及3-x多环境打包配置/">vue cli2.x及3.x多环境打包配置</a>
+          </li>
+        
+          <li>
+            <a href="/haoge744.github.io/2019/12/22/Notification的使用/">Notification的使用</a>
+          </li>
+        
+          <li>
+            <a href="/haoge744.github.io/2019/12/07/vue全局注册filters骚操作/">vue全局注册filters骚操作</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
 
-                  return result;
-                }
-                
-                titleHitSlice = titleHitSlice.concat(
-                  getIndexByword(keyword, titleLower, false, WEIGHT.title));
-                contentHitSlice = contentHitSlice.concat(
-                  getIndexByword(keyword, contentLower, false, WEIGHT.content));
-              });
-              
-              var hitTitle = titleHitSlice.length;
-              var hitContent = contentHitSlice.length;
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 lelouch<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/haoge744.github.io/" class="mobile-nav-link">Home</a>
+  
+    <a href="/haoge744.github.io/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
 
-              if (hitTitle > 0 || hitContent > 0) {
-                isMatch = true;
-              }
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 
-              if (isMatch) {
-                ;[titleHitSlice, contentHitSlice].forEach(function (hit) {
-                  // 按照匹配文字的索引的递增顺序排序
-                  hit.sort(function (left, right) {
-                    return left.index - right.index;
-                  });
-                });
-                
-                /**
-                 * 给文本中匹配到的关键词添加标记，从而进行高亮显示
-                 * @param {String} text 原文本
-                 * @param {Array} hitSlice 匹配项的索引信息
-                 * @param {Number} start 开始索引
-                 * @param {Number} end 结束索引
-                 * @return {String}
-                 */
-                function highlightKeyword (text, hitSlice, start, end) {
-                  if (!text || !hitSlice || !hitSlice.length) return;
 
-                  var result = '';
-                  var startIndex = start;
-                  var endIndex = end;
+  <link rel="stylesheet" href="/haoge744.github.io/fancybox/jquery.fancybox.css">
+  <script src="/haoge744.github.io/fancybox/jquery.fancybox.pack.js"></script>
 
-                  hitSlice.forEach(function (hit) {
-                    if (hit.index < startIndex) return;
 
-                    var hitWordEnd = hit.index + hit.word.length;
+<script src="/haoge744.github.io/js/script.js"></script>
 
-                    result += text.slice(startIndex, hit.index);
-                    result += '<b>' + text.slice(hit.index, hitWordEnd) + '</b>';
-                    startIndex = hitWordEnd;
-                  });
-                  result += text.slice(startIndex, endIndex);
 
-                  return result;
-                }
 
-                var postData = {};
-                // 文章总的搜索权重
-                var postWeight = titleHitSlice.length * 100 + contentHitSlice.length;
-                // 标记匹配关键词后的标题
-                var postTitle = highlightKeyword(title, titleHitSlice, 0, title.length) || title;
-                // 标记匹配关键词后的内容
-                var postContent;
-                
-                // 截取匹配的第一个字符，前后共 200 个字符来显示
-                if (contentHitSlice.length > 0) {
-                  var firstIndex = contentHitSlice[0].index;
-                  var start = firstIndex > 20 ? firstIndex - 20 : 0;
-                  var end = firstIndex + 180;
-
-                  postContent = highlightKeyword(content, contentHitSlice, start, end);
-                } else { // 未匹配到内容，直接截取前 200 个字符来显示
-                  postContent = content.slice(0, 200);
-                }
-                
-                postData.title = postTitle;
-                postData.content = postContent;
-                postData.url = postURL;
-                postData.weight = postWeight;
-                matchPosts.push(postData);
-              }
-            });
-          }
-
-          var resultInnerHtml = '<ul>';
-          
-          // 按权重递增的顺序排序，使权重大的优先显示
-          matchPosts.sort(function (left, right) {
-            return right.weight - left.weight;
-          });
-          
-          matchPosts.forEach(function (post) {
-            resultInnerHtml += '<li><a class="search-results-title" href="' + post.url + '">';
-            resultInnerHtml += post.title;
-            resultInnerHtml += '</a><div class="search-results-content">';
-            resultInnerHtml += post.content;
-            resultInnerHtml += '</div></li>';
-          });
-          resultInnerHtml += '</ul>';
-          $result.html(resultInnerHtml);
-        };
-
-        $input.on('input', searchPost);
-        $input.on('keypress', function (e) {
-          if (e.keyCode === Stun.utils.codeToKeyCode('Enter')) {
-            searchPost();
-          }
-        });
-      }
-    });
-  }
-
-  function closeSearch () {
-    $('body').css('overflow', 'auto');
-    $('.search-popup')
-      .velocity('stop')
-      .velocity('transition.expandOut', {
-        duration: 300
-      });
-    $('.search-mask')
-      .velocity('stop')
-      .velocity('transition.fadeOut', {
-        duration: 300
-      });
-  }
-}, false);</script><script src="https://cdn.jsdelivr.net/npm/pjax@latest/pjax.min.js"></script><script>window.addEventListener('load', function () {
-  var pjax = new Pjax({"elements":["a:not([target=_blank])"],"selectors":["head title","meta[name=description]","#main",".pjax-reload"],"history":true,"scrollTo":false,"scrollRestoration":false,"cacheBust":false,"debug":false,"currentUrlFullReload":false,"timeout":0});
-  // 加载进度条的计时器
-  var loadingTimer = null;
-  // 是否第一次加载 pjax
-  var isFirstLoad = true;
-
-  // 重置页面 Y 方向上的滚动偏移量
-  document.addEventListener('pjax:send', function () {
-    isFirstLoad = false;
-
-    $('html').velocity('scroll', {
-      duration: 500,
-      offset: $('#header').height(),
-      easing: 'easeInOutCubic'
-    });
-
-    var loadingBarWidth = 0;
-    var MAX_LOADING_WIDTH = 95;
-
-    $('.loading-bar .progress').css('transform', 'translateX(-100%)');
-    $('.loading-bar').addClass('loading');
-
-    clearInterval(loadingTimer);
-    loadingTimer = setInterval(function () {
-      loadingBarWidth += 2;
-
-      if (loadingBarWidth > MAX_LOADING_WIDTH) {
-        loadingBarWidth = MAX_LOADING_WIDTH;
-      }
-
-      $('.loading-bar .progress').css(
-        'transform', 'translateX(' + (loadingBarWidth - 100) + '%)'
-      );
-    }, 100);
-  }, false);
-
-  window.addEventListener('pjax:complete', function () {
-    clearInterval(loadingTimer);
-    $('.loading-bar .progress').css('transform', 'translateX(0%)');
-    setTimeout(function () {
-      $('.loading-bar').removeClass('loading');
-      $('.loading-bar .progress').css('transform', 'translateX(-100%)');
-    }, 400);
-
-    $('link[rel=prefetch], script[data-pjax-rm]').each(function () {
-      $(this).remove();
-    });
-
-    $('script[data-pjax], #pjax-reload script').each(function () {
-      $(this).parent().append($(this).remove());
-    });
-
-    Stun.utils.pjaxReloadBoot();
-    Stun.utils.pjaxReloadScroll();
-    Stun.utils.pjaxReloadSidebar();
-  }, false);
-}, false);</script><div id="pjax-reload"></div><script data-pjax>function loadLivere () {
-  var d = document, s = d.createElement('script');
-
-  if (!d.getElementById('lv-container')) return;
-  if (typeof LivereTower === 'function') return;
-
-  s.src = 'https://cdn-city.livere.com/js/embed.dist.js';
-  s.setAttribute('data-pjax-rm', '');
-  (d.head || d.body).appendChild(s);
-}
-
-if (true) {
-  loadLivere();
-} else {
-  window.addEventListener('load', loadLivere, false);
-}</script><script src="/haoge744.github.io/js/utils.js?v=1.3.1"></script><script src="/haoge744.github.io/js/stun-boot.js?v=1.3.1"></script><script src="/haoge744.github.io/js/scroll.js?v=1.3.1"></script><script src="/haoge744.github.io/js/header.js?v=1.3.1"></script><script src="/haoge744.github.io/js/sidebar.js?v=1.3.1"></script><script src="/haoge744.github.io/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/haoge744.github.io/live2dw/assets/z16.model.json"},"display":{"position":"right","width":250,"height":500,"hOffset":30,"vOffset":0},"react":{"opacity":0.7},"mobile":{"show":true}});</script></body></html>
+  </div>
+<script src="/haoge744.github.io/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/haoge744.github.io/live2dw/assets/z16.model.json"},"display":{"position":"right","width":250,"height":500,"hOffset":30,"vOffset":0},"react":{"opacity":0.7},"mobile":{"show":true}});</script></body>
+</html>
