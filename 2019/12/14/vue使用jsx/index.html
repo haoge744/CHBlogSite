@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html>
+<head hexo-theme='https://volantis.js.org/#2.1.4'>
+  <meta charset="utf-8">
+  <!-- SEO相关 -->
+  
+    
+  
+  <!-- 渲染优化 -->
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <!-- 页面元数据 -->
+  
+    <title>vue使用jsx - cch‘s blog</title>
+  
+    <meta name="keywords" content="vue,jsx">
+  
+  
+    <meta name="description" content="实际上，如果是要编写一些复杂和好用的组件，vue的render会经常出现,例如element的el-tree和el-tabs里面就用到了。有时间想写一些关于element的源码解析的文章，他们的组件写的很出色。之前写过一篇关于vue render函数的相关文章,今天写一篇关于jsx在vue的应用场景及实战。">
+  
+
+  <!-- feed -->
+  
+
+  <!-- import meta -->
+  
+
+  <!-- link -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css">
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.css">
+
+  
+
+  
+
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.css">
+  
+
+  <!-- import link -->
+  
+
+  
+    
+<link rel="stylesheet" href="/haoge744.github.io/css/style.css">
+
+  
+
+  <script>
+    function setLoadingBarProgress(num) {
+      document.getElementById('loading-bar').style.width=num+"%";
+    }
+  </script>
+
+  
+  
+</head>
+
+<body>
+  
+  <div id="loading-bar-wrapper">
+  <div id="loading-bar"></div>
+</div>
+<header class="l_header shadow blur">
+
+  <div class='wrapper'>
+    <div class='nav-sub container--flex'>
+      <a class="logo flat-box"></a>
+      <ul class='switcher h-list'>
+        <li><a class="s-comment flat-btn fas fa-comments fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+          <li><a class="s-toc flat-btn fas fa-list fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+      </ul>
+    </div>
+		<div class="nav-main container container--flex">
+      
+        
+        <a class="logo flat-box" target="_self" href='/haoge744.github.io/'>
+          
+          
+          
+          
+            VOLANTIS <b><sup style='color:#3AA757'>2.1.4</sup></b>
+          
+        </a>
+      
+
+			<div class='menu navigation'>
+				<ul class='h-list'>
+          
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/haoge744.github.io/
+                  
+                  
+                  
+                    id="haoge744.github.io"
+                  >
+                  
+                    <i class='fas fa-rss fa-fw'></i>
+                  
+                  博客
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/haoge744.github.io/categories/
+                  
+                  
+                  
+                    id="haoge744.github.iocategories"
+                  >
+                  
+                    <i class='fas fa-folder-open fa-fw'></i>
+                  
+                  分类
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/haoge744.github.io/tags/
+                  
+                  
+                  
+                    id="haoge744.github.iotags"
+                  >
+                  
+                    <i class='fas fa-tags fa-fw'></i>
+                  
+                  标签
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/haoge744.github.io/archives/
+                  
+                  
+                  
+                    id="haoge744.github.ioarchives"
+                  >
+                  
+                    <i class='fas fa-archive fa-fw'></i>
+                  
+                  归档
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/haoge744.github.io/friends/
+                  
+                  
+                  
+                    id="haoge744.github.iofriends"
+                  >
+                  
+                    <i class='fas fa-link fa-fw'></i>
+                  
+                  友链
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/haoge744.github.io/about/
+                  
+                  
+                  
+                    id="haoge744.github.ioabout"
+                  >
+                  
+                    <i class='fas fa-info-circle fa-fw'></i>
+                  
+                  关于
+                </a>
+                
+              </li>
+            
+          
+          
+				</ul>
+			</div>
+
+      
+        <div class="m_search">
+          <form name="searchform" class="form u-search-form">
+            <i class="icon fas fa-search fa-fw"></i>
+            <input type="text" class="input u-search-input" placeholder="搜索" />
+          </form>
+        </div>
+      
+
+			<ul class='switcher h-list'>
+				
+					<li><a class="s-search flat-btn fas fa-search fa-fw" target="_self" href='javascript:void(0)'></a></li>
+				
+				<li><a class="s-menu flat-btn fas fa-bars fa-fw" target="_self" href='javascript:void(0)'></a></li>
+			</ul>
+		</div>
+	</div>
+</header>
+<ul class="menu-phone navigation white-box">
+  
+  
+    <li>
+      <a class="flat-box" href=/haoge744.github.io/
+        
+        
+        
+          id="haoge744.github.io"
+        >
+        
+          <i class='fas fa-rss fa-fw'></i>
+        
+        博客
+      </a>
+    </li>
+  
+    <li>
+      <a class="flat-box" href=/haoge744.github.io/categories/
+        
+        
+        
+          id="haoge744.github.iocategories"
+        >
+        
+          <i class='fas fa-folder-open fa-fw'></i>
+        
+        分类
+      </a>
+    </li>
+  
+    <li>
+      <a class="flat-box" href=/haoge744.github.io/tags/
+        
+        
+        
+          id="haoge744.github.iotags"
+        >
+        
+          <i class='fas fa-tags fa-fw'></i>
+        
+        标签
+      </a>
+    </li>
+  
+    <li>
+      <a class="flat-box" href=/haoge744.github.io/archives/
+        
+        
+        
+          id="haoge744.github.ioarchives"
+        >
+        
+          <i class='fas fa-archive fa-fw'></i>
+        
+        归档
+      </a>
+    </li>
+  
+    <li>
+      <a class="flat-box" href=/haoge744.github.io/friends/
+        
+        
+        
+          id="haoge744.github.iofriends"
+        >
+        
+          <i class='fas fa-link fa-fw'></i>
+        
+        友链
+      </a>
+    </li>
+  
+    <li>
+      <a class="flat-box" href=/haoge744.github.io/about/
+        
+        
+        
+          id="haoge744.github.ioabout"
+        >
+        
+          <i class='fas fa-info-circle fa-fw'></i>
+        
+        关于
+      </a>
+    </li>
+  
+</ul>
+<script>setLoadingBarProgress(40);</script>
+
+
+
+  <div class="l_body nocover">
+    <div class='body-wrapper'>
+      
+
+<div class='l_main'>
+  
+
+  
+    <article id="post" class="post white-box shadow article-type-post" itemscope itemprop="blogPost">
+      
+
+
+  <section class='meta'>
+    
+    
+    <div class="meta" id="header-meta">
+      
+        
+  
+    <h1 class="title">
+      <a href="/haoge744.github.io/2019/12/14/vue%E4%BD%BF%E7%94%A8jsx/">
+        vue使用jsx
+      </a>
+    </h1>
+  
+
+
+      
+      <div class='new-meta-box'>
+        
+          
+        
+          
+            
+<div class='new-meta-item author'>
+  <a href="http://www.cch.zone" target="_blank" rel="nofollow noopener">
+    <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/avatar/avatar.png">
+    <p>cch</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  
+  <div class='new-meta-item category'>
+    <a href='/haoge744.github.io/categories/vue/' rel="nofollow">
+      <i class="fas fa-folder-open" aria-hidden="true"></i>
+      <p>vue</p>
+    </a>
+  </div>
+
+
+          
+        
+          
+            <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-edit" aria-hidden="true"></i>
+    <p>发布于：2019年12月14日</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+
+          
+        
+      </div>
+      
+        <hr>
+      
+    </div>
+  </section>
+
+
+      <section class="article typo">
+        <div class="article-entry" itemprop="articleBody">
+          
+          <p>实际上，如果是要编写一些复杂和好用的组件，<code>vue</code>的<code>render</code>会经常出现,例如<code>element</code>的<code>el-tree</code>和<code>el-tabs</code>里面就用到了。有时间想写一些关于<code>element</code>的源码解析的文章，他们的组件写的很出色。<br>之前写过一篇关于<code>vue render</code>函数的相关文章,今天写一篇关于<code>jsx</code>在vue的应用场景及实战。</p>
+<a id="more"></a>
+
+<h2 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h2><p>目前<code>vue-cli3.0</code>构建的项目是默认支持jsx语法的，如果是<code>2.x</code>的项目，可能需要调整下<code>.babelrc</code>,<br>jsx的使用场景，目前我知道的只有两个，一个是当组件参数传过去，一个就是写<code>render</code>方法。</p>
+<ol>
+<li>例如使用<code>el-tree</code>的时候可以传一个<code>render-content</code>参数来手动渲染，或者其他渲染比较复杂的时候，jsx是扩展性更好的方案。</li>
+<li>如果在写render函数的时候,组件、参数比较多的情况下，会发现整个函数写的很长，并且很难维护，这时候使用jsx更加简单直观，并且更利于维护</li>
+</ol>
+<h2 id="实际运用"><a href="#实际运用" class="headerlink" title="实际运用"></a>实际运用</h2><h3 id="参数使用jsx"><a href="#参数使用jsx" class="headerlink" title="参数使用jsx"></a>参数使用jsx</h3><p>上期我写了一篇文章封装了一个菜单栏，其中有一个参数使用了render函数,接下来把它改为jsx的写法<br>我的<a href="/2019/12/04/vue渲染函数render/">上期文章</a></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">    data() &#123;</span><br><span class="line">        <span class="keyword">return</span> &#123;</span><br><span class="line">            menuList: [&#123;</span><br><span class="line">                key: <span class="string">'home'</span>,</span><br><span class="line">                name: <span class="string">'首页'</span>,</span><br><span class="line">                content_render: <span class="function">(<span class="params">h,item</span>) =&gt;</span> &#123;</span><br><span class="line">                  <span class="comment">// console.log(h,item) </span></span><br><span class="line">                    <span class="comment">//   return h('span', [ // 使用函数的写法</span></span><br><span class="line">                    <span class="comment">//     h('span', &#123;class: 'el-icon-location'&#125;),</span></span><br><span class="line">                    <span class="comment">//     item.name</span></span><br><span class="line">                    <span class="comment">//   ])</span></span><br><span class="line">                    <span class="keyword">return</span> </span><br><span class="line">                        &lt;span&gt;</span><br><span class="line">                            &lt;span <span class="class"><span class="keyword">class</span></span>=<span class="string">"el-icon-location"</span>&gt;&lt;<span class="regexp">/span&gt;</span></span><br><span class="line"><span class="regexp">                            &lt;span&gt;&#123;item.name&#125;&lt;/</span>span&gt;</span><br><span class="line">                        &lt;<span class="regexp">/span&gt;</span></span><br><span class="line"><span class="regexp">                &#125;</span></span><br><span class="line"><span class="regexp">                /</span><span class="regexp">/ ...</span></span><br><span class="line"><span class="regexp">          	]</span></span><br><span class="line"><span class="regexp">        &#125;</span></span><br><span class="line"><span class="regexp">    &#125;</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br></pre></td></tr></table></figure>
+<h3 id="实战中使用"><a href="#实战中使用" class="headerlink" title="实战中使用"></a>实战中使用</h3><p>之前在项目中根据<code>el-table</code>再封装了一下，把分页给封装了进去，并且会自动计算屏幕剩余高度，避免出现屏幕滚动条。<br>这个组件的难点在于如何适配多表头，如果没有多表头的情况下，使用<code>template</code>封装就可以满足,如果要适配多表头,那么要不使用组件递归，要么使用<code>render</code>函数，在函数里面递归，我自然是不想使用组件递归的了，是使用jsx完成了<code>render</code>函数</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  name: <span class="string">'dataTable'</span>,</span><br><span class="line">  props: &#123;</span><br><span class="line">    head: &#123;</span><br><span class="line">      type: <span class="built_in">Array</span>,</span><br><span class="line">      required: <span class="literal">true</span></span><br><span class="line">    &#125;,</span><br><span class="line">    tableData: &#123; <span class="comment">// 表格数据</span></span><br><span class="line">      type: <span class="built_in">Array</span>,</span><br><span class="line">      <span class="keyword">default</span>: <span class="function"><span class="params">()</span> =&gt;</span> []</span><br><span class="line">    &#125;,</span><br><span class="line">    showNumber: &#123;</span><br><span class="line">      type: <span class="built_in">Boolean</span>,</span><br><span class="line">      <span class="keyword">default</span>: <span class="function"><span class="params">()</span> =&gt;</span> <span class="literal">true</span></span><br><span class="line">    &#125;,</span><br><span class="line">    paging: &#123; <span class="comment">// 是否显示分页</span></span><br><span class="line">      type: <span class="built_in">Boolean</span>,</span><br><span class="line">      <span class="keyword">default</span>: <span class="function"><span class="params">()</span> =&gt;</span> <span class="literal">true</span></span><br><span class="line">    &#125;,</span><br><span class="line">    pageProps: &#123;</span><br><span class="line">      type: <span class="built_in">Object</span>,</span><br><span class="line">      <span class="keyword">default</span>: <span class="function"><span class="params">()</span>  =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> &#123; <span class="attr">pageNum</span>: <span class="number">1</span>, <span class="attr">pageSize</span>: <span class="number">10</span>, <span class="attr">total</span>: <span class="number">0</span>&#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    height: &#123;</span><br><span class="line">      type: <span class="built_in">String</span>,</span><br><span class="line">      <span class="keyword">default</span>: <span class="string">'auto'</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  data() &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      tableHeight: <span class="number">500</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  render(h) &#123;</span><br><span class="line">    <span class="keyword">const</span> _this = <span class="keyword">this</span></span><br><span class="line">    <span class="comment">// 渲染表格列</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">renderCol</span>(<span class="params">cols</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> (</span><br><span class="line">        cols.map(<span class="function">(<span class="params">item, index</span>) =&gt;</span> &#123;</span><br><span class="line">          &#123;<span class="comment">/* 是否有子节点， 有的话递归渲染 el-table-column组件 */</span>&#125;</span><br><span class="line">          <span class="keyword">return</span> !item.hasOwnProperty(<span class="string">'children'</span>) || item.children.length === <span class="number">0</span> ?</span><br><span class="line">            &lt;el-table-column</span><br><span class="line">              prop=&#123;item.prop&#125;</span><br><span class="line">              &#123;<span class="comment">/* v-bind="item" 代替成 &#123;...&#123;attrs: item&#125;&#125;  */</span>&#125;</span><br><span class="line">              &#123;...&#123;<span class="attr">attrs</span>: item&#125;&#125;</span><br><span class="line">              label=&#123;item.label || item.prop&#125;</span><br><span class="line">              &#123;<span class="comment">/*</span></span><br><span class="line"><span class="comment">                 这一点有点复杂</span></span><br><span class="line"><span class="comment">                 渲染一个作用域插槽，如果列的type属性不为'slot'或者没有传递item.prop的作用域具名插槽那么直接渲染当前表格的值</span></span><br><span class="line"><span class="comment">                 否则渲染具名作用域插槽</span></span><br><span class="line"><span class="comment">              */</span>&#125;</span><br><span class="line">              scopedSlots = &#123;&#123;<span class="attr">default</span>: <span class="function">(<span class="params">scope</span>) =&gt;</span></span><br><span class="line">                ( item.type !== <span class="string">'slot'</span> || !_this.$scopedSlots[item.prop]  ?</span><br><span class="line">                  &lt;span&gt;&#123;scope.row[scope.column.property]&#125;&lt;<span class="regexp">/span&gt;</span></span><br><span class="line"><span class="regexp">                  :</span></span><br><span class="line"><span class="regexp">                  _this.$scopedSlots[item.prop](&#123;</span></span><br><span class="line"><span class="regexp">                    data: scope.row</span></span><br><span class="line"><span class="regexp">                  &#125;)</span></span><br><span class="line"><span class="regexp">                )</span></span><br><span class="line"><span class="regexp">              &#125;&#125;</span></span><br><span class="line"><span class="regexp">            &gt;</span></span><br><span class="line"><span class="regexp">            &lt;/</span>el-table-column&gt;</span><br><span class="line">            :</span><br><span class="line">            &#123;<span class="comment">/* 渲染多表头 */</span>&#125;</span><br><span class="line">            &lt;el-table-column align=<span class="string">"center"</span> label=&#123;item.label || item.prop&#125;&gt;</span><br><span class="line">              &#123; renderCol(item.children)&#125;</span><br><span class="line">            &lt;<span class="regexp">/el-table-column&gt;</span></span><br><span class="line"><span class="regexp">        &#125;)</span></span><br><span class="line"><span class="regexp">      )</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">    &#125;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">    return (</span></span><br><span class="line"><span class="regexp">      &lt;div&gt;</span></span><br><span class="line"><span class="regexp">        &lt;el-table height=&#123;this.getTableHeight&#125; ref="dataTable" &#123;...&#123;attrs: this.$attrs&#125;&#125;  data=&#123;this.tableData&#125; style="width: 100%" border&gt;</span></span><br><span class="line"><span class="regexp">          &#123;</span></span><br><span class="line"><span class="regexp">            this.showNumber ?</span></span><br><span class="line"><span class="regexp">              &lt;el-table-column type="index" align="center" label="序号" width="50"&gt;</span></span><br><span class="line"><span class="regexp">              &lt;/</span>el-table-column&gt; : <span class="string">''</span></span><br><span class="line">          &#125;</span><br><span class="line">          &#123;</span><br><span class="line">            <span class="comment">/* 把传过来的head参数用上面定的方法进行渲染 */</span></span><br><span class="line">            renderCol(<span class="keyword">this</span>.head)</span><br><span class="line">          &#125;</span><br><span class="line">        &lt;<span class="regexp">/el-table&gt;</span></span><br><span class="line"><span class="regexp">        &#123;</span></span><br><span class="line"><span class="regexp">          this.paging ?</span></span><br><span class="line"><span class="regexp">            &lt;el-pagination</span></span><br><span class="line"><span class="regexp">              class="pagin-wrapper"</span></span><br><span class="line"><span class="regexp">              ref="pagination"</span></span><br><span class="line"><span class="regexp">              current-page=&#123;this.pageProps.pageNum&#125;</span></span><br><span class="line"><span class="regexp">              page-size=&#123;this.pageProps.pageSize&#125;</span></span><br><span class="line"><span class="regexp">              total=&#123;this.pageProps.total&#125;</span></span><br><span class="line"><span class="regexp">              pager-count=&#123;5&#125;</span></span><br><span class="line"><span class="regexp">              page-sizes=&#123;[5,10,20,50]&#125;</span></span><br><span class="line"><span class="regexp">              layout="total, sizes, prev, pager, next, jumper"</span></span><br><span class="line"><span class="regexp">              on-size-change=&#123;this.pageSizeChangHandler&#125;</span></span><br><span class="line"><span class="regexp">              on-current-change=&#123;this.pageChangeHandler&#125;/</span>&gt; : <span class="string">''</span></span><br><span class="line">        &#125;</span><br><span class="line">      &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">    )</span></span><br><span class="line"><span class="regexp">  &#125;,</span></span><br><span class="line"><span class="regexp">  methods: &#123;</span></span><br><span class="line"><span class="regexp">    pageSizeChangHandler (val) &#123;</span></span><br><span class="line"><span class="regexp">      this.$emit('sizeChanged', val)</span></span><br><span class="line"><span class="regexp">    &#125;,</span></span><br><span class="line"><span class="regexp">    pageChangeHandler (val) &#123;</span></span><br><span class="line"><span class="regexp">      this.$emit('pageChanged', val)</span></span><br><span class="line"><span class="regexp">    &#125;,</span></span><br><span class="line"><span class="regexp">    doLayout () &#123;</span></span><br><span class="line"><span class="regexp">      this.$refs.dataTable.doLayout()</span></span><br><span class="line"><span class="regexp">    &#125;,</span></span><br><span class="line"><span class="regexp">    computedHeight () &#123;</span></span><br><span class="line"><span class="regexp">      if (this.$refs.dataTable.$el) &#123;</span></span><br><span class="line"><span class="regexp">        const top = this.$refs.dataTable.$el.getBoundingClientRect().top</span></span><br><span class="line"><span class="regexp">        const pageHeight = this.paging ? this.$refs.pagination.$el.offsetHeight : 0</span></span><br><span class="line"><span class="regexp">        this.tableHeight = document.body.clientHeight - top - pageHeight - 48 + 'px'</span></span><br><span class="line"><span class="regexp">      &#125;</span></span><br><span class="line"><span class="regexp">    &#125;</span></span><br><span class="line"><span class="regexp">  &#125;,</span></span><br><span class="line"><span class="regexp">  updated() &#123;</span></span><br><span class="line"><span class="regexp">    this.$nextTick(() =&gt; &#123;</span></span><br><span class="line"><span class="regexp">      this.doLayout()</span></span><br><span class="line"><span class="regexp">    &#125;)</span></span><br><span class="line"><span class="regexp">  &#125;,</span></span><br><span class="line"><span class="regexp">  computed: &#123;</span></span><br><span class="line"><span class="regexp">    getTableHeight() &#123;</span></span><br><span class="line"><span class="regexp">      if (this.height === 'auto') &#123;</span></span><br><span class="line"><span class="regexp">        return this.tableHeight</span></span><br><span class="line"><span class="regexp">      &#125; else if (this.height) &#123;</span></span><br><span class="line"><span class="regexp">        return this.height</span></span><br><span class="line"><span class="regexp">      &#125; else &#123;</span></span><br><span class="line"><span class="regexp">        return null</span></span><br><span class="line"><span class="regexp">      &#125;</span></span><br><span class="line"><span class="regexp">    &#125;,</span></span><br><span class="line"><span class="regexp">  &#125;,</span></span><br><span class="line"><span class="regexp">  mounted () &#123;</span></span><br><span class="line"><span class="regexp">    this.$nextTick(() =&gt; &#123;</span></span><br><span class="line"><span class="regexp">      this.computedHeight()</span></span><br><span class="line"><span class="regexp">    &#125;)</span></span><br><span class="line"><span class="regexp">  &#125;</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br></pre></td></tr></table></figure>
+<p>比较难的一部分，在<code>renderCol</code>方法那里，至于jsx绑定数据和绑定事件都是用花括号比较简单。<br>使用组件:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">    &lt;!-- ... --&gt;</span><br><span class="line">    &lt;dataTable</span><br><span class="line">        :head&#x3D;&quot;head&quot;</span><br><span class="line">        :tableData&#x3D;&quot;tableData&quot;</span><br><span class="line">        @sizeChanged&#x3D;&quot;sizeChanged&quot;</span><br><span class="line">        @pageChanged&#x3D;&quot;pageChanged&quot;</span><br><span class="line">        :pageProps&#x3D;&quot;pageForm&quot;&gt;</span><br><span class="line">        &lt;template v-slot:rate&#x3D;&quot;&#123;data&#125;&quot;&gt;</span><br><span class="line">          &#123;&#123; data.rate ? (data.rate * 100).toFixed(2) + &#39;%&#39; : &#39;-&#39;  &#125;&#125;</span><br><span class="line">        &lt;&#x2F;template&gt;</span><br><span class="line">    &lt;&#x2F;dataTable&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">  export default &#123;</span><br><span class="line">    name: &#39;ffff&#39;,</span><br><span class="line">    mixins: [dataTableMixin],</span><br><span class="line">    components: &#123;</span><br><span class="line">      dataTable,</span><br><span class="line">      card</span><br><span class="line">    &#125;,</span><br><span class="line">    data() &#123;</span><br><span class="line">      return &#123;</span><br><span class="line">        tableData: [],</span><br><span class="line">        head: [&#123;</span><br><span class="line">          prop: &#39;name&#39;,</span><br><span class="line">          label: &#39;xxx&#39;,</span><br><span class="line">          align: &#39;center&#39;,</span><br><span class="line">        &#125;, &#123;</span><br><span class="line">          prop: &#39;rate&#39;,</span><br><span class="line">          label: &#39;占比&#39;,</span><br><span class="line">          align: &#39;center&#39;,</span><br><span class="line">          type: &#39;slot&#39;</span><br><span class="line">        &#125;</span><br><span class="line">        ]</span><br><span class="line">      &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+<p>至此已经对jsx封装组件有一定经验了，以后封装组件更有自己的想法。</p>
+
+          
+            <br>
+            
+  
+    
+    
+
+<section class="widget copyright  desktop mobile">
+  <div class='content'>
+    
+      <blockquote>
+        
+          
+            <p>博客内容遵循 署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</p>
+
+          
+        
+          
+            <p>本文永久链接是：<a href=https://haoge744.github.io/2019/12/14/vue%E4%BD%BF%E7%94%A8jsx/>https://haoge744.github.io/2019/12/14/vue%E4%BD%BF%E7%94%A8jsx/</a></p>
+          
+        
+      </blockquote>
+    
+  </div>
+</section>
+
+  
+
+  
+    
+    
+
+<section class="widget qrcode  desktop mobile">
+  
+
+  <div class='content article-entry'>
+    
+      
+        <fancybox><img src='https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/qrcode/wiki_volantis.png'
+        
+          height='64px'
+        ></fancybox>
+      
+    
+      
+        <fancybox><img src='https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/qrcode/wiki_volantis.png'
+        
+          height='64px'
+        ></fancybox>
+      
+    
+  </div>
+</section>
+
+  
+
+
+          
+        </div>
+        
+          
+
+
+  <section class='meta' id="footer-meta">
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-03-14T13:30:42+08:00">
+  <a class='notlink'>
+    <i class="fas fa-save" aria-hidden="true"></i>
+    <p>更新于：2020年3月14日</p>
+  </a>
+</div>
+
+        
+      
+        
+          
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/haoge744.github.io/tags/vue/" rel="nofollow"><i class="fas fa-hashtag" aria-hidden="true"></i><p>vue</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/haoge744.github.io/tags/jsx/" rel="nofollow"><i class="fas fa-hashtag" aria-hidden="true"></i><p>jsx</p></a></div>
+
+
+        
+      
+        
+          
+
+        
+      
+        
+          
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
+    
+      
+        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer"
+          
+          href="http://connect.qq.com/widget/shareqq/index.html?url=https://haoge744.github.io/2019/12/14/vue%E4%BD%BF%E7%94%A8jsx/&title=vue使用jsx - cch‘s blog&summary=实际上，如果是要编写一些复杂和好用的组件，vue的render会经常出现,例如element的el-tree和el-tabs里面就用到了。有时间想写一些关于element的源码解析的文章，他们的组件写的很出色。之前写过一篇关于vue render函数的相关文章,今天写一篇关于jsx在vue的应用场景及实战。"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/qq.png">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer"
+          
+          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://haoge744.github.io/2019/12/14/vue%E4%BD%BF%E7%94%A8jsx/&title=vue使用jsx - cch‘s blog&summary=实际上，如果是要编写一些复杂和好用的组件，vue的render会经常出现,例如element的el-tree和el-tabs里面就用到了。有时间想写一些关于element的源码解析的文章，他们的组件写的很出色。之前写过一篇关于vue render函数的相关文章,今天写一篇关于jsx在vue的应用场景及实战。"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/qzone.png">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer"
+          
+          href="http://service.weibo.com/share/share.php?url=https://haoge744.github.io/2019/12/14/vue%E4%BD%BF%E7%94%A8jsx/&title=vue使用jsx - cch‘s blog&summary=实际上，如果是要编写一些复杂和好用的组件，vue的render会经常出现,例如element的el-tree和el-tabs里面就用到了。有时间想写一些关于element的源码解析的文章，他们的组件写的很出色。之前写过一篇关于vue render函数的相关文章,今天写一篇关于jsx在vue的应用场景及实战。"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/weibo.png">
+          
+        </a>
+      
+    
+  </div>
+</div>
+
+
+
+        
+      
+    </div>
+  </section>
+
+
+        
+        
+          <div class="prev-next">
+            
+              <a class='prev' href='/haoge744.github.io/2019/12/22/Notification%E7%9A%84%E4%BD%BF%E7%94%A8/'>
+                <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>Notification的使用</p>
+                <p class='content'>最近注意到一些网站上渐渐会弹出一个框，提示你是否显示通知，这也意味着这项功能以后会越来越普遍了，像微博、邮箱、爱奇艺等网站已经开始用起来了，如果点击同意显示通知的话，那么前台可能会开启MQ或者使...</p>
+              </a>
+            
+            
+              <a class='next' href='/haoge744.github.io/2019/12/07/vue%E5%85%A8%E5%B1%80%E6%B3%A8%E5%86%8Cfilters%E9%AA%9A%E6%93%8D%E4%BD%9C/'>
+                <p class='title'>vue全局注册filters骚操作<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+                <p class='content'>注册全局Filters骚操作123456789101112131415161718192021222324252627282930313233// 新建 src/filters/index.js...</p>
+              </a>
+            
+          </div>
+        
+      </section>
+    </article>
+  
+
+  
+    <!-- 显示推荐文章和评论 -->
+
+
+
+  
+
+
+  
+
+
+
+
+<!-- 根据页面mathjax变量决定是否加载MathJax数学公式js -->
+
+
+
+  <script>
+    window.subData = {
+      title: 'vue使用jsx',
+      tools: true
+    }
+  </script>
+
+
+</div>
+<aside class='l_side'>
+  
+  
+
+  
+    
+    
+
+
+  <section class="widget toc-wrapper shadow desktop mobile">
+    
+  <header>
+    
+      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
+    
+  </header>
+
+
+    <div class='content'>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#使用场景"><span class="toc-text">使用场景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#实际运用"><span class="toc-text">实际运用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#参数使用jsx"><span class="toc-text">参数使用jsx</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#实战中使用"><span class="toc-text">实战中使用</span></a></li></ol></li></ol>
+    </div>
+  </section>
+
+
+  
+
+
+</aside>
+
+
+  
+  <footer class="clearfix ">
+    <br><br>
+    
+      
+        <div class="aplayer-container">
+          
+
+  
+    <meting-js
+      theme='#1BCDFC'
+      autoplay='false'
+      volume='0.7'
+      loop='all'
+      order='list'
+      fixed='false'
+      list-max-height='340px'
+      server='netease'
+      type='playlist'
+      id='3175833810'
+      list-folded='true'>
+    </meting-js>
+  
+
+
+        </div>
+      
+    
+      
+        <br>
+        <div class="social-wrapper">
+          
+            
+              <a href="/haoge744.github.io/atom.xml"
+                class="social fas fa-rss flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+            
+              <a href="mailto:me@xaoxuu.com"
+                class="social fas fa-envelope flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+            
+              <a href="https://github.com/xaoxuu"
+                class="social fab fa-github flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+            
+              <a href="https://music.163.com/#/user/home?id=63035382"
+                class="social fas fa-headphones-alt flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+        </div>
+      
+    
+      
+        <div><p>博客内容遵循 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener">署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</a></p>
+</div>
+      
+    
+      
+        本站使用
+        <a href="https://volantis.js.org/" target="_blank" class="codename">Volantis</a>
+        作为主题
+        
+          ，
+          总访问量为
+          <span id="busuanzi_value_site_pv"><i class="fas fa-spinner fa-spin fa-fw" aria-hidden="true"></i></span>
+          次
+        
+      
+    
+      
+        <div class='copyright'>
+        <p><a href="https://xaoxuu.com" target="_blank" rel="noopener">Copyright © 2017-2020 Mr. X</a></p>
+
+        </div>
+      
+    
+  </footer>
+
+<script>setLoadingBarProgress(80);</script>
+
+
+      <script>setLoadingBarProgress(60);</script>
+    </div>
+    <a class="s-top fas fa-arrow-up fa-fw" href='javascript:void(0)'></a>
+  </div>
+  
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4/dist/jquery.min.js"></script>
+
+
+  <script>
+    
+    var SEARCH_SERVICE = "hexo" || "hexo";
+    var ROOT = "/haoge744.github.io/" || "/";
+    if (!ROOT.endsWith('/')) ROOT += '/';
+  </script>
+
+
+  <script async src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@2/js/instant_page.js" type="module" defer integrity="sha384-OeDn4XE77tdHo8pGtE1apMPmAipjoxUQ++eeJa6EtJCfHlvijigWiJpD7VDPWXV1"></script>
+
+
+
+  
+<script src="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.js"></script>
+
+  <script type="text/javascript">
+    $(function() {
+      Waves.attach('.flat-btn', ['waves-button']);
+      Waves.attach('.float-btn', ['waves-button', 'waves-float']);
+      Waves.attach('.float-btn-light', ['waves-button', 'waves-float', 'waves-light']);
+      Waves.attach('.flat-box', ['waves-block']);
+      Waves.attach('.float-box', ['waves-block', 'waves-float']);
+      Waves.attach('.waves-image');
+      Waves.init();
+    });
+  </script>
+
+
+  <script async src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-busuanzi@2.3/js/busuanzi.pure.mini.js"></script>
+
+
+
+  
+  
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/jquery-backstretch@2.1.18/jquery.backstretch.min.js"></script>
+
+    <script type="text/javascript">
+      $(function(){
+        var imgs=["https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/41F215B9-261F-48B4-80B5-4E86E165259E.jpeg"];
+        if ('true' == 'true') {
+          function shuffle(arr){
+            /*From countercurrent-time*/
+            var n = arr.length;
+            while(n--) {
+              var index = Math.floor(Math.random() * n);
+              var temp = arr[index];
+              arr[index] = arr[n];
+              arr[n] = temp;
+            }
+          }
+          shuffle(imgs);
+        }
+        if ('.cover') {
+          $('.cover').backstretch(
+            imgs,
+          {
+            duration: "20000",
+            fade: "1500"
+          });
+        } else {
+          $.backstretch(
+            imgs,
+          {
+            duration: "20000",
+            fade: "1500"
+          });
+        }
+      });
+    </script>
+  
+
+
+
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.js" async></script>
+
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/meting@2.0/dist/Meting.min.js" async></script>
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+<script src="/haoge744.github.io/js/app.js"></script>
+
+
+
+  
+<script src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@2.1/js/search.js"></script>
+
+
+
+  
+<script src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@2/js/comment_typing.js"></script>
+
+
+
+<!-- 复制 -->
+
+  <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="fas fa-copy"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copyed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('fa-copy');
+        $icon.addClass('fa-clipboard-check');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPYED';
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('fa-copy');
+        $icon.addClass('fa-exclamation-triangle');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+
+
+
+
+<!-- fancybox -->
+
+  <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+<script>
+  let LAZY_LOAD_IMAGE = "";
+  $(".article-entry").find("fancybox").find("img").each(function () {
+      var element = document.createElement("a");
+      $(element).attr("data-fancybox", "gallery");
+      $(element).attr("href", $(this).attr("src"));
+      /* 图片采用懒加载处理时,
+       * 一般图片标签内会有个属性名来存放图片的真实地址，比如 data-original,
+       * 那么此处将原本的属性名src替换为对应属性名data-original,
+       * 修改如下
+       */
+       if (LAZY_LOAD_IMAGE) {
+         $(element).attr("href", $(this).attr("data-original"));
+       }
+      $(this).wrap(element);
+  });
+</script>
+
+
+
+
+
+
+  <script>setLoadingBarProgress(100);</script>
+<script src="/haoge744.github.io/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/haoge744.github.io/live2dw/assets/z16.model.json"},"display":{"position":"right","width":250,"height":500,"hOffset":30,"vOffset":0},"react":{"opacity":0.7},"mobile":{"show":true}});</script></body>
+</html>

@@ -18,7 +18,7 @@
 
   <!-- 页面元数据 -->
   
-    <title>标签：vue - lelouch‘s blog</title>
+    <title>标签：vue - cch‘s blog</title>
   
   
 
@@ -378,6 +378,202 @@
       
         
   <h2 class="title">
+    <a href="/haoge744.github.io/2020/03/14/vue%E7%BC%93%E5%AD%98%E9%97%AE%E9%A2%98/">
+      vue缓存问题
+    </a>
+  </h2>
+
+
+      
+      <div class='new-meta-box'>
+        
+          
+        
+          
+            
+<div class='new-meta-item author'>
+  <a href="http://www.cch.zone" target="_blank" rel="nofollow noopener">
+    <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/avatar/avatar.png">
+    <p>cch</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  
+  <div class='new-meta-item category'>
+    <a href='/haoge744.github.io/categories/vue/' rel="nofollow">
+      <i class="fas fa-folder-open" aria-hidden="true"></i>
+      <p>vue</p>
+    </a>
+  </div>
+
+
+          
+        
+          
+            <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-edit" aria-hidden="true"></i>
+    <p>发布于：2020年3月14日</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+
+          
+        
+          
+            
+
+          
+        
+      </div>
+      
+        <hr>
+      
+    </div>
+  </section>
+
+
+  <section class="article typo">
+    <div class="article-entry" itemprop="articleBody">
+      <h2 id="关于vue路由缓存问题"><a href="#关于vue路由缓存问题" class="headerlink" title="关于vue路由缓存问题"></a>关于vue路由缓存问题</h2><p>之前在工作中遇到了个关于页面跳转相关的缓存问题，没想到解决起来意外的挺简单的。</p>
+<p>需求是这样的，有个移动webApp，下面有4个tab可以切换，然后其中有个页面有个列表，在列表页点击某些功能可以跳转至页面B、页面C,页面C返回的时候列表不能刷新，滚动条需要在原来的位置，然而在C页面做了一些操作的时候是会影响列表项的值的，做了这些操作的话，返回列表页需要刷新数据。</p>
+<p>我的解决方案当然是用<code>keep-alive</code>了，然后把他的<code>includes</code>绑定到状态中去，这样可以方便的进行增加、删除。然后在列表页面中添加路由守卫，当判断要跳转到B、C页面的时候，把当前页面添加到缓存中，如果在二级页面需要删除缓存，则在状态管理里把缓存删掉，这样回到列表页之后就会刷新了。</p>
+<p>需要注意的是includes中使用的是组件的名称进行缓存的，所以组件的命名要规范，有语义，最好不要重复。</p>
+      
+        
+          <div class="button readmore">
+            <a href="/haoge744.github.io/2020/03/14/vue%E7%BC%93%E5%AD%98%E9%97%AE%E9%A2%98/">
+              Read More <i class="fas fa-chevron-right"></i>
+            </a>
+          </div>
+        
+      
+    </div>
+  </section>
+</article>
+
+          </div>
+        
+      
+        
+          <div class='post-wrapper'>
+            <article class="post white-box shadow reveal ">
+  
+
+
+  <section class='meta'>
+    
+    
+    <div class="meta" id="header-meta">
+      
+        
+  <h2 class="title">
+    <a href="/haoge744.github.io/2020/01/25/vueTips/">
+      vueTips
+    </a>
+  </h2>
+
+
+      
+      <div class='new-meta-box'>
+        
+          
+        
+          
+            
+<div class='new-meta-item author'>
+  <a href="http://www.cch.zone" target="_blank" rel="nofollow noopener">
+    <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/avatar/avatar.png">
+    <p>cch</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  
+  <div class='new-meta-item category'>
+    <a href='/haoge744.github.io/categories/vue/' rel="nofollow">
+      <i class="fas fa-folder-open" aria-hidden="true"></i>
+      <p>vue</p>
+    </a>
+  </div>
+
+
+          
+        
+          
+            <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-edit" aria-hidden="true"></i>
+    <p>发布于：2020年1月25日</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+
+          
+        
+          
+            
+
+          
+        
+      </div>
+      
+        <hr>
+      
+    </div>
+  </section>
+
+
+  <section class="article typo">
+    <div class="article-entry" itemprop="articleBody">
+      <p>前面发过一篇javascript的tips这次发布一些vue相关的,如果以后还有相关的会更新。</p>
+<h2 id="生命周期Tip"><a href="#生命周期Tip" class="headerlink" title="生命周期Tip:"></a>生命周期Tip:</h2><p>beforeCreate和created触发时，dom还不存在。<br>服务端渲染时，beforeMount和mounted不会触发，因为服务端不会创建节点。<br>renderError 渲染错误时触发</p>
+<p>测试和正式环境可以使用errorCaptured来收集错误, 子组件会向父组件冒泡，一直冒到最上层(App.vue)。</p>
+<h2 id="watch深入观察对象-数组变化"><a href="#watch深入观察对象-数组变化" class="headerlink" title="watch深入观察对象/数组变化"></a>watch深入观察对象/数组变化</h2><p>watch: {<br>    ‘obj.a’: // 监听对象中某个属性的变化。。<br>    firstName: {<br>        handler(newName, oldNme){<br>            this.fullName = newName + “ “ + this.lastName<br>        },<br>        immediate: true, // 初始化就执行一次<br>        deep: true // 深入观察，会观察对象或数组的变化 比如想监听对象中某一个属性的变化,开销大不推荐<br>    }<br>}</p>
+      
+        
+          <div class="button readmore">
+            <a href="/haoge744.github.io/2020/01/25/vueTips/">
+              Read More <i class="fas fa-chevron-right"></i>
+            </a>
+          </div>
+        
+      
+    </div>
+  </section>
+</article>
+
+          </div>
+        
+      
+        
+          <div class='post-wrapper'>
+            <article class="post white-box shadow reveal ">
+  
+
+
+  <section class='meta'>
+    
+    
+    <div class="meta" id="header-meta">
+      
+        
+  <h2 class="title">
     <a href="/haoge744.github.io/2019/12/28/vue-cli2-x%E5%8F%8A3-x%E5%A4%9A%E7%8E%AF%E5%A2%83%E6%89%93%E5%8C%85%E9%85%8D%E7%BD%AE/">
       vue cli2.x及3.x多环境打包配置
     </a>
@@ -392,9 +588,9 @@
           
             
 <div class='new-meta-item author'>
-  <a href="https://xaoxuu.com" target="_blank" rel="nofollow noopener">
+  <a href="http://www.cch.zone" target="_blank" rel="nofollow noopener">
     <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/avatar/avatar.png">
-    <p>Mr. X</p>
+    <p>cch</p>
   </a>
 </div>
 
@@ -474,6 +670,101 @@
       
         
   <h2 class="title">
+    <a href="/haoge744.github.io/2019/12/14/vue%E4%BD%BF%E7%94%A8jsx/">
+      vue使用jsx
+    </a>
+  </h2>
+
+
+      
+      <div class='new-meta-box'>
+        
+          
+        
+          
+            
+<div class='new-meta-item author'>
+  <a href="http://www.cch.zone" target="_blank" rel="nofollow noopener">
+    <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/avatar/avatar.png">
+    <p>cch</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  
+  <div class='new-meta-item category'>
+    <a href='/haoge744.github.io/categories/vue/' rel="nofollow">
+      <i class="fas fa-folder-open" aria-hidden="true"></i>
+      <p>vue</p>
+    </a>
+  </div>
+
+
+          
+        
+          
+            <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-edit" aria-hidden="true"></i>
+    <p>发布于：2019年12月14日</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+
+          
+        
+          
+            
+
+          
+        
+      </div>
+      
+        <hr>
+      
+    </div>
+  </section>
+
+
+  <section class="article typo">
+    <div class="article-entry" itemprop="articleBody">
+      <p>实际上，如果是要编写一些复杂和好用的组件，<code>vue</code>的<code>render</code>会经常出现,例如<code>element</code>的<code>el-tree</code>和<code>el-tabs</code>里面就用到了。有时间想写一些关于<code>element</code>的源码解析的文章，他们的组件写的很出色。<br>之前写过一篇关于<code>vue render</code>函数的相关文章,今天写一篇关于<code>jsx</code>在vue的应用场景及实战。</p>
+      
+        
+          <div class="button readmore">
+            <a href="/haoge744.github.io/2019/12/14/vue%E4%BD%BF%E7%94%A8jsx/">
+              Read More <i class="fas fa-chevron-right"></i>
+            </a>
+          </div>
+        
+      
+    </div>
+  </section>
+</article>
+
+          </div>
+        
+      
+        
+          <div class='post-wrapper'>
+            <article class="post white-box shadow reveal ">
+  
+
+
+  <section class='meta'>
+    
+    
+    <div class="meta" id="header-meta">
+      
+        
+  <h2 class="title">
     <a href="/haoge744.github.io/2019/12/07/vue%E5%85%A8%E5%B1%80%E6%B3%A8%E5%86%8Cfilters%E9%AA%9A%E6%93%8D%E4%BD%9C/">
       vue全局注册filters骚操作
     </a>
@@ -488,9 +779,9 @@
           
             
 <div class='new-meta-item author'>
-  <a href="https://xaoxuu.com" target="_blank" rel="nofollow noopener">
+  <a href="http://www.cch.zone" target="_blank" rel="nofollow noopener">
     <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/avatar/avatar.png">
-    <p>Mr. X</p>
+    <p>cch</p>
   </a>
 </div>
 
@@ -583,9 +874,9 @@
           
             
 <div class='new-meta-item author'>
-  <a href="https://xaoxuu.com" target="_blank" rel="nofollow noopener">
+  <a href="http://www.cch.zone" target="_blank" rel="nofollow noopener">
     <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/avatar/avatar.png">
-    <p>Mr. X</p>
+    <p>cch</p>
   </a>
 </div>
 
@@ -685,9 +976,9 @@
           
             
 <div class='new-meta-item author'>
-  <a href="https://xaoxuu.com" target="_blank" rel="nofollow noopener">
+  <a href="http://www.cch.zone" target="_blank" rel="nofollow noopener">
     <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/avatar/avatar.png">
-    <p>Mr. X</p>
+    <p>cch</p>
   </a>
 </div>
 
@@ -780,9 +1071,9 @@
           
             
 <div class='new-meta-item author'>
-  <a href="https://xaoxuu.com" target="_blank" rel="nofollow noopener">
+  <a href="http://www.cch.zone" target="_blank" rel="nofollow noopener">
     <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/avatar/avatar.png">
-    <p>Mr. X</p>
+    <p>cch</p>
   </a>
 </div>
 
@@ -877,9 +1168,9 @@
           
             
 <div class='new-meta-item author'>
-  <a href="https://xaoxuu.com" target="_blank" rel="nofollow noopener">
+  <a href="http://www.cch.zone" target="_blank" rel="nofollow noopener">
     <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/avatar/avatar.png">
-    <p>Mr. X</p>
+    <p>cch</p>
   </a>
 </div>
 
@@ -974,9 +1265,9 @@
           
             
 <div class='new-meta-item author'>
-  <a href="https://xaoxuu.com" target="_blank" rel="nofollow noopener">
+  <a href="http://www.cch.zone" target="_blank" rel="nofollow noopener">
     <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/avatar/avatar.png">
-    <p>Mr. X</p>
+    <p>cch</p>
   </a>
 </div>
 
@@ -1045,313 +1336,6 @@
           </div>
         
       
-        
-          <div class='post-wrapper'>
-            <article class="post white-box shadow reveal ">
-  
-
-
-  <section class='meta'>
-    
-    
-    <div class="meta" id="header-meta">
-      
-        
-  <h2 class="title">
-    <a href="/haoge744.github.io/2019/10/17/Vue-inheritAttrs%E7%9A%84%E4%BD%BF%E7%94%A8/">
-      Vue inheritAttrs的使用
-    </a>
-  </h2>
-
-
-      
-      <div class='new-meta-box'>
-        
-          
-        
-          
-            
-<div class='new-meta-item author'>
-  <a href="https://xaoxuu.com" target="_blank" rel="nofollow noopener">
-    <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/avatar/avatar.png">
-    <p>Mr. X</p>
-  </a>
-</div>
-
-          
-        
-          
-            
-  
-  <div class='new-meta-item category'>
-    <a href='/haoge744.github.io/categories/vue/' rel="nofollow">
-      <i class="fas fa-folder-open" aria-hidden="true"></i>
-      <p>vue</p>
-    </a>
-  </div>
-
-
-          
-        
-          
-            <div class="new-meta-item date">
-  <a class='notlink'>
-    <i class="fas fa-edit" aria-hidden="true"></i>
-    <p>发布于：2019年10月17日</p>
-  </a>
-</div>
-
-          
-        
-          
-            
-
-          
-        
-          
-            
-
-          
-        
-      </div>
-      
-        <hr>
-      
-    </div>
-  </section>
-
-
-  <section class="article typo">
-    <div class="article-entry" itemprop="articleBody">
-      <h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p><code>Vue inheritAttrs</code>诞生于vue2.4.0版本,目的是为了解决父孙组件传递参数的问题。<br>在以前如果要父组件要给孙组件传值只能给子组件设置一套值，然后再给孙组件再设置一套相同的值，这样代码太过冗余并且工作量，还有一个方法就是用<code>provide</code>和<code>inject</code>,但是貌似这个方法也不是很好，组件多的话很难控制。<br>所以vue2.4发布后解决了这个问题，还增加了关于事件向上传递的相关api <code>$listeners</code></p>
-      
-        
-          <div class="button readmore">
-            <a href="/haoge744.github.io/2019/10/17/Vue-inheritAttrs%E7%9A%84%E4%BD%BF%E7%94%A8/">
-              Read More <i class="fas fa-chevron-right"></i>
-            </a>
-          </div>
-        
-      
-    </div>
-  </section>
-</article>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <article class="post white-box shadow reveal ">
-  
-
-
-  <section class='meta'>
-    
-    
-    <div class="meta" id="header-meta">
-      
-        
-  <h2 class="title">
-    <a href="/haoge744.github.io/2019/09/15/vue-cli3-0%E5%8D%87%E7%BA%A7/">
-      vue-cli3.0升级
-    </a>
-  </h2>
-
-
-      
-      <div class='new-meta-box'>
-        
-          
-        
-          
-            
-<div class='new-meta-item author'>
-  <a href="https://xaoxuu.com" target="_blank" rel="nofollow noopener">
-    <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/avatar/avatar.png">
-    <p>Mr. X</p>
-  </a>
-</div>
-
-          
-        
-          
-            
-  
-  <div class='new-meta-item category'>
-    <a href='/haoge744.github.io/categories/vue/' rel="nofollow">
-      <i class="fas fa-folder-open" aria-hidden="true"></i>
-      <p>vue</p>
-    </a>
-  </div>
-
-
-          
-        
-          
-            <div class="new-meta-item date">
-  <a class='notlink'>
-    <i class="fas fa-edit" aria-hidden="true"></i>
-    <p>发布于：2019年9月15日</p>
-  </a>
-</div>
-
-          
-        
-          
-            
-
-          
-        
-          
-            
-
-          
-        
-      </div>
-      
-        <hr>
-      
-    </div>
-  </section>
-
-
-  <section class="article typo">
-    <div class="article-entry" itemprop="articleBody">
-      <h2 id="全局安装"><a href="#全局安装" class="headerlink" title="全局安装"></a>全局安装</h2><p>目前执行 <code>install Vue-cli -g</code>命令只会安装到Vue-cli 2.9.6,因为Vue cli以后的版本改了包名 改为了 @vue/cli</p>
-<p>所以要先卸载掉Vue-cli 2.x.x的版本,在进行安装</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm uninstall -g vue-cli</span><br><span class="line">npm install -g @vue/cli</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yarn global remove vue-cli</span><br><span class="line">yarn global add @vue/cli</span><br></pre></td></tr></table></figure>
-      
-        
-          <div class="button readmore">
-            <a href="/haoge744.github.io/2019/09/15/vue-cli3-0%E5%8D%87%E7%BA%A7/">
-              Read More <i class="fas fa-chevron-right"></i>
-            </a>
-          </div>
-        
-      
-    </div>
-  </section>
-</article>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <article class="post white-box shadow reveal ">
-  
-
-
-  <section class='meta'>
-    
-    
-    <div class="meta" id="header-meta">
-      
-        
-  <h2 class="title">
-    <a href="/haoge744.github.io/2019/09/01/vue%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/">
-      vue性能优化9法
-    </a>
-  </h2>
-
-
-      
-      <div class='new-meta-box'>
-        
-          
-        
-          
-            
-<div class='new-meta-item author'>
-  <a href="https://xaoxuu.com" target="_blank" rel="nofollow noopener">
-    <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/avatar/avatar.png">
-    <p>Mr. X</p>
-  </a>
-</div>
-
-          
-        
-          
-            
-  
-  <div class='new-meta-item category'>
-    <a href='/haoge744.github.io/categories/vue/' rel="nofollow">
-      <i class="fas fa-folder-open" aria-hidden="true"></i>
-      <p>vue</p>
-    </a>
-  </div>
-
-
-          
-        
-          
-            <div class="new-meta-item date">
-  <a class='notlink'>
-    <i class="fas fa-edit" aria-hidden="true"></i>
-    <p>发布于：2019年9月1日</p>
-  </a>
-</div>
-
-          
-        
-          
-            
-
-          
-        
-          
-            
-
-          
-        
-      </div>
-      
-        <hr>
-      
-    </div>
-  </section>
-
-
-  <section class="article typo">
-    <div class="article-entry" itemprop="articleBody">
-      <p>在2019年3月VueConf US大会上，有人分享了一个Vue性能优化9法的相关演讲，在此和大家分享。</p>
-<ul>
-<li>演讲视频<ul>
-<li><a href="http://www.youtube.com/watch?v=5B66qer8cZo" target="_blank" rel="noopener">http://www.youtube.com/watch?v=5B66qer8cZo</a></li>
-</ul>
-</li>
-<li>演讲稿<ul>
-<li><a href="https://slides.com/akryum/vueconfus-2019#/" target="_blank" rel="noopener">https://slides.com/akryum/vueconfus-2019#/</a></li>
-</ul>
-</li>
-<li>演示网站<ul>
-<li><a href="https://vue-9-perf-secrets.nettlify.com" target="_blank" rel="noopener">https://vue-9-perf-secrets.nettlify.com</a></li>
-</ul>
-</li>
-<li>演示代码<ul>
-<li><a href="https://github.com/Akryum/vue-9-perf-secrets" target="_blank" rel="noopener">https://github.com/Akryum/vue-9-perf-secrets</a></li>
-</ul>
-</li>
-</ul>
-      
-        
-          <div class="button readmore">
-            <a href="/haoge744.github.io/2019/09/01/vue%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/">
-              Read More <i class="fas fa-chevron-right"></i>
-            </a>
-          </div>
-        
-      
-    </div>
-  </section>
-</article>
-
-          </div>
-        
-      
     
   </section>
   
@@ -1399,7 +1383,7 @@
         
         
         
-          <p><span id="jinrishici-sentence">lelouch‘s blog</span></p>
+          <p><span id="jinrishici-sentence">cch‘s blog</span></p>
           <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
         
       </div>
@@ -1486,7 +1470,7 @@
           <li><a class="flat-box"
             title="/haoge744.github.io/categories/javascript/" href="/haoge744.github.io/categories/javascript/"
             id="haoge744.github.iocategoriesjavascript"
-            ><div class='name'>javascript</div><div class='badge'>(2)</div></a></li>
+            ><div class='name'>javascript</div><div class='badge'>(3)</div></a></li>
         
           <li><a class="flat-box"
             title="/haoge744.github.io/categories/nginx/" href="/haoge744.github.io/categories/nginx/"
@@ -1506,7 +1490,7 @@
           <li><a class="flat-box"
             title="/haoge744.github.io/categories/vue/" href="/haoge744.github.io/categories/vue/"
             id="haoge744.github.iocategoriesvue"
-            ><div class='name'>vue</div><div class='badge'>(14)</div></a></li>
+            ><div class='name'>vue</div><div class='badge'>(17)</div></a></li>
         
           <li><a class="flat-box"
             title="/haoge744.github.io/categories/webpack/" href="/haoge744.github.io/categories/webpack/"
@@ -1545,7 +1529,7 @@
 
 
     <div class='content'>
-      <a href="/haoge744.github.io/tags/css/" style="font-size: 14px; color: #999">css</a> <a href="/haoge744.github.io/tags/echarts/" style="font-size: 14px; color: #999">echarts</a> <a href="/haoge744.github.io/tags/hexo/" style="font-size: 14px; color: #999">hexo</a> <a href="/haoge744.github.io/tags/html/" style="font-size: 14px; color: #999">html</a> <a href="/haoge744.github.io/tags/javascript/" style="font-size: 14px; color: #999">javascript</a> <a href="/haoge744.github.io/tags/moment/" style="font-size: 14px; color: #999">moment</a> <a href="/haoge744.github.io/tags/nginx/" style="font-size: 14px; color: #999">nginx</a> <a href="/haoge744.github.io/tags/typescript/" style="font-size: 14px; color: #999">typescript</a> <a href="/haoge744.github.io/tags/uni-app/" style="font-size: 16px; color: #8b8b8b">uni-app</a> <a href="/haoge744.github.io/tags/vue/" style="font-size: 24px; color: #555">vue</a> <a href="/haoge744.github.io/tags/webpack/" style="font-size: 18px; color: #7e7e7e">webpack</a> <a href="/haoge744.github.io/tags/%E5%89%8D%E7%AB%AF%E6%9E%84%E5%BB%BA%E5%8C%96/" style="font-size: 14px; color: #999">前端构建化</a> <a href="/haoge744.github.io/tags/%E5%9B%B4%E6%A3%8B/" style="font-size: 14px; color: #999">围棋</a> <a href="/haoge744.github.io/tags/%E7%94%9F%E6%B4%BB/" style="font-size: 14px; color: #999">生活</a> <a href="/haoge744.github.io/tags/%E7%94%9F%E6%B4%BB%E8%AE%B0%E4%BA%8B/" style="font-size: 22px; color: #636363">生活记事</a> <a href="/haoge744.github.io/tags/%E7%A7%BB%E5%8A%A8%E5%BC%80%E5%8F%91/" style="font-size: 20px; color: #707070">移动开发</a> <a href="/haoge744.github.io/tags/%E8%AF%BB%E5%90%8E%E6%84%9F/" style="font-size: 18px; color: #7e7e7e">读后感</a>
+      <a href="/haoge744.github.io/tags/css/" style="font-size: 14px; color: #999">css</a> <a href="/haoge744.github.io/tags/echarts/" style="font-size: 14px; color: #999">echarts</a> <a href="/haoge744.github.io/tags/hexo/" style="font-size: 14px; color: #999">hexo</a> <a href="/haoge744.github.io/tags/html/" style="font-size: 14px; color: #999">html</a> <a href="/haoge744.github.io/tags/javascript/" style="font-size: 16px; color: #8b8b8b">javascript</a> <a href="/haoge744.github.io/tags/jsx/" style="font-size: 14px; color: #999">jsx</a> <a href="/haoge744.github.io/tags/moment/" style="font-size: 14px; color: #999">moment</a> <a href="/haoge744.github.io/tags/nginx/" style="font-size: 14px; color: #999">nginx</a> <a href="/haoge744.github.io/tags/tips/" style="font-size: 14px; color: #999">tips</a> <a href="/haoge744.github.io/tags/typescript/" style="font-size: 14px; color: #999">typescript</a> <a href="/haoge744.github.io/tags/uni-app/" style="font-size: 16px; color: #8b8b8b">uni-app</a> <a href="/haoge744.github.io/tags/vue/" style="font-size: 24px; color: #555">vue</a> <a href="/haoge744.github.io/tags/webpack/" style="font-size: 18px; color: #7e7e7e">webpack</a> <a href="/haoge744.github.io/tags/%E5%89%8D%E7%AB%AF%E6%9E%84%E5%BB%BA%E5%8C%96/" style="font-size: 14px; color: #999">前端构建化</a> <a href="/haoge744.github.io/tags/%E5%9B%B4%E6%A3%8B/" style="font-size: 14px; color: #999">围棋</a> <a href="/haoge744.github.io/tags/%E7%94%9F%E6%B4%BB/" style="font-size: 14px; color: #999">生活</a> <a href="/haoge744.github.io/tags/%E7%94%9F%E6%B4%BB%E8%AE%B0%E4%BA%8B/" style="font-size: 22px; color: #636363">生活记事</a> <a href="/haoge744.github.io/tags/%E7%A7%BB%E5%8A%A8%E5%BC%80%E5%8F%91/" style="font-size: 20px; color: #707070">移动开发</a> <a href="/haoge744.github.io/tags/%E8%AF%BB%E5%90%8E%E6%84%9F/" style="font-size: 18px; color: #7e7e7e">读后感</a>
     </div>
   </section>
 
