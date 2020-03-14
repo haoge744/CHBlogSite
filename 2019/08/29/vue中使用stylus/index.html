@@ -1,103 +1,418 @@
 <!DOCTYPE html>
 <html>
-<head><meta name="generator" content="Hexo 3.9.0">
+<head hexo-theme='https://volantis.js.org/#2.1.4'>
   <meta charset="utf-8">
+  <!-- SEO相关 -->
   
-
+    
   
-  <title>vue中使用stylus | lelouch‘s blog</title>
+  <!-- 渲染优化 -->
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="介绍stylus是css的预处理框架。和Sass、Less是一类东西。在stylus中可以 给 CSS 添加了可编程的特性，也就是说，在 stylus 中可以使用变量、函数、判断、循环一系列 CSS 没有的东西来编写样式文件。">
-<meta name="keywords" content="vue">
-<meta property="og:type" content="article">
-<meta property="og:title" content="vue中使用stylus">
-<meta property="og:url" content="https://haoge744.github.io/2019/08/29/vue中使用stylus/index.html">
-<meta property="og:site_name" content="lelouch‘s blog">
-<meta property="og:description" content="介绍stylus是css的预处理框架。和Sass、Less是一类东西。在stylus中可以 给 CSS 添加了可编程的特性，也就是说，在 stylus 中可以使用变量、函数、判断、循环一系列 CSS 没有的东西来编写样式文件。">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://haoge744.github.io/haoge744.github.io/2019/08/29/vue中使用stylus/logo.png">
-<meta property="og:updated_time" content="2019-08-29T05:55:07.088Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="vue中使用stylus">
-<meta name="twitter:description" content="介绍stylus是css的预处理框架。和Sass、Less是一类东西。在stylus中可以 给 CSS 添加了可编程的特性，也就是说，在 stylus 中可以使用变量、函数、判断、循环一系列 CSS 没有的东西来编写样式文件。">
-<meta name="twitter:image" content="https://haoge744.github.io/haoge744.github.io/2019/08/29/vue中使用stylus/logo.png">
-  
-    <link rel="alternate" href="/haoge744.github.io/atom.xml" title="lelouch‘s blog" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/favicon.png">
-  
-  
-    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-  
-  <link rel="stylesheet" href="/haoge744.github.io/css/style.css">
-</head>
-</html>
-<body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/haoge744.github.io/" id="logo">lelouch‘s blog</a>
-      </h1>
-      
-        <h2 id="subtitle-wrap">
-          <a href="/haoge744.github.io/" id="subtitle">JUST DO IT</a>
-        </h2>
-      
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
-        
-          <a class="main-nav-link" href="/haoge744.github.io/">Home</a>
-        
-          <a class="main-nav-link" href="/haoge744.github.io/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-          <a id="nav-rss-link" class="nav-icon" href="/haoge744.github.io/atom.xml" title="RSS Feed"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://haoge744.github.io"></form>
-      </div>
-    </div>
-  </div>
-</header>
-      <div class="outer">
-        <section id="main"><article id="post-vue中使用stylus" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/haoge744.github.io/2019/08/29/vue中使用stylus/" class="article-date">
-  <time datetime="2019-08-29T05:38:03.000Z" itemprop="datePublished">2019-08-29</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/haoge744.github.io/categories/vue/">vue</a>
-  </div>
 
-  </div>
-  <div class="article-inner">
+  <!-- 页面元数据 -->
+  
+    <title>vue中使用stylus - lelouch‘s blog</title>
+  
+    <meta name="keywords" content="vue">
+  
+  
+    <meta name="description" content="介绍stylus是css的预处理框架。和Sass、Less是一类东西。在stylus中可以 给 CSS 添加了可编程的特性，也就是说，在 stylus 中可以使用变量、函数、判断、循环一系列 CSS 没有的东西来编写样式文件。">
+  
+
+  <!-- feed -->
+  
+
+  <!-- import meta -->
+  
+
+  <!-- link -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css">
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.css">
+
+  
+
+  
+
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.css">
+  
+
+  <!-- import link -->
+  
+
+  
+    
+<link rel="stylesheet" href="/haoge744.github.io/css/style.css">
+
+  
+
+  <script>
+    function setLoadingBarProgress(num) {
+      document.getElementById('loading-bar').style.width=num+"%";
+    }
+  </script>
+
+  
+  
+</head>
+
+<body>
+  
+  <div id="loading-bar-wrapper">
+  <div id="loading-bar"></div>
+</div>
+<header class="l_header shadow blur">
+
+  <div class='wrapper'>
+    <div class='nav-sub container--flex'>
+      <a class="logo flat-box"></a>
+      <ul class='switcher h-list'>
+        <li><a class="s-comment flat-btn fas fa-comments fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+          <li><a class="s-toc flat-btn fas fa-list fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+      </ul>
+    </div>
+		<div class="nav-main container container--flex">
+      
+        
+        <a class="logo flat-box" target="_self" href='/haoge744.github.io/'>
+          
+          
+          
+          
+            VOLANTIS <b><sup style='color:#3AA757'>2.1.4</sup></b>
+          
+        </a>
+      
+
+			<div class='menu navigation'>
+				<ul class='h-list'>
+          
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/haoge744.github.io/
+                  
+                  
+                  
+                    id="haoge744.github.io"
+                  >
+                  
+                    <i class='fas fa-rss fa-fw'></i>
+                  
+                  博客
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/haoge744.github.io/categories/
+                  
+                  
+                  
+                    id="haoge744.github.iocategories"
+                  >
+                  
+                    <i class='fas fa-folder-open fa-fw'></i>
+                  
+                  分类
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/haoge744.github.io/tags/
+                  
+                  
+                  
+                    id="haoge744.github.iotags"
+                  >
+                  
+                    <i class='fas fa-tags fa-fw'></i>
+                  
+                  标签
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/haoge744.github.io/archives/
+                  
+                  
+                  
+                    id="haoge744.github.ioarchives"
+                  >
+                  
+                    <i class='fas fa-archive fa-fw'></i>
+                  
+                  归档
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/haoge744.github.io/friends/
+                  
+                  
+                  
+                    id="haoge744.github.iofriends"
+                  >
+                  
+                    <i class='fas fa-link fa-fw'></i>
+                  
+                  友链
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/haoge744.github.io/about/
+                  
+                  
+                  
+                    id="haoge744.github.ioabout"
+                  >
+                  
+                    <i class='fas fa-info-circle fa-fw'></i>
+                  
+                  关于
+                </a>
+                
+              </li>
+            
+          
+          
+				</ul>
+			</div>
+
+      
+        <div class="m_search">
+          <form name="searchform" class="form u-search-form">
+            <i class="icon fas fa-search fa-fw"></i>
+            <input type="text" class="input u-search-input" placeholder="搜索" />
+          </form>
+        </div>
+      
+
+			<ul class='switcher h-list'>
+				
+					<li><a class="s-search flat-btn fas fa-search fa-fw" target="_self" href='javascript:void(0)'></a></li>
+				
+				<li><a class="s-menu flat-btn fas fa-bars fa-fw" target="_self" href='javascript:void(0)'></a></li>
+			</ul>
+		</div>
+	</div>
+</header>
+<ul class="menu-phone navigation white-box">
+  
+  
+    <li>
+      <a class="flat-box" href=/haoge744.github.io/
+        
+        
+        
+          id="haoge744.github.io"
+        >
+        
+          <i class='fas fa-rss fa-fw'></i>
+        
+        博客
+      </a>
+    </li>
+  
+    <li>
+      <a class="flat-box" href=/haoge744.github.io/categories/
+        
+        
+        
+          id="haoge744.github.iocategories"
+        >
+        
+          <i class='fas fa-folder-open fa-fw'></i>
+        
+        分类
+      </a>
+    </li>
+  
+    <li>
+      <a class="flat-box" href=/haoge744.github.io/tags/
+        
+        
+        
+          id="haoge744.github.iotags"
+        >
+        
+          <i class='fas fa-tags fa-fw'></i>
+        
+        标签
+      </a>
+    </li>
+  
+    <li>
+      <a class="flat-box" href=/haoge744.github.io/archives/
+        
+        
+        
+          id="haoge744.github.ioarchives"
+        >
+        
+          <i class='fas fa-archive fa-fw'></i>
+        
+        归档
+      </a>
+    </li>
+  
+    <li>
+      <a class="flat-box" href=/haoge744.github.io/friends/
+        
+        
+        
+          id="haoge744.github.iofriends"
+        >
+        
+          <i class='fas fa-link fa-fw'></i>
+        
+        友链
+      </a>
+    </li>
+  
+    <li>
+      <a class="flat-box" href=/haoge744.github.io/about/
+        
+        
+        
+          id="haoge744.github.ioabout"
+        >
+        
+          <i class='fas fa-info-circle fa-fw'></i>
+        
+        关于
+      </a>
+    </li>
+  
+</ul>
+<script>setLoadingBarProgress(40);</script>
+
+
+
+  <div class="l_body nocover">
+    <div class='body-wrapper'>
+      
+
+<div class='l_main'>
+  
+
+  
+    <article id="post" class="post white-box shadow article-type-post" itemscope itemprop="blogPost">
+      
+
+
+  <section class='meta'>
     
     
-      <header class="article-header">
+    <div class="meta" id="header-meta">
+      
         
   
-    <h1 class="article-title" itemprop="name">
-      vue中使用stylus
+    <h1 class="title">
+      <a href="/haoge744.github.io/2019/08/29/vue%E4%B8%AD%E4%BD%BF%E7%94%A8stylus/">
+        vue中使用stylus
+      </a>
     </h1>
   
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
+
       
-        <h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p><img src="/haoge744.github.io/2019/08/29/vue中使用stylus/logo.png" alt="logo"><br><code>stylus</code>是css的预处理框架。和Sass、Less是一类东西。在<code>stylus</code>中可以 给 CSS 添加了可编程的特性，也就是说，在 stylus 中可以使用变量、函数、判断、循环一系列 CSS 没有的东西来编写样式文件。</p>
+      <div class='new-meta-box'>
+        
+          
+        
+          
+            
+<div class='new-meta-item author'>
+  <a href="https://xaoxuu.com" target="_blank" rel="nofollow noopener">
+    <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/avatar/avatar.png">
+    <p>Mr. X</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  
+  <div class='new-meta-item category'>
+    <a href='/haoge744.github.io/categories/vue/' rel="nofollow">
+      <i class="fas fa-folder-open" aria-hidden="true"></i>
+      <p>vue</p>
+    </a>
+  </div>
+
+
+          
+        
+          
+            <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-edit" aria-hidden="true"></i>
+    <p>发布于：2019年8月29日</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+
+          
+        
+      </div>
+      
+        <hr>
+      
+    </div>
+  </section>
+
+
+      <section class="article typo">
+        <div class="article-entry" itemprop="articleBody">
+          
+          <h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p><img src="/haoge744.github.io/2019/08/29/vue%E4%B8%AD%E4%BD%BF%E7%94%A8stylus/logo.png" alt="logo"><br><code>stylus</code>是css的预处理框架。和Sass、Less是一类东西。在<code>stylus</code>中可以 给 CSS 添加了可编程的特性，也就是说，在 stylus 中可以使用变量、函数、判断、循环一系列 CSS 没有的东西来编写样式文件。</p>
 <a id="more"></a>
 
 <h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cnpm install stylus stylus-loader --save-dev</span><br></pre></td></tr></table></figure>
@@ -105,23 +420,18 @@
 <h3 id="在组件中使用"><a href="#在组件中使用" class="headerlink" title="在组件中使用"></a>在组件中使用</h3><p>执行完安装命令之后不需要任何配置就可以使用了。</p>
 <p>在组件中使用只要把在<code>style</code>标签中增加<code>lang=&quot;stylus&quot;</code>就可以用了</p>
 <h3 id="在vue文件中引用"><a href="#在vue文件中引用" class="headerlink" title="在vue文件中引用"></a>在vue文件中引用</h3><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;style lang=<span class="string">"stylus"</span>&gt;</span><br><span class="line">  @import "assets/common.styl";</span><br><span class="line">  .main_wrapper</span><br><span class="line">      <span class="attribute">padding</span> <span class="number">12</span> <span class="number">20px</span></span><br><span class="line">&lt;/style&gt;</span><br></pre></td></tr></table></figure>
-
 <h3 id="stylus-编码风格"><a href="#stylus-编码风格" class="headerlink" title="stylus 编码风格"></a>stylus 编码风格</h3><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$shadow</span> = <span class="number">0px</span> <span class="number">3px</span> <span class="number">6px</span> -<span class="number">2px</span> rgba(<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0.3</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// mixins</span></span><br><span class="line"><span class="function"><span class="title">flexvc</span><span class="params">()</span></span></span><br><span class="line">    <span class="attribute">display</span> flex</span><br><span class="line">    items-align center</span><br><span class="line"></span><br><span class="line"><span class="comment">// method</span></span><br><span class="line">add (<span class="selector-tag">a</span>,<span class="selector-tag">b</span> = <span class="number">10</span>)</span><br><span class="line">    <span class="selector-tag">a</span> + <span class="selector-tag">b</span> <span class="comment">// 函数可省略返回值</span></span><br><span class="line"></span><br><span class="line">.card</span><br><span class="line">.card2</span><br><span class="line">    <span class="attribute">box-shadow</span> <span class="variable">$shadow</span></span><br><span class="line">    &amp;:hover</span><br><span class="line">        <span class="attribute">background-color</span> <span class="number">#F4F5F6</span></span><br><span class="line">	.footer</span><br><span class="line">        <span class="attribute">border-top</span> <span class="number">#ededef</span></span><br></pre></td></tr></table></figure>
 
 <p>可以看到stylus的写法非常简洁，层级关系使用缩进来表示，分号、冒号、大括号都是可选项，可写可不写。</p>
 <h2 id="使用语法"><a href="#使用语法" class="headerlink" title="使用语法"></a>使用语法</h2><ol>
 <li><p><strong>选择器</strong><br>stylus选择器规则和css一样.class选择、#id选择、[type=textarea]属性选择器等等</p>
 <figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">p</span><br><span class="line"> <span class="attribute">color</span> <span class="number">#f00</span></span><br></pre></td></tr></table></figure>
-
 <p>编译后</p>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">p</span>&#123;</span><br><span class="line">    <span class="attribute">color</span>: <span class="number">#f00</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p>多个选择器共用</p>
 <figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.card</span>,.box</span><br><span class="line">or    </span><br><span class="line">.card</span><br><span class="line">.box</span><br><span class="line">    <span class="attribute">box-shadow</span> <span class="number">0px</span> <span class="number">3px</span> <span class="number">6px</span> -<span class="number">2px</span> rgba(<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0.3</span>)</span><br></pre></td></tr></table></figure>
-
 <p>父级引用,stylus中使用&amp;指向父选择器，可以用来做各种伪类选择器，伪元素等等</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">li</span><br><span class="line">    <span class="attribute">background-color</span> <span class="number">#F3F4F5</span></span><br><span class="line">    <span class="attribute">border-bottom</span> <span class="number">1px</span> solid <span class="number">#f4f5f6</span></span><br><span class="line">    &amp;:hover</span><br><span class="line">        <span class="attribute">background-color</span> <span class="number">#ccc</span></span><br><span class="line">    &amp;:last-child</span><br><span class="line">        <span class="attribute">border-bottom</span> none</span><br></pre></td></tr></table></figure>
-</li>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">li</span><br><span class="line">    <span class="attribute">background-color</span> <span class="number">#F3F4F5</span></span><br><span class="line">    <span class="attribute">border-bottom</span> <span class="number">1px</span> solid <span class="number">#f4f5f6</span></span><br><span class="line">    &amp;:hover</span><br><span class="line">        <span class="attribute">background-color</span> <span class="number">#ccc</span></span><br><span class="line">    &amp;:last-child</span><br><span class="line">        <span class="attribute">border-bottom</span> none</span><br></pre></td></tr></table></figure></li>
 <li><p><strong>变量</strong></p>
 <figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">primary-bg = <span class="number">#3A75E7</span></span><br><span class="line">.main_wrapper</span><br><span class="line">    <span class="attribute">background-color</span> primary-bg</span><br></pre></td></tr></table></figure>
 
@@ -131,28 +441,20 @@
 <p><strong>属性查找</strong></p>
 <p>Stylus有另外一个很酷的独特功能，不需要分配值给变量就可以定义引用属性。下面是个很好的例子，元素水平垂直居中对齐（典型的方法是使用百分比和margin负值），如下：</p>
 <figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#logo</span><br><span class="line">  <span class="attribute">position</span>: absolute</span><br><span class="line">  <span class="attribute">top</span>: <span class="number">50%</span></span><br><span class="line">  <span class="attribute">left</span>: <span class="number">50%</span></span><br><span class="line">  <span class="attribute">width</span>: w = <span class="number">150px</span></span><br><span class="line">  <span class="attribute">height</span>: h = <span class="number">80px</span></span><br><span class="line">  <span class="attribute">margin-left</span>: -(w / <span class="number">2</span>)</span><br><span class="line">  <span class="attribute">margin-top</span>: -(h / <span class="number">2</span>)</span><br></pre></td></tr></table></figure>
-
 <p>我们不使用这里的变量<code>w</code>和<code>h</code>, 而是简单地前置<code>@</code>字符在属性名前来访问该属性名对应的值：</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#logo</span><br><span class="line">  <span class="attribute">position</span>: absolute</span><br><span class="line">  <span class="attribute">top</span>: <span class="number">50%</span></span><br><span class="line">  <span class="attribute">left</span>: <span class="number">50%</span></span><br><span class="line">  <span class="attribute">width</span>: <span class="number">150px</span></span><br><span class="line">  <span class="attribute">height</span>: <span class="number">80px</span></span><br><span class="line">  <span class="attribute">margin-left</span>: -(@width / <span class="number">2</span>)</span><br><span class="line">  <span class="attribute">margin-top</span>: -(@height / <span class="number">2</span>)</span><br></pre></td></tr></table></figure>
-</li>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#logo</span><br><span class="line">  <span class="attribute">position</span>: absolute</span><br><span class="line">  <span class="attribute">top</span>: <span class="number">50%</span></span><br><span class="line">  <span class="attribute">left</span>: <span class="number">50%</span></span><br><span class="line">  <span class="attribute">width</span>: <span class="number">150px</span></span><br><span class="line">  <span class="attribute">height</span>: <span class="number">80px</span></span><br><span class="line">  <span class="attribute">margin-left</span>: -(@width / <span class="number">2</span>)</span><br><span class="line">  <span class="attribute">margin-top</span>: -(@height / <span class="number">2</span>)</span><br></pre></td></tr></table></figure></li>
 <li><p><strong>函数</strong><br>一个简单的函数</p>
 <figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">add</span><span class="params">(a,b)</span></span></span><br><span class="line">    <span class="selector-tag">a</span> + <span class="selector-tag">b</span> <span class="comment">// 省略return</span></span><br><span class="line">body</span><br><span class="line">    <span class="attribute">padding</span> add(<span class="number">10px</span>, <span class="number">5</span>)</span><br></pre></td></tr></table></figure>
-
 <p>默认参数</p>
 <figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">add</span><span class="params">(a, b =a)</span></span></span><br><span class="line">    <span class="selector-tag">a</span> = unit(<span class="selector-tag">a</span>, px) <span class="comment">// unit把单位都变成px</span></span><br><span class="line">    <span class="selector-tag">b</span> = unit(<span class="selector-tag">b</span>, px)</span><br><span class="line">	<span class="selector-tag">a</span> + b</span><br><span class="line"><span class="function"><span class="title">add</span><span class="params">(<span class="number">15%</span>, <span class="number">10deg</span>)</span></span></span><br><span class="line">    <span class="comment">// =&gt; 25</span></span><br></pre></td></tr></table></figure>
-
 <p>多个返回值</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">paddings</span><span class="params">()</span></span></span><br><span class="line">    <span class="number">25px</span> <span class="number">12px</span></span><br><span class="line"></span><br><span class="line"><span class="selector-class">.main</span> </span><br><span class="line">    <span class="attribute">padding</span> paddings()</span><br><span class="line">    <span class="comment">// 编译后 =&gt; padding: 25px 12px;</span></span><br></pre></td></tr></table></figure>
-</li>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">paddings</span><span class="params">()</span></span></span><br><span class="line">    <span class="number">25px</span> <span class="number">12px</span></span><br><span class="line"></span><br><span class="line"><span class="selector-class">.main</span> </span><br><span class="line">    <span class="attribute">padding</span> paddings()</span><br><span class="line">    <span class="comment">// 编译后 =&gt; padding: 25px 12px;</span></span><br></pre></td></tr></table></figure></li>
 <li><p><strong>混合</strong><br>混合和函数定义差不多，但是效果不一样。函数有返回值，混合没有。<br>比如我们想定义一个垂直居中的横向flex布局可以像下面这样:</p>
 <figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">flexvc</span><span class="params">()</span></span></span><br><span class="line">	<span class="attribute">display</span> flex</span><br><span class="line">    <span class="attribute">align-items</span> center</span><br><span class="line">.main-list</span><br><span class="line">    flexvc()</span><br></pre></td></tr></table></figure>
-
 <p>父级引用<br>比如说我们想创建一个条纹表格,<code>even</code>和<code>odd</code>均提供了默认颜色值，每行也指定了<code>background-color</code>属性。我们可以在<code>tr</code>嵌套中使用<code>&amp;</code>来引用<code>tr</code>，以提供<code>even</code>颜色。</p>
 <figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">stripe</span><span class="params">(even = <span class="number">#fff</span>, odd = <span class="number">#eee</span>)</span></span></span><br><span class="line"> tr</span><br><span class="line">   <span class="attribute">background-color</span> odd</span><br><span class="line">   &amp;.even</span><br><span class="line">   &amp;:nth-child(even)</span><br><span class="line">       <span class="attribute">background-color</span> even</span><br></pre></td></tr></table></figure>
-
 <p>然后利用混合书写,如下:</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">table</span><br><span class="line">    stripe()</span><br><span class="line"></span><br><span class="line">table#data-grid</span><br><span class="line">    stripe(<span class="number">#212121</span>, <span class="number">#494848</span>)</span><br><span class="line">	td</span><br><span class="line">        <span class="attribute">color</span> white</span><br></pre></td></tr></table></figure>
-</li>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">table</span><br><span class="line">    stripe()</span><br><span class="line"></span><br><span class="line">table#data-grid</span><br><span class="line">    stripe(<span class="number">#212121</span>, <span class="number">#494848</span>)</span><br><span class="line">	td</span><br><span class="line">        <span class="attribute">color</span> white</span><br></pre></td></tr></table></figure></li>
 <li><p><strong>插值</strong></p>
 <p>Stylus支持通过使用<code>{}</code>字符包围表达式来插入值，其会变成标识符的一部分。例如，<code>-webkit-{&#39;border&#39; + &#39;-radius&#39;}</code>等同于<code>-webkit-border-radius</code>.</p>
 <p>比较好的例子就是私有前缀属性扩展：</p>
@@ -175,147 +477,527 @@
 </li>
 </ol>
 
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://haoge744.github.io/2019/08/29/vue中使用stylus/" data-id="ck7q78ebk001jlkujj4q8r0a1" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/haoge744.github.io/tags/vue/">vue</a></li></ul>
-
-    </footer>
-  </div>
+          
+            <br>
+            
   
     
-<nav id="article-nav">
-  
-    <a href="/haoge744.github.io/2019/08/31/围棋入门/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          围棋入门
-        
-      </div>
-    </a>
-  
-  
-    <a href="/haoge744.github.io/2019/08/25/h5常用新元素/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">h5常用新元素</div>
-    </a>
-  
-</nav>
+    
 
-  
-</article>
+<section class="widget copyright  desktop mobile">
+  <div class='content'>
+    
+      <blockquote>
+        
+          
+            <p>博客内容遵循 署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</p>
 
+          
+        
+          
+            <p>本文永久链接是：<a href=https://haoge744.github.io/2019/08/29/vue%E4%B8%AD%E4%BD%BF%E7%94%A8stylus/>https://haoge744.github.io/2019/08/29/vue%E4%B8%AD%E4%BD%BF%E7%94%A8stylus/</a></p>
+          
+        
+      </blockquote>
+    
+  </div>
 </section>
-        
-          <aside id="sidebar">
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">分类</h3>
-    <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/haoge744.github.io/categories/css/">css</a></li><li class="category-list-item"><a class="category-list-link" href="/haoge744.github.io/categories/echarts/">echarts</a></li><li class="category-list-item"><a class="category-list-link" href="/haoge744.github.io/categories/hexo/">hexo</a></li><li class="category-list-item"><a class="category-list-link" href="/haoge744.github.io/categories/html/">html</a></li><li class="category-list-item"><a class="category-list-link" href="/haoge744.github.io/categories/javascript/">javascript</a></li><li class="category-list-item"><a class="category-list-link" href="/haoge744.github.io/categories/nginx/">nginx</a></li><li class="category-list-item"><a class="category-list-link" href="/haoge744.github.io/categories/typescript/">typescript</a></li><li class="category-list-item"><a class="category-list-link" href="/haoge744.github.io/categories/uni-app/">uni-app</a></li><li class="category-list-item"><a class="category-list-link" href="/haoge744.github.io/categories/vue/">vue</a></li><li class="category-list-item"><a class="category-list-link" href="/haoge744.github.io/categories/webpack/">webpack</a></li><li class="category-list-item"><a class="category-list-link" href="/haoge744.github.io/categories/生活/">生活</a></li><li class="category-list-item"><a class="category-list-link" href="/haoge744.github.io/categories/生活记事/">生活记事</a></li></ul>
-    </div>
-  </div>
 
+  
 
   
     
-  <div class="widget-wrap">
-    <h3 class="widget-title">标签</h3>
-    <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/haoge744.github.io/tags/css/">css</a></li><li class="tag-list-item"><a class="tag-list-link" href="/haoge744.github.io/tags/echarts/">echarts</a></li><li class="tag-list-item"><a class="tag-list-link" href="/haoge744.github.io/tags/hexo/">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/haoge744.github.io/tags/html/">html</a></li><li class="tag-list-item"><a class="tag-list-link" href="/haoge744.github.io/tags/javascript/">javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/haoge744.github.io/tags/moment/">moment</a></li><li class="tag-list-item"><a class="tag-list-link" href="/haoge744.github.io/tags/nginx/">nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/haoge744.github.io/tags/typescript/">typescript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/haoge744.github.io/tags/uni-app/">uni-app</a></li><li class="tag-list-item"><a class="tag-list-link" href="/haoge744.github.io/tags/vue/">vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/haoge744.github.io/tags/webpack/">webpack</a></li><li class="tag-list-item"><a class="tag-list-link" href="/haoge744.github.io/tags/前端构建化/">前端构建化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/haoge744.github.io/tags/围棋/">围棋</a></li><li class="tag-list-item"><a class="tag-list-link" href="/haoge744.github.io/tags/生活/">生活</a></li><li class="tag-list-item"><a class="tag-list-link" href="/haoge744.github.io/tags/生活记事/">生活记事</a></li><li class="tag-list-item"><a class="tag-list-link" href="/haoge744.github.io/tags/移动开发/">移动开发</a></li><li class="tag-list-item"><a class="tag-list-link" href="/haoge744.github.io/tags/读后感/">读后感</a></li></ul>
-    </div>
-  </div>
+    
 
+<section class="widget qrcode  desktop mobile">
+  
+
+  <div class='content article-entry'>
+    
+      
+        <fancybox><img src='https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/qrcode/wiki_volantis.png'
+        
+          height='64px'
+        ></fancybox>
+      
+    
+      
+        <fancybox><img src='https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/qrcode/wiki_volantis.png'
+        
+          height='64px'
+        ></fancybox>
+      
+    
+  </div>
+</section>
+
+  
+
+
+          
+        </div>
+        
+          
+
+
+  <section class='meta' id="footer-meta">
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2019-08-29T13:55:07+08:00">
+  <a class='notlink'>
+    <i class="fas fa-save" aria-hidden="true"></i>
+    <p>更新于：2019年8月29日</p>
+  </a>
+</div>
+
+        
+      
+        
+          
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/haoge744.github.io/tags/vue/" rel="nofollow"><i class="fas fa-hashtag" aria-hidden="true"></i><p>vue</p></a></div>
+
+
+        
+      
+        
+          
+
+        
+      
+        
+          
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
+    
+      
+        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer"
+          
+          href="http://connect.qq.com/widget/shareqq/index.html?url=https://haoge744.github.io/2019/08/29/vue%E4%B8%AD%E4%BD%BF%E7%94%A8stylus/&title=vue中使用stylus - lelouch‘s blog&summary=介绍stylus是css的预处理框架。和Sass、Less是一类东西。在stylus中可以 给 CSS 添加了可编程的特性，也就是说，在 stylus 中可以使用变量、函数、判断、循环一系列 CSS 没有的东西来编写样式文件。"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/qq.png">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer"
+          
+          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://haoge744.github.io/2019/08/29/vue%E4%B8%AD%E4%BD%BF%E7%94%A8stylus/&title=vue中使用stylus - lelouch‘s blog&summary=介绍stylus是css的预处理框架。和Sass、Less是一类东西。在stylus中可以 给 CSS 添加了可编程的特性，也就是说，在 stylus 中可以使用变量、函数、判断、循环一系列 CSS 没有的东西来编写样式文件。"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/qzone.png">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer"
+          
+          href="http://service.weibo.com/share/share.php?url=https://haoge744.github.io/2019/08/29/vue%E4%B8%AD%E4%BD%BF%E7%94%A8stylus/&title=vue中使用stylus - lelouch‘s blog&summary=介绍stylus是css的预处理框架。和Sass、Less是一类东西。在stylus中可以 给 CSS 添加了可编程的特性，也就是说，在 stylus 中可以使用变量、函数、判断、循环一系列 CSS 没有的东西来编写样式文件。"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/weibo.png">
+          
+        </a>
+      
+    
+  </div>
+</div>
+
+
+
+        
+      
+    </div>
+  </section>
+
+
+        
+        
+          <div class="prev-next">
+            
+              <a class='prev' href='/haoge744.github.io/2019/08/31/%E5%9B%B4%E6%A3%8B%E5%85%A5%E9%97%A8/'>
+                <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>围棋入门</p>
+                <p class='content'>有段时间对围棋比较感兴趣，不过之前对于围棋的规则还不是很了解，只是觉得围棋很复杂、深奥。于是在B站上补了补课，学习了围棋的相关规则，还有就是看了一下名局的讲解(看不太懂，但感觉很厉害)。可能现在...</p>
+              </a>
+            
+            
+              <a class='next' href='/haoge744.github.io/2019/08/25/h5%E5%B8%B8%E7%94%A8%E6%96%B0%E5%85%83%E7%B4%A0/'>
+                <p class='title'>h5常用新元素<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+                <p class='content'>过去的标签书写习惯了，其实有些更有语义化的标签可以代替div、span这些标签的。
+
+
+语义与结构元素:
+
+
+
+标签
+描述
+
+
+
+
+定义了文档的头部区域
+
+
+
+定义导航链接的部分
+
+
+
+定义文档...</p>
+              </a>
+            
+          </div>
+        
+      </section>
+    </article>
+  
+
+  
+    <!-- 显示推荐文章和评论 -->
+
+
+
+  
+
+
+  
+
+
+
+
+<!-- 根据页面mathjax变量决定是否加载MathJax数学公式js -->
+
+
+
+  <script>
+    window.subData = {
+      title: 'vue中使用stylus',
+      tools: true
+    }
+  </script>
+
+
+</div>
+<aside class='l_side'>
+  
+  
 
   
     
-  <div class="widget-wrap">
-    <h3 class="widget-title">标签云</h3>
-    <div class="widget tagcloud">
-      <a href="/haoge744.github.io/tags/css/" style="font-size: 10px;">css</a> <a href="/haoge744.github.io/tags/echarts/" style="font-size: 10px;">echarts</a> <a href="/haoge744.github.io/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/haoge744.github.io/tags/html/" style="font-size: 10px;">html</a> <a href="/haoge744.github.io/tags/javascript/" style="font-size: 10px;">javascript</a> <a href="/haoge744.github.io/tags/moment/" style="font-size: 10px;">moment</a> <a href="/haoge744.github.io/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/haoge744.github.io/tags/typescript/" style="font-size: 10px;">typescript</a> <a href="/haoge744.github.io/tags/uni-app/" style="font-size: 12px;">uni-app</a> <a href="/haoge744.github.io/tags/vue/" style="font-size: 20px;">vue</a> <a href="/haoge744.github.io/tags/webpack/" style="font-size: 14px;">webpack</a> <a href="/haoge744.github.io/tags/前端构建化/" style="font-size: 10px;">前端构建化</a> <a href="/haoge744.github.io/tags/围棋/" style="font-size: 10px;">围棋</a> <a href="/haoge744.github.io/tags/生活/" style="font-size: 10px;">生活</a> <a href="/haoge744.github.io/tags/生活记事/" style="font-size: 18px;">生活记事</a> <a href="/haoge744.github.io/tags/移动开发/" style="font-size: 16px;">移动开发</a> <a href="/haoge744.github.io/tags/读后感/" style="font-size: 14px;">读后感</a>
-    </div>
-  </div>
-
-  
     
-  <div class="widget-wrap">
-    <h3 class="widget-title">归档</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/haoge744.github.io/archives/2020/01/">一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/haoge744.github.io/archives/2019/12/">十二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/haoge744.github.io/archives/2019/11/">十一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/haoge744.github.io/archives/2019/10/">十月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/haoge744.github.io/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/haoge744.github.io/archives/2019/08/">八月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/haoge744.github.io/archives/2019/07/">七月 2019</a></li></ul>
-    </div>
-  </div>
 
 
-  
+  <section class="widget toc-wrapper shadow desktop mobile">
     
-  <div class="widget-wrap">
-    <h3 class="widget-title">最新文章</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/haoge744.github.io/2020/01/05/css选择器的命名是一个哲学问题/">css选择器的命名是一个哲学问题</a>
-          </li>
-        
-          <li>
-            <a href="/haoge744.github.io/2020/01/02/nginx部署vue项目及配置路由模式/">nginx部署vue项目及配置路由模式</a>
-          </li>
-        
-          <li>
-            <a href="/haoge744.github.io/2019/12/28/vue-cli2-x及3-x多环境打包配置/">vue cli2.x及3.x多环境打包配置</a>
-          </li>
-        
-          <li>
-            <a href="/haoge744.github.io/2019/12/22/Notification的使用/">Notification的使用</a>
-          </li>
-        
-          <li>
-            <a href="/haoge744.github.io/2019/12/07/vue全局注册filters骚操作/">vue全局注册filters骚操作</a>
-          </li>
-        
-      </ul>
+  <header>
+    
+      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
+    
+  </header>
+
+
+    <div class='content'>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#介绍"><span class="toc-text">介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#安装"><span class="toc-text">安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#在组件中使用"><span class="toc-text">在组件中使用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#在vue文件中引用"><span class="toc-text">在vue文件中引用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#stylus-编码风格"><span class="toc-text">stylus 编码风格</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用语法"><span class="toc-text">使用语法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结"><span class="toc-text">总结</span></a></li></ol>
     </div>
-  </div>
+  </section>
+
 
   
+
+
 </aside>
-        
-      </div>
-      <footer id="footer">
+
+
   
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      &copy; 2020 lelouch<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
-</footer>
-    </div>
-    <nav id="mobile-nav">
-  
-    <a href="/haoge744.github.io/" class="mobile-nav-link">Home</a>
-  
-    <a href="/haoge744.github.io/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
+  <footer class="clearfix ">
+    <br><br>
     
+      
+        <div class="aplayer-container">
+          
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+  
+    <meting-js
+      theme='#1BCDFC'
+      autoplay='false'
+      volume='0.7'
+      loop='all'
+      order='list'
+      fixed='false'
+      list-max-height='340px'
+      server='netease'
+      type='playlist'
+      id='3175833810'
+      list-folded='true'>
+    </meting-js>
+  
 
 
-  <link rel="stylesheet" href="/haoge744.github.io/fancybox/jquery.fancybox.css">
-  <script src="/haoge744.github.io/fancybox/jquery.fancybox.pack.js"></script>
+        </div>
+      
+    
+      
+        <br>
+        <div class="social-wrapper">
+          
+            
+              <a href="/haoge744.github.io/atom.xml"
+                class="social fas fa-rss flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+            
+              <a href="mailto:me@xaoxuu.com"
+                class="social fas fa-envelope flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+            
+              <a href="https://github.com/xaoxuu"
+                class="social fab fa-github flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+            
+              <a href="https://music.163.com/#/user/home?id=63035382"
+                class="social fas fa-headphones-alt flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+        </div>
+      
+    
+      
+        <div><p>博客内容遵循 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener">署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</a></p>
+</div>
+      
+    
+      
+        本站使用
+        <a href="https://volantis.js.org/" target="_blank" class="codename">Volantis</a>
+        作为主题
+        
+          ，
+          总访问量为
+          <span id="busuanzi_value_site_pv"><i class="fas fa-spinner fa-spin fa-fw" aria-hidden="true"></i></span>
+          次
+        
+      
+    
+      
+        <div class='copyright'>
+        <p><a href="https://xaoxuu.com" target="_blank" rel="noopener">Copyright © 2017-2020 Mr. X</a></p>
+
+        </div>
+      
+    
+  </footer>
+
+<script>setLoadingBarProgress(80);</script>
 
 
-<script src="/haoge744.github.io/js/script.js"></script>
-
-
-
+      <script>setLoadingBarProgress(60);</script>
+    </div>
+    <a class="s-top fas fa-arrow-up fa-fw" href='javascript:void(0)'></a>
   </div>
+  
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4/dist/jquery.min.js"></script>
+
+
+  <script>
+    
+    var SEARCH_SERVICE = "hexo" || "hexo";
+    var ROOT = "/haoge744.github.io/" || "/";
+    if (!ROOT.endsWith('/')) ROOT += '/';
+  </script>
+
+
+  <script async src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@2/js/instant_page.js" type="module" defer integrity="sha384-OeDn4XE77tdHo8pGtE1apMPmAipjoxUQ++eeJa6EtJCfHlvijigWiJpD7VDPWXV1"></script>
+
+
+
+  
+<script src="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.js"></script>
+
+  <script type="text/javascript">
+    $(function() {
+      Waves.attach('.flat-btn', ['waves-button']);
+      Waves.attach('.float-btn', ['waves-button', 'waves-float']);
+      Waves.attach('.float-btn-light', ['waves-button', 'waves-float', 'waves-light']);
+      Waves.attach('.flat-box', ['waves-block']);
+      Waves.attach('.float-box', ['waves-block', 'waves-float']);
+      Waves.attach('.waves-image');
+      Waves.init();
+    });
+  </script>
+
+
+  <script async src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-busuanzi@2.3/js/busuanzi.pure.mini.js"></script>
+
+
+
+  
+  
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/jquery-backstretch@2.1.18/jquery.backstretch.min.js"></script>
+
+    <script type="text/javascript">
+      $(function(){
+        var imgs=["https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/41F215B9-261F-48B4-80B5-4E86E165259E.jpeg"];
+        if ('true' == 'true') {
+          function shuffle(arr){
+            /*From countercurrent-time*/
+            var n = arr.length;
+            while(n--) {
+              var index = Math.floor(Math.random() * n);
+              var temp = arr[index];
+              arr[index] = arr[n];
+              arr[n] = temp;
+            }
+          }
+          shuffle(imgs);
+        }
+        if ('.cover') {
+          $('.cover').backstretch(
+            imgs,
+          {
+            duration: "20000",
+            fade: "1500"
+          });
+        } else {
+          $.backstretch(
+            imgs,
+          {
+            duration: "20000",
+            fade: "1500"
+          });
+        }
+      });
+    </script>
+  
+
+
+
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.js" async></script>
+
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/meting@2.0/dist/Meting.min.js" async></script>
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+<script src="/haoge744.github.io/js/app.js"></script>
+
+
+
+  
+<script src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@2.1/js/search.js"></script>
+
+
+
+  
+<script src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@2/js/comment_typing.js"></script>
+
+
+
+<!-- 复制 -->
+
+  <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="fas fa-copy"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copyed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('fa-copy');
+        $icon.addClass('fa-clipboard-check');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPYED';
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('fa-copy');
+        $icon.addClass('fa-exclamation-triangle');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+
+
+
+
+<!-- fancybox -->
+
+  <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+<script>
+  let LAZY_LOAD_IMAGE = "";
+  $(".article-entry").find("fancybox").find("img").each(function () {
+      var element = document.createElement("a");
+      $(element).attr("data-fancybox", "gallery");
+      $(element).attr("href", $(this).attr("src"));
+      /* 图片采用懒加载处理时,
+       * 一般图片标签内会有个属性名来存放图片的真实地址，比如 data-original,
+       * 那么此处将原本的属性名src替换为对应属性名data-original,
+       * 修改如下
+       */
+       if (LAZY_LOAD_IMAGE) {
+         $(element).attr("href", $(this).attr("data-original"));
+       }
+      $(this).wrap(element);
+  });
+</script>
+
+
+
+
+
+
+  <script>setLoadingBarProgress(100);</script>
 <script src="/haoge744.github.io/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/haoge744.github.io/live2dw/assets/z16.model.json"},"display":{"position":"right","width":250,"height":500,"hOffset":30,"vOffset":0},"react":{"opacity":0.7},"mobile":{"show":true}});</script></body>
 </html>

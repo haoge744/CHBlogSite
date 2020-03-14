@@ -1,260 +1,945 @@
 <!DOCTYPE html>
 <html>
-<head><meta name="generator" content="Hexo 3.9.0">
+<head hexo-theme='https://volantis.js.org/#2.1.4'>
   <meta charset="utf-8">
+  <!-- SEO相关 -->
   
-
+    
   
-  <title>vue使用mixins提升开发效率 | lelouch‘s blog</title>
+  <!-- 渲染优化 -->
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="混入 (mixin) 提供了一种非常灵活的方式，来分发 Vue 组件中的可复用功能。一个混入对象可以包含任意组件选项。当组件使用混入对象时，所有混入对象的选项将被“混合”进入该组件本身的选项。">
-<meta name="keywords" content="vue">
-<meta property="og:type" content="article">
-<meta property="og:title" content="vue使用mixins提升开发效率">
-<meta property="og:url" content="https://haoge744.github.io/2019/11/12/vue使用mixins提升开发效率/index.html">
-<meta property="og:site_name" content="lelouch‘s blog">
-<meta property="og:description" content="混入 (mixin) 提供了一种非常灵活的方式，来分发 Vue 组件中的可复用功能。一个混入对象可以包含任意组件选项。当组件使用混入对象时，所有混入对象的选项将被“混合”进入该组件本身的选项。">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://haoge744.github.io/haoge744.github.io/2019/11/12/vue使用mixins提升开发效率/ht.png">
-<meta property="og:updated_time" content="2019-11-12T15:16:22.203Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="vue使用mixins提升开发效率">
-<meta name="twitter:description" content="混入 (mixin) 提供了一种非常灵活的方式，来分发 Vue 组件中的可复用功能。一个混入对象可以包含任意组件选项。当组件使用混入对象时，所有混入对象的选项将被“混合”进入该组件本身的选项。">
-<meta name="twitter:image" content="https://haoge744.github.io/haoge744.github.io/2019/11/12/vue使用mixins提升开发效率/ht.png">
-  
-    <link rel="alternate" href="/haoge744.github.io/atom.xml" title="lelouch‘s blog" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/favicon.png">
-  
-  
-    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-  
-  <link rel="stylesheet" href="/haoge744.github.io/css/style.css">
-</head>
-</html>
-<body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/haoge744.github.io/" id="logo">lelouch‘s blog</a>
-      </h1>
-      
-        <h2 id="subtitle-wrap">
-          <a href="/haoge744.github.io/" id="subtitle">JUST DO IT</a>
-        </h2>
-      
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
-        
-          <a class="main-nav-link" href="/haoge744.github.io/">Home</a>
-        
-          <a class="main-nav-link" href="/haoge744.github.io/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-          <a id="nav-rss-link" class="nav-icon" href="/haoge744.github.io/atom.xml" title="RSS Feed"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://haoge744.github.io"></form>
-      </div>
-    </div>
-  </div>
-</header>
-      <div class="outer">
-        <section id="main"><article id="post-vue使用mixins提升开发效率" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/haoge744.github.io/2019/11/12/vue使用mixins提升开发效率/" class="article-date">
-  <time datetime="2019-11-12T14:25:09.000Z" itemprop="datePublished">2019-11-12</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/haoge744.github.io/categories/vue/">vue</a>
-  </div>
 
-  </div>
-  <div class="article-inner">
+  <!-- 页面元数据 -->
+  
+    <title>vue使用mixins提升开发效率 - lelouch‘s blog</title>
+  
+    <meta name="keywords" content="vue">
+  
+  
+    <meta name="description" content="
+混入 (mixin) 提供了一种非常灵活的方式，来分发 Vue 组件中的可复用功能。一个混入对象可以包含任意组件选项。当组件使用混入对象时，所有混入对象的选项将被“混合”进入该组件本身的选项。
+">
+  
+
+  <!-- feed -->
+  
+
+  <!-- import meta -->
+  
+
+  <!-- link -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css">
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.css">
+
+  
+
+  
+
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.css">
+  
+
+  <!-- import link -->
+  
+
+  
+    
+<link rel="stylesheet" href="/haoge744.github.io/css/style.css">
+
+  
+
+  <script>
+    function setLoadingBarProgress(num) {
+      document.getElementById('loading-bar').style.width=num+"%";
+    }
+  </script>
+
+  
+  
+</head>
+
+<body>
+  
+  <div id="loading-bar-wrapper">
+  <div id="loading-bar"></div>
+</div>
+<header class="l_header shadow blur">
+
+  <div class='wrapper'>
+    <div class='nav-sub container--flex'>
+      <a class="logo flat-box"></a>
+      <ul class='switcher h-list'>
+        <li><a class="s-comment flat-btn fas fa-comments fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+          <li><a class="s-toc flat-btn fas fa-list fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+      </ul>
+    </div>
+		<div class="nav-main container container--flex">
+      
+        
+        <a class="logo flat-box" target="_self" href='/haoge744.github.io/'>
+          
+          
+          
+          
+            VOLANTIS <b><sup style='color:#3AA757'>2.1.4</sup></b>
+          
+        </a>
+      
+
+			<div class='menu navigation'>
+				<ul class='h-list'>
+          
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/haoge744.github.io/
+                  
+                  
+                  
+                    id="haoge744.github.io"
+                  >
+                  
+                    <i class='fas fa-rss fa-fw'></i>
+                  
+                  博客
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/haoge744.github.io/categories/
+                  
+                  
+                  
+                    id="haoge744.github.iocategories"
+                  >
+                  
+                    <i class='fas fa-folder-open fa-fw'></i>
+                  
+                  分类
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/haoge744.github.io/tags/
+                  
+                  
+                  
+                    id="haoge744.github.iotags"
+                  >
+                  
+                    <i class='fas fa-tags fa-fw'></i>
+                  
+                  标签
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/haoge744.github.io/archives/
+                  
+                  
+                  
+                    id="haoge744.github.ioarchives"
+                  >
+                  
+                    <i class='fas fa-archive fa-fw'></i>
+                  
+                  归档
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/haoge744.github.io/friends/
+                  
+                  
+                  
+                    id="haoge744.github.iofriends"
+                  >
+                  
+                    <i class='fas fa-link fa-fw'></i>
+                  
+                  友链
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/haoge744.github.io/about/
+                  
+                  
+                  
+                    id="haoge744.github.ioabout"
+                  >
+                  
+                    <i class='fas fa-info-circle fa-fw'></i>
+                  
+                  关于
+                </a>
+                
+              </li>
+            
+          
+          
+				</ul>
+			</div>
+
+      
+        <div class="m_search">
+          <form name="searchform" class="form u-search-form">
+            <i class="icon fas fa-search fa-fw"></i>
+            <input type="text" class="input u-search-input" placeholder="搜索" />
+          </form>
+        </div>
+      
+
+			<ul class='switcher h-list'>
+				
+					<li><a class="s-search flat-btn fas fa-search fa-fw" target="_self" href='javascript:void(0)'></a></li>
+				
+				<li><a class="s-menu flat-btn fas fa-bars fa-fw" target="_self" href='javascript:void(0)'></a></li>
+			</ul>
+		</div>
+	</div>
+</header>
+<ul class="menu-phone navigation white-box">
+  
+  
+    <li>
+      <a class="flat-box" href=/haoge744.github.io/
+        
+        
+        
+          id="haoge744.github.io"
+        >
+        
+          <i class='fas fa-rss fa-fw'></i>
+        
+        博客
+      </a>
+    </li>
+  
+    <li>
+      <a class="flat-box" href=/haoge744.github.io/categories/
+        
+        
+        
+          id="haoge744.github.iocategories"
+        >
+        
+          <i class='fas fa-folder-open fa-fw'></i>
+        
+        分类
+      </a>
+    </li>
+  
+    <li>
+      <a class="flat-box" href=/haoge744.github.io/tags/
+        
+        
+        
+          id="haoge744.github.iotags"
+        >
+        
+          <i class='fas fa-tags fa-fw'></i>
+        
+        标签
+      </a>
+    </li>
+  
+    <li>
+      <a class="flat-box" href=/haoge744.github.io/archives/
+        
+        
+        
+          id="haoge744.github.ioarchives"
+        >
+        
+          <i class='fas fa-archive fa-fw'></i>
+        
+        归档
+      </a>
+    </li>
+  
+    <li>
+      <a class="flat-box" href=/haoge744.github.io/friends/
+        
+        
+        
+          id="haoge744.github.iofriends"
+        >
+        
+          <i class='fas fa-link fa-fw'></i>
+        
+        友链
+      </a>
+    </li>
+  
+    <li>
+      <a class="flat-box" href=/haoge744.github.io/about/
+        
+        
+        
+          id="haoge744.github.ioabout"
+        >
+        
+          <i class='fas fa-info-circle fa-fw'></i>
+        
+        关于
+      </a>
+    </li>
+  
+</ul>
+<script>setLoadingBarProgress(40);</script>
+
+
+
+  <div class="l_body nocover">
+    <div class='body-wrapper'>
+      
+
+<div class='l_main'>
+  
+
+  
+    <article id="post" class="post white-box shadow article-type-post" itemscope itemprop="blogPost">
+      
+
+
+  <section class='meta'>
     
     
-      <header class="article-header">
+    <div class="meta" id="header-meta">
+      
         
   
-    <h1 class="article-title" itemprop="name">
-      vue使用mixins提升开发效率
+    <h1 class="title">
+      <a href="/haoge744.github.io/2019/11/12/vue%E4%BD%BF%E7%94%A8mixins%E6%8F%90%E5%8D%87%E5%BC%80%E5%8F%91%E6%95%88%E7%8E%87/">
+        vue使用mixins提升开发效率
+      </a>
     </h1>
   
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
+
       
-        <blockquote>
+      <div class='new-meta-box'>
+        
+          
+        
+          
+            
+<div class='new-meta-item author'>
+  <a href="https://xaoxuu.com" target="_blank" rel="nofollow noopener">
+    <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/avatar/avatar.png">
+    <p>Mr. X</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  
+  <div class='new-meta-item category'>
+    <a href='/haoge744.github.io/categories/vue/' rel="nofollow">
+      <i class="fas fa-folder-open" aria-hidden="true"></i>
+      <p>vue</p>
+    </a>
+  </div>
+
+
+          
+        
+          
+            <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-edit" aria-hidden="true"></i>
+    <p>发布于：2019年11月12日</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+
+          
+        
+      </div>
+      
+        <hr>
+      
+    </div>
+  </section>
+
+
+      <section class="article typo">
+        <div class="article-entry" itemprop="articleBody">
+          
+          <blockquote>
 <p>混入 (mixin) 提供了一种非常灵活的方式，来分发 Vue 组件中的可复用功能。一个混入对象可以包含任意组件选项。当组件使用混入对象时，所有混入对象的选项将被“混合”进入该组件本身的选项。</p>
 </blockquote>
 <a id="more"></a>
 
 <p>在开发一些后台系统的时候，像这样的界面随处可见，那么能不能把其中相同的逻辑抽离出来来节省开发效率呢。vue给我们提供了<code>mixins</code>这样的一个混合工具，让我们可以抽离出一部分代码来进行”合并”。</p>
-<p><img src="/haoge744.github.io/2019/11/12/vue使用mixins提升开发效率/ht.png" alt="后台管理系统"></p>
+<p><img src="/haoge744.github.io/2019/11/12/vue%E4%BD%BF%E7%94%A8mixins%E6%8F%90%E5%8D%87%E5%BC%80%E5%8F%91%E6%95%88%E7%8E%87/ht.png" alt="后台管理系统"></p>
 <p>大多数的列表界面都是类似的，不同的地方可能是功能以及数据的列不一样。所以可以把列表的查询条件，查询方法，分页等数据做一个<code>mixins</code>。</p>
 <h2 id="开始使用"><a href="#开始使用" class="headerlink" title="开始使用"></a>开始使用</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 新建 ListMixins.js</span></span><br><span class="line"><span class="comment">// 请求后台的方法，传递url和查询参数即可返回列表值，需要后台统一查询接口</span></span><br><span class="line"><span class="keyword">import</span> &#123; queryListData &#125; <span class="keyword">from</span> <span class="string">"@/api/dataTable"</span>;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">    data () &#123;</span><br><span class="line">        _url: <span class="string">''</span>, <span class="comment">// 请求数据的url</span></span><br><span class="line">        list: [], <span class="comment">// 数据列表</span></span><br><span class="line">        page: &#123; <span class="comment">// 分页参数</span></span><br><span class="line">            pageNum: <span class="number">1</span>,</span><br><span class="line">            pageSize: <span class="number">10</span>,</span><br><span class="line">            total: <span class="number">0</span></span><br><span class="line">        &#125;,</span><br><span class="line">        loading: <span class="literal">false</span>, <span class="comment">// 加载状态</span></span><br><span class="line">    &#125;,</span><br><span class="line">    methods: &#123;</span><br><span class="line">        del() &#123; <span class="comment">// 删除提示也可以抽出来，在实际的组件中覆盖 doDelete方法就行了</span></span><br><span class="line">            <span class="keyword">this</span>.$confirm(<span class="string">'是否确认删除?'</span>, <span class="string">'提示'</span>, &#123;</span><br><span class="line">                confirmButtonText: <span class="string">'确定'</span>,</span><br><span class="line">                cancelButtonText: <span class="string">'取消'</span>,</span><br><span class="line">                type: <span class="string">'warning'</span></span><br><span class="line">            &#125;).then(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">                <span class="keyword">this</span>.doDelete()</span><br><span class="line">            &#125;)</span><br><span class="line">        &#125;,</span><br><span class="line">        getQueryParam() &#123; <span class="comment">// 获取查询参数 默认是查询条件和分页混合在一起 如果有额外的需求自行添加</span></span><br><span class="line">            <span class="keyword">return</span> &#123;...this.query, ...this.page &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        queryListData() &#123; <span class="comment">// 加载列表数据</span></span><br><span class="line">            <span class="keyword">const</span> param = <span class="keyword">this</span>.getQueryParam() <span class="comment">// 获取上面定义的参数</span></span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">                <span class="keyword">this</span>.loading = <span class="literal">true</span> <span class="comment">// 设置loading</span></span><br><span class="line">                initData(<span class="keyword">this</span>._url, param).then(<span class="function"><span class="params">res</span> =&gt;</span> &#123;</span><br><span class="line">                    <span class="keyword">this</span>.loading = <span class="literal">false</span></span><br><span class="line">                    <span class="keyword">this</span>.page.total = res.data.total <span class="comment">// 设置总数 </span></span><br><span class="line">                    resolve(res.data.list)</span><br><span class="line">                &#125;).catch(<span class="function"><span class="params">error</span> =&gt;</span> &#123;</span><br><span class="line">                    <span class="keyword">this</span>.loading = <span class="literal">false</span></span><br><span class="line">                    reject(error)</span><br><span class="line">                &#125;)</span><br><span class="line">            &#125;)</span><br><span class="line">        &#125;,</span><br><span class="line">        init () &#123;&#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    created () &#123;</span><br><span class="line">        <span class="comment">// 初始化函数， 需要在里面做url和数据的处理</span></span><br><span class="line">        <span class="keyword">this</span>.init()</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>组件中使用:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    &lt;!-- 查询部分 --&gt;</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">        &lt;el-form :inline=&quot;true&quot; size=&quot;small&quot; :model=&quot;query&quot; class=&quot;demo-form-inline&quot;&gt;</span><br><span class="line">            &lt;el-form-item label=&quot;名称&quot;&gt;</span><br><span class="line">                &lt;el-input  v-model=&quot;query.name&quot; placeholder=&quot;请输入关键字&quot;&gt;&lt;/el-input&gt;</span><br><span class="line">            &lt;/el-form-item&gt;</span><br><span class="line">            &lt;el-form-item label=&quot;电话&quot;&gt;</span><br><span class="line">                &lt;el-input v-model=&quot;query.phone&quot; placeholder=&quot;请输入关键字&quot;&gt;&lt;/el-input&gt;</span><br><span class="line">            &lt;/el-form-item&gt;</span><br><span class="line">            &lt;el-button @click=&quot;queryData&quot;&gt;查询&lt;/el-button&gt;</span><br><span class="line">        &lt;/el-form&gt;</span><br><span class="line">        &lt;div class=&quot;pull-right&quot;&gt;</span><br><span class="line">            &lt;el-button type=&quot;default&quot;&gt;新增&lt;/el-button&gt;</span><br><span class="line">            &lt;el-button type=&quot;default&quot; @click=&quot;edit&quot;&gt;编辑&lt;/el-button&gt;</span><br><span class="line">            &lt;el-button type=&quot;default&quot; @click=&quot;del&quot;&gt;删除&lt;/el-button&gt;</span><br><span class="line">        &lt;/div&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">	</span><br><span class="line">    &lt;!-- 列表部分 --&gt;</span><br><span class="line">    &lt;el-table :data=&quot;list&quot;&gt;</span><br><span class="line">        &lt;el-table-column label=&quot;用户名&quot; prop=&quot;name&quot; align=&quot;center&quot;&gt;</span><br><span class="line">        &lt;/el-table-column&gt;</span><br><span class="line">        &lt;el-table-column label=&quot;电话&quot; prop=&quot;name&quot; align=&quot;center&quot;&gt;</span><br><span class="line">        &lt;/el-table-column&gt;</span><br><span class="line">    &lt;/el-table&gt;</span><br><span class="line">    &lt;el-pagination</span><br><span class="line">          style=&quot;text-align: center;&quot;</span><br><span class="line">          :current-page.sync=&quot;page.pageNum&quot;</span><br><span class="line">          :page-size.sync=&quot;page.pageSize&quot;</span><br><span class="line">          :total=&quot;page.total&quot;</span><br><span class="line">          :page-sizes=&quot;[10,20,50]&quot;</span><br><span class="line">          layout=&quot;total, sizes, prev, pager, next, jumper&quot;</span><br><span class="line">          @size-change=&quot;queryData&quot;</span><br><span class="line">          @current-change=&quot;queryData&quot;/&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">    import ListMixin from &apos;../mixins/ListMixins&apos;</span><br><span class="line">	export default &#123;</span><br><span class="line">        mixins: [ListMixin],</span><br><span class="line">        methods: &#123;</span><br><span class="line">            init () &#123;</span><br><span class="line">                this._url = &apos;xxx/xxx/query&apos; // 覆盖查询的url</span><br><span class="line">                this.queryData()</span><br><span class="line">            &#125;,</span><br><span class="line">            doDelete () &#123;</span><br><span class="line">              // 调用删除接口  </span><br><span class="line">            &#125;,</span><br><span class="line">            queryData () &#123;</span><br><span class="line">                this.queryListData().then(res =&gt; &#123;</span><br><span class="line">                    this.list = res</span><br><span class="line">                &#125;)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    &lt;!-- 查询部分 --&gt;</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">        &lt;el-form :inline&#x3D;&quot;true&quot; size&#x3D;&quot;small&quot; :model&#x3D;&quot;query&quot; class&#x3D;&quot;demo-form-inline&quot;&gt;</span><br><span class="line">            &lt;el-form-item label&#x3D;&quot;名称&quot;&gt;</span><br><span class="line">                &lt;el-input  v-model&#x3D;&quot;query.name&quot; placeholder&#x3D;&quot;请输入关键字&quot;&gt;&lt;&#x2F;el-input&gt;</span><br><span class="line">            &lt;&#x2F;el-form-item&gt;</span><br><span class="line">            &lt;el-form-item label&#x3D;&quot;电话&quot;&gt;</span><br><span class="line">                &lt;el-input v-model&#x3D;&quot;query.phone&quot; placeholder&#x3D;&quot;请输入关键字&quot;&gt;&lt;&#x2F;el-input&gt;</span><br><span class="line">            &lt;&#x2F;el-form-item&gt;</span><br><span class="line">            &lt;el-button @click&#x3D;&quot;queryData&quot;&gt;查询&lt;&#x2F;el-button&gt;</span><br><span class="line">        &lt;&#x2F;el-form&gt;</span><br><span class="line">        &lt;div class&#x3D;&quot;pull-right&quot;&gt;</span><br><span class="line">            &lt;el-button type&#x3D;&quot;default&quot;&gt;新增&lt;&#x2F;el-button&gt;</span><br><span class="line">            &lt;el-button type&#x3D;&quot;default&quot; @click&#x3D;&quot;edit&quot;&gt;编辑&lt;&#x2F;el-button&gt;</span><br><span class="line">            &lt;el-button type&#x3D;&quot;default&quot; @click&#x3D;&quot;del&quot;&gt;删除&lt;&#x2F;el-button&gt;</span><br><span class="line">        &lt;&#x2F;div&gt;</span><br><span class="line">    &lt;&#x2F;div&gt;</span><br><span class="line">	</span><br><span class="line">    &lt;!-- 列表部分 --&gt;</span><br><span class="line">    &lt;el-table :data&#x3D;&quot;list&quot;&gt;</span><br><span class="line">        &lt;el-table-column label&#x3D;&quot;用户名&quot; prop&#x3D;&quot;name&quot; align&#x3D;&quot;center&quot;&gt;</span><br><span class="line">        &lt;&#x2F;el-table-column&gt;</span><br><span class="line">        &lt;el-table-column label&#x3D;&quot;电话&quot; prop&#x3D;&quot;name&quot; align&#x3D;&quot;center&quot;&gt;</span><br><span class="line">        &lt;&#x2F;el-table-column&gt;</span><br><span class="line">    &lt;&#x2F;el-table&gt;</span><br><span class="line">    &lt;el-pagination</span><br><span class="line">          style&#x3D;&quot;text-align: center;&quot;</span><br><span class="line">          :current-page.sync&#x3D;&quot;page.pageNum&quot;</span><br><span class="line">          :page-size.sync&#x3D;&quot;page.pageSize&quot;</span><br><span class="line">          :total&#x3D;&quot;page.total&quot;</span><br><span class="line">          :page-sizes&#x3D;&quot;[10,20,50]&quot;</span><br><span class="line">          layout&#x3D;&quot;total, sizes, prev, pager, next, jumper&quot;</span><br><span class="line">          @size-change&#x3D;&quot;queryData&quot;</span><br><span class="line">          @current-change&#x3D;&quot;queryData&quot;&#x2F;&gt;</span><br><span class="line">  &lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">    import ListMixin from &#39;..&#x2F;mixins&#x2F;ListMixins&#39;</span><br><span class="line">	export default &#123;</span><br><span class="line">        mixins: [ListMixin],</span><br><span class="line">        methods: &#123;</span><br><span class="line">            init () &#123;</span><br><span class="line">                this._url &#x3D; &#39;xxx&#x2F;xxx&#x2F;query&#39; &#x2F;&#x2F; 覆盖查询的url</span><br><span class="line">                this.queryData()</span><br><span class="line">            &#125;,</span><br><span class="line">            doDelete () &#123;</span><br><span class="line">              &#x2F;&#x2F; 调用删除接口  </span><br><span class="line">            &#125;,</span><br><span class="line">            queryData () &#123;</span><br><span class="line">                this.queryListData().then(res &#x3D;&gt; &#123;</span><br><span class="line">                    this.list &#x3D; res</span><br><span class="line">                &#125;)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
 
 <p>我这里用的是<code>element-ui</code>，关于el-table和el-pagination的可以自己再封装，这里不演示了，只演示mixins的相关内容。</p>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>封装好mixins后使用既方便了开发，维护起来也方便了很多，比如说我的默认页要调整到20页，我该一行代码就可以了，关键是把真正项目中公用的地方抽离出来，这个要考虑好。</p>
 <p>虽然mixins好用，但是也不是没有缺点，如果说你一个组件引入的mixins过多，那么容易产生我这个数据或方法不知道从哪来的，会产生不确定性。</p>
 
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://haoge744.github.io/2019/11/12/vue使用mixins提升开发效率/" data-id="ck7q78ebl001mlkuj6teimaur" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/haoge744.github.io/tags/vue/">vue</a></li></ul>
-
-    </footer>
-  </div>
+          
+            <br>
+            
   
     
-<nav id="article-nav">
-  
-    <a href="/haoge744.github.io/2019/11/23/vue中name的作用/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          vue中name的作用
-        
-      </div>
-    </a>
-  
-  
-    <a href="/haoge744.github.io/2019/11/05/vue3-0之vue-composition-api尝鲜/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">vue3.0之vue-composition-api尝鲜</div>
-    </a>
-  
-</nav>
+    
 
-  
-</article>
+<section class="widget copyright  desktop mobile">
+  <div class='content'>
+    
+      <blockquote>
+        
+          
+            <p>博客内容遵循 署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</p>
 
+          
+        
+          
+            <p>本文永久链接是：<a href=https://haoge744.github.io/2019/11/12/vue%E4%BD%BF%E7%94%A8mixins%E6%8F%90%E5%8D%87%E5%BC%80%E5%8F%91%E6%95%88%E7%8E%87/>https://haoge744.github.io/2019/11/12/vue%E4%BD%BF%E7%94%A8mixins%E6%8F%90%E5%8D%87%E5%BC%80%E5%8F%91%E6%95%88%E7%8E%87/</a></p>
+          
+        
+      </blockquote>
+    
+  </div>
 </section>
-        
-          <aside id="sidebar">
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">分类</h3>
-    <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/haoge744.github.io/categories/css/">css</a></li><li class="category-list-item"><a class="category-list-link" href="/haoge744.github.io/categories/echarts/">echarts</a></li><li class="category-list-item"><a class="category-list-link" href="/haoge744.github.io/categories/hexo/">hexo</a></li><li class="category-list-item"><a class="category-list-link" href="/haoge744.github.io/categories/html/">html</a></li><li class="category-list-item"><a class="category-list-link" href="/haoge744.github.io/categories/javascript/">javascript</a></li><li class="category-list-item"><a class="category-list-link" href="/haoge744.github.io/categories/nginx/">nginx</a></li><li class="category-list-item"><a class="category-list-link" href="/haoge744.github.io/categories/typescript/">typescript</a></li><li class="category-list-item"><a class="category-list-link" href="/haoge744.github.io/categories/uni-app/">uni-app</a></li><li class="category-list-item"><a class="category-list-link" href="/haoge744.github.io/categories/vue/">vue</a></li><li class="category-list-item"><a class="category-list-link" href="/haoge744.github.io/categories/webpack/">webpack</a></li><li class="category-list-item"><a class="category-list-link" href="/haoge744.github.io/categories/生活/">生活</a></li><li class="category-list-item"><a class="category-list-link" href="/haoge744.github.io/categories/生活记事/">生活记事</a></li></ul>
-    </div>
-  </div>
 
+  
 
   
     
-  <div class="widget-wrap">
-    <h3 class="widget-title">标签</h3>
-    <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/haoge744.github.io/tags/css/">css</a></li><li class="tag-list-item"><a class="tag-list-link" href="/haoge744.github.io/tags/echarts/">echarts</a></li><li class="tag-list-item"><a class="tag-list-link" href="/haoge744.github.io/tags/hexo/">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/haoge744.github.io/tags/html/">html</a></li><li class="tag-list-item"><a class="tag-list-link" href="/haoge744.github.io/tags/javascript/">javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/haoge744.github.io/tags/moment/">moment</a></li><li class="tag-list-item"><a class="tag-list-link" href="/haoge744.github.io/tags/nginx/">nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/haoge744.github.io/tags/typescript/">typescript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/haoge744.github.io/tags/uni-app/">uni-app</a></li><li class="tag-list-item"><a class="tag-list-link" href="/haoge744.github.io/tags/vue/">vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/haoge744.github.io/tags/webpack/">webpack</a></li><li class="tag-list-item"><a class="tag-list-link" href="/haoge744.github.io/tags/前端构建化/">前端构建化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/haoge744.github.io/tags/围棋/">围棋</a></li><li class="tag-list-item"><a class="tag-list-link" href="/haoge744.github.io/tags/生活/">生活</a></li><li class="tag-list-item"><a class="tag-list-link" href="/haoge744.github.io/tags/生活记事/">生活记事</a></li><li class="tag-list-item"><a class="tag-list-link" href="/haoge744.github.io/tags/移动开发/">移动开发</a></li><li class="tag-list-item"><a class="tag-list-link" href="/haoge744.github.io/tags/读后感/">读后感</a></li></ul>
-    </div>
-  </div>
+    
 
+<section class="widget qrcode  desktop mobile">
+  
+
+  <div class='content article-entry'>
+    
+      
+        <fancybox><img src='https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/qrcode/wiki_volantis.png'
+        
+          height='64px'
+        ></fancybox>
+      
+    
+      
+        <fancybox><img src='https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/qrcode/wiki_volantis.png'
+        
+          height='64px'
+        ></fancybox>
+      
+    
+  </div>
+</section>
+
+  
+
+
+          
+        </div>
+        
+          
+
+
+  <section class='meta' id="footer-meta">
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2019-11-12T23:16:22+08:00">
+  <a class='notlink'>
+    <i class="fas fa-save" aria-hidden="true"></i>
+    <p>更新于：2019年11月12日</p>
+  </a>
+</div>
+
+        
+      
+        
+          
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/haoge744.github.io/tags/vue/" rel="nofollow"><i class="fas fa-hashtag" aria-hidden="true"></i><p>vue</p></a></div>
+
+
+        
+      
+        
+          
+
+        
+      
+        
+          
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
+    
+      
+        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer"
+          
+          href="http://connect.qq.com/widget/shareqq/index.html?url=https://haoge744.github.io/2019/11/12/vue%E4%BD%BF%E7%94%A8mixins%E6%8F%90%E5%8D%87%E5%BC%80%E5%8F%91%E6%95%88%E7%8E%87/&title=vue使用mixins提升开发效率 - lelouch‘s blog&summary=
+混入 (mixin) 提供了一种非常灵活的方式，来分发 Vue 组件中的可复用功能。一个混入对象可以包含任意组件选项。当组件使用混入对象时，所有混入对象的选项将被“混合”进入该组件本身的选项。
+"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/qq.png">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer"
+          
+          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://haoge744.github.io/2019/11/12/vue%E4%BD%BF%E7%94%A8mixins%E6%8F%90%E5%8D%87%E5%BC%80%E5%8F%91%E6%95%88%E7%8E%87/&title=vue使用mixins提升开发效率 - lelouch‘s blog&summary=
+混入 (mixin) 提供了一种非常灵活的方式，来分发 Vue 组件中的可复用功能。一个混入对象可以包含任意组件选项。当组件使用混入对象时，所有混入对象的选项将被“混合”进入该组件本身的选项。
+"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/qzone.png">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer"
+          
+          href="http://service.weibo.com/share/share.php?url=https://haoge744.github.io/2019/11/12/vue%E4%BD%BF%E7%94%A8mixins%E6%8F%90%E5%8D%87%E5%BC%80%E5%8F%91%E6%95%88%E7%8E%87/&title=vue使用mixins提升开发效率 - lelouch‘s blog&summary=
+混入 (mixin) 提供了一种非常灵活的方式，来分发 Vue 组件中的可复用功能。一个混入对象可以包含任意组件选项。当组件使用混入对象时，所有混入对象的选项将被“混合”进入该组件本身的选项。
+"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/weibo.png">
+          
+        </a>
+      
+    
+  </div>
+</div>
+
+
+
+        
+      
+    </div>
+  </section>
+
+
+        
+        
+          <div class="prev-next">
+            
+              <a class='prev' href='/haoge744.github.io/2019/11/23/vue%E4%B8%ADname%E7%9A%84%E4%BD%9C%E7%94%A8/'>
+                <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>vue中name的作用</p>
+                <p class='content'>我们在写vue项目的时候会遇到给组件命名。
+123export default &#123;    name: 'xxx'&#125;
+这里的name非必选项，看起来好像没啥用处，但是实际上这里...</p>
+              </a>
+            
+            
+              <a class='next' href='/haoge744.github.io/2019/11/05/vue3-0%E4%B9%8Bvue-composition-api%E5%B0%9D%E9%B2%9C/'>
+                <p class='title'>vue3.0之vue-composition-api尝鲜<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+                <p class='content'>简介根据vue作者尤雨溪去年发布的vue3.0开发路线，vue3.0很可能会在2019年下半年推出。
+此前vue官方也提供过了vue3.0特性的尝鲜版本，叫做vue-function-api,此...</p>
+              </a>
+            
+          </div>
+        
+      </section>
+    </article>
+  
+
+  
+    <!-- 显示推荐文章和评论 -->
+
+
+
+  
+
+
+  
+
+
+
+
+<!-- 根据页面mathjax变量决定是否加载MathJax数学公式js -->
+
+
+
+  <script>
+    window.subData = {
+      title: 'vue使用mixins提升开发效率',
+      tools: true
+    }
+  </script>
+
+
+</div>
+<aside class='l_side'>
+  
+  
 
   
     
-  <div class="widget-wrap">
-    <h3 class="widget-title">标签云</h3>
-    <div class="widget tagcloud">
-      <a href="/haoge744.github.io/tags/css/" style="font-size: 10px;">css</a> <a href="/haoge744.github.io/tags/echarts/" style="font-size: 10px;">echarts</a> <a href="/haoge744.github.io/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/haoge744.github.io/tags/html/" style="font-size: 10px;">html</a> <a href="/haoge744.github.io/tags/javascript/" style="font-size: 10px;">javascript</a> <a href="/haoge744.github.io/tags/moment/" style="font-size: 10px;">moment</a> <a href="/haoge744.github.io/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/haoge744.github.io/tags/typescript/" style="font-size: 10px;">typescript</a> <a href="/haoge744.github.io/tags/uni-app/" style="font-size: 12px;">uni-app</a> <a href="/haoge744.github.io/tags/vue/" style="font-size: 20px;">vue</a> <a href="/haoge744.github.io/tags/webpack/" style="font-size: 14px;">webpack</a> <a href="/haoge744.github.io/tags/前端构建化/" style="font-size: 10px;">前端构建化</a> <a href="/haoge744.github.io/tags/围棋/" style="font-size: 10px;">围棋</a> <a href="/haoge744.github.io/tags/生活/" style="font-size: 10px;">生活</a> <a href="/haoge744.github.io/tags/生活记事/" style="font-size: 18px;">生活记事</a> <a href="/haoge744.github.io/tags/移动开发/" style="font-size: 16px;">移动开发</a> <a href="/haoge744.github.io/tags/读后感/" style="font-size: 14px;">读后感</a>
-    </div>
-  </div>
-
-  
     
-  <div class="widget-wrap">
-    <h3 class="widget-title">归档</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/haoge744.github.io/archives/2020/01/">一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/haoge744.github.io/archives/2019/12/">十二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/haoge744.github.io/archives/2019/11/">十一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/haoge744.github.io/archives/2019/10/">十月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/haoge744.github.io/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/haoge744.github.io/archives/2019/08/">八月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/haoge744.github.io/archives/2019/07/">七月 2019</a></li></ul>
-    </div>
-  </div>
 
 
-  
+  <section class="widget toc-wrapper shadow desktop mobile">
     
-  <div class="widget-wrap">
-    <h3 class="widget-title">最新文章</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/haoge744.github.io/2020/01/05/css选择器的命名是一个哲学问题/">css选择器的命名是一个哲学问题</a>
-          </li>
-        
-          <li>
-            <a href="/haoge744.github.io/2020/01/02/nginx部署vue项目及配置路由模式/">nginx部署vue项目及配置路由模式</a>
-          </li>
-        
-          <li>
-            <a href="/haoge744.github.io/2019/12/28/vue-cli2-x及3-x多环境打包配置/">vue cli2.x及3.x多环境打包配置</a>
-          </li>
-        
-          <li>
-            <a href="/haoge744.github.io/2019/12/22/Notification的使用/">Notification的使用</a>
-          </li>
-        
-          <li>
-            <a href="/haoge744.github.io/2019/12/07/vue全局注册filters骚操作/">vue全局注册filters骚操作</a>
-          </li>
-        
-      </ul>
+  <header>
+    
+      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
+    
+  </header>
+
+
+    <div class='content'>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#开始使用"><span class="toc-text">开始使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结"><span class="toc-text">总结</span></a></li></ol>
     </div>
-  </div>
+  </section>
+
 
   
+
+
 </aside>
-        
-      </div>
-      <footer id="footer">
+
+
   
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      &copy; 2020 lelouch<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
-</footer>
-    </div>
-    <nav id="mobile-nav">
-  
-    <a href="/haoge744.github.io/" class="mobile-nav-link">Home</a>
-  
-    <a href="/haoge744.github.io/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
+  <footer class="clearfix ">
+    <br><br>
     
+      
+        <div class="aplayer-container">
+          
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+  
+    <meting-js
+      theme='#1BCDFC'
+      autoplay='false'
+      volume='0.7'
+      loop='all'
+      order='list'
+      fixed='false'
+      list-max-height='340px'
+      server='netease'
+      type='playlist'
+      id='3175833810'
+      list-folded='true'>
+    </meting-js>
+  
 
 
-  <link rel="stylesheet" href="/haoge744.github.io/fancybox/jquery.fancybox.css">
-  <script src="/haoge744.github.io/fancybox/jquery.fancybox.pack.js"></script>
+        </div>
+      
+    
+      
+        <br>
+        <div class="social-wrapper">
+          
+            
+              <a href="/haoge744.github.io/atom.xml"
+                class="social fas fa-rss flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+            
+              <a href="mailto:me@xaoxuu.com"
+                class="social fas fa-envelope flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+            
+              <a href="https://github.com/xaoxuu"
+                class="social fab fa-github flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+            
+              <a href="https://music.163.com/#/user/home?id=63035382"
+                class="social fas fa-headphones-alt flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+        </div>
+      
+    
+      
+        <div><p>博客内容遵循 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener">署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</a></p>
+</div>
+      
+    
+      
+        本站使用
+        <a href="https://volantis.js.org/" target="_blank" class="codename">Volantis</a>
+        作为主题
+        
+          ，
+          总访问量为
+          <span id="busuanzi_value_site_pv"><i class="fas fa-spinner fa-spin fa-fw" aria-hidden="true"></i></span>
+          次
+        
+      
+    
+      
+        <div class='copyright'>
+        <p><a href="https://xaoxuu.com" target="_blank" rel="noopener">Copyright © 2017-2020 Mr. X</a></p>
+
+        </div>
+      
+    
+  </footer>
+
+<script>setLoadingBarProgress(80);</script>
 
 
-<script src="/haoge744.github.io/js/script.js"></script>
-
-
-
+      <script>setLoadingBarProgress(60);</script>
+    </div>
+    <a class="s-top fas fa-arrow-up fa-fw" href='javascript:void(0)'></a>
   </div>
+  
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4/dist/jquery.min.js"></script>
+
+
+  <script>
+    
+    var SEARCH_SERVICE = "hexo" || "hexo";
+    var ROOT = "/haoge744.github.io/" || "/";
+    if (!ROOT.endsWith('/')) ROOT += '/';
+  </script>
+
+
+  <script async src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@2/js/instant_page.js" type="module" defer integrity="sha384-OeDn4XE77tdHo8pGtE1apMPmAipjoxUQ++eeJa6EtJCfHlvijigWiJpD7VDPWXV1"></script>
+
+
+
+  
+<script src="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.js"></script>
+
+  <script type="text/javascript">
+    $(function() {
+      Waves.attach('.flat-btn', ['waves-button']);
+      Waves.attach('.float-btn', ['waves-button', 'waves-float']);
+      Waves.attach('.float-btn-light', ['waves-button', 'waves-float', 'waves-light']);
+      Waves.attach('.flat-box', ['waves-block']);
+      Waves.attach('.float-box', ['waves-block', 'waves-float']);
+      Waves.attach('.waves-image');
+      Waves.init();
+    });
+  </script>
+
+
+  <script async src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-busuanzi@2.3/js/busuanzi.pure.mini.js"></script>
+
+
+
+  
+  
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/jquery-backstretch@2.1.18/jquery.backstretch.min.js"></script>
+
+    <script type="text/javascript">
+      $(function(){
+        var imgs=["https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/41F215B9-261F-48B4-80B5-4E86E165259E.jpeg"];
+        if ('true' == 'true') {
+          function shuffle(arr){
+            /*From countercurrent-time*/
+            var n = arr.length;
+            while(n--) {
+              var index = Math.floor(Math.random() * n);
+              var temp = arr[index];
+              arr[index] = arr[n];
+              arr[n] = temp;
+            }
+          }
+          shuffle(imgs);
+        }
+        if ('.cover') {
+          $('.cover').backstretch(
+            imgs,
+          {
+            duration: "20000",
+            fade: "1500"
+          });
+        } else {
+          $.backstretch(
+            imgs,
+          {
+            duration: "20000",
+            fade: "1500"
+          });
+        }
+      });
+    </script>
+  
+
+
+
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.js" async></script>
+
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/meting@2.0/dist/Meting.min.js" async></script>
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+<script src="/haoge744.github.io/js/app.js"></script>
+
+
+
+  
+<script src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@2.1/js/search.js"></script>
+
+
+
+  
+<script src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@2/js/comment_typing.js"></script>
+
+
+
+<!-- 复制 -->
+
+  <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="fas fa-copy"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copyed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('fa-copy');
+        $icon.addClass('fa-clipboard-check');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPYED';
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('fa-copy');
+        $icon.addClass('fa-exclamation-triangle');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+
+
+
+
+<!-- fancybox -->
+
+  <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+<script>
+  let LAZY_LOAD_IMAGE = "";
+  $(".article-entry").find("fancybox").find("img").each(function () {
+      var element = document.createElement("a");
+      $(element).attr("data-fancybox", "gallery");
+      $(element).attr("href", $(this).attr("src"));
+      /* 图片采用懒加载处理时,
+       * 一般图片标签内会有个属性名来存放图片的真实地址，比如 data-original,
+       * 那么此处将原本的属性名src替换为对应属性名data-original,
+       * 修改如下
+       */
+       if (LAZY_LOAD_IMAGE) {
+         $(element).attr("href", $(this).attr("data-original"));
+       }
+      $(this).wrap(element);
+  });
+</script>
+
+
+
+
+
+
+  <script>setLoadingBarProgress(100);</script>
 <script src="/haoge744.github.io/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/haoge744.github.io/live2dw/assets/z16.model.json"},"display":{"position":"right","width":250,"height":500,"hOffset":30,"vOffset":0},"react":{"opacity":0.7},"mobile":{"show":true}});</script></body>
 </html>

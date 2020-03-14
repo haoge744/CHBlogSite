@@ -1,138 +1,448 @@
 <!DOCTYPE html>
 <html>
-<head><meta name="generator" content="Hexo 3.9.0">
+<head hexo-theme='https://volantis.js.org/#2.1.4'>
   <meta charset="utf-8">
+  <!-- SEO相关 -->
   
-
+    
   
-  <title>webpack基础使用及配置 | lelouch‘s blog</title>
+  <!-- 渲染优化 -->
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="VueCli用的比较多了，但是没有系统性的学过webpack,今天不基于任何脚手架工具单纯用webpack搭建一个小项目,加深自己对webpack的理解,以及一些常用配置。另外本文使用的是webpack4.41.0,在一些插件的使用上用了最新的方案。">
-<meta name="keywords" content="webpack">
-<meta property="og:type" content="article">
-<meta property="og:title" content="webpack基础使用及配置">
-<meta property="og:url" content="https://haoge744.github.io/2019/10/07/webpack基础使用及配置/index.html">
-<meta property="og:site_name" content="lelouch‘s blog">
-<meta property="og:description" content="VueCli用的比较多了，但是没有系统性的学过webpack,今天不基于任何脚手架工具单纯用webpack搭建一个小项目,加深自己对webpack的理解,以及一些常用配置。另外本文使用的是webpack4.41.0,在一些插件的使用上用了最新的方案。">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://haoge744.github.io/haoge744.github.io/2019/10/07/webpack基础使用及配置/scss.png">
-<meta property="og:image" content="https://haoge744.github.io/haoge744.github.io/2019/10/07/webpack基础使用及配置/error.png">
-<meta property="og:image" content="https://haoge744.github.io/haoge744.github.io/2019/10/07/webpack基础使用及配置/chunk.png">
-<meta property="og:updated_time" content="2019-10-06T17:00:46.365Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="webpack基础使用及配置">
-<meta name="twitter:description" content="VueCli用的比较多了，但是没有系统性的学过webpack,今天不基于任何脚手架工具单纯用webpack搭建一个小项目,加深自己对webpack的理解,以及一些常用配置。另外本文使用的是webpack4.41.0,在一些插件的使用上用了最新的方案。">
-<meta name="twitter:image" content="https://haoge744.github.io/haoge744.github.io/2019/10/07/webpack基础使用及配置/scss.png">
-  
-    <link rel="alternate" href="/haoge744.github.io/atom.xml" title="lelouch‘s blog" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/favicon.png">
-  
-  
-    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-  
-  <link rel="stylesheet" href="/haoge744.github.io/css/style.css">
-</head>
-</html>
-<body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/haoge744.github.io/" id="logo">lelouch‘s blog</a>
-      </h1>
-      
-        <h2 id="subtitle-wrap">
-          <a href="/haoge744.github.io/" id="subtitle">JUST DO IT</a>
-        </h2>
-      
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
-        
-          <a class="main-nav-link" href="/haoge744.github.io/">Home</a>
-        
-          <a class="main-nav-link" href="/haoge744.github.io/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-          <a id="nav-rss-link" class="nav-icon" href="/haoge744.github.io/atom.xml" title="RSS Feed"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://haoge744.github.io"></form>
-      </div>
-    </div>
-  </div>
-</header>
-      <div class="outer">
-        <section id="main"><article id="post-webpack基础使用及配置" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/haoge744.github.io/2019/10/07/webpack基础使用及配置/" class="article-date">
-  <time datetime="2019-10-06T16:34:46.000Z" itemprop="datePublished">2019-10-07</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/haoge744.github.io/categories/webpack/">webpack</a>
-  </div>
 
-  </div>
-  <div class="article-inner">
+  <!-- 页面元数据 -->
+  
+    <title>webpack基础使用及配置 - lelouch‘s blog</title>
+  
+    <meta name="keywords" content="webpack">
+  
+  
+    <meta name="description" content="VueCli用的比较多了，但是没有系统性的学过webpack,今天不基于任何脚手架工具单纯用webpack搭建一个小项目,加深自己对webpack的理解,以及一些常用配置。另外本文使用的是webpack4.41.0,在一些插件的使用上用了最新的方案。">
+  
+
+  <!-- feed -->
+  
+
+  <!-- import meta -->
+  
+
+  <!-- link -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css">
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.css">
+
+  
+
+  
+
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.css">
+  
+
+  <!-- import link -->
+  
+
+  
+    
+<link rel="stylesheet" href="/haoge744.github.io/css/style.css">
+
+  
+
+  <script>
+    function setLoadingBarProgress(num) {
+      document.getElementById('loading-bar').style.width=num+"%";
+    }
+  </script>
+
+  
+  
+</head>
+
+<body>
+  
+  <div id="loading-bar-wrapper">
+  <div id="loading-bar"></div>
+</div>
+<header class="l_header shadow blur">
+
+  <div class='wrapper'>
+    <div class='nav-sub container--flex'>
+      <a class="logo flat-box"></a>
+      <ul class='switcher h-list'>
+        <li><a class="s-comment flat-btn fas fa-comments fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+          <li><a class="s-toc flat-btn fas fa-list fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+      </ul>
+    </div>
+		<div class="nav-main container container--flex">
+      
+        
+        <a class="logo flat-box" target="_self" href='/haoge744.github.io/'>
+          
+          
+          
+          
+            VOLANTIS <b><sup style='color:#3AA757'>2.1.4</sup></b>
+          
+        </a>
+      
+
+			<div class='menu navigation'>
+				<ul class='h-list'>
+          
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/haoge744.github.io/
+                  
+                  
+                  
+                    id="haoge744.github.io"
+                  >
+                  
+                    <i class='fas fa-rss fa-fw'></i>
+                  
+                  博客
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/haoge744.github.io/categories/
+                  
+                  
+                  
+                    id="haoge744.github.iocategories"
+                  >
+                  
+                    <i class='fas fa-folder-open fa-fw'></i>
+                  
+                  分类
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/haoge744.github.io/tags/
+                  
+                  
+                  
+                    id="haoge744.github.iotags"
+                  >
+                  
+                    <i class='fas fa-tags fa-fw'></i>
+                  
+                  标签
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/haoge744.github.io/archives/
+                  
+                  
+                  
+                    id="haoge744.github.ioarchives"
+                  >
+                  
+                    <i class='fas fa-archive fa-fw'></i>
+                  
+                  归档
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/haoge744.github.io/friends/
+                  
+                  
+                  
+                    id="haoge744.github.iofriends"
+                  >
+                  
+                    <i class='fas fa-link fa-fw'></i>
+                  
+                  友链
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/haoge744.github.io/about/
+                  
+                  
+                  
+                    id="haoge744.github.ioabout"
+                  >
+                  
+                    <i class='fas fa-info-circle fa-fw'></i>
+                  
+                  关于
+                </a>
+                
+              </li>
+            
+          
+          
+				</ul>
+			</div>
+
+      
+        <div class="m_search">
+          <form name="searchform" class="form u-search-form">
+            <i class="icon fas fa-search fa-fw"></i>
+            <input type="text" class="input u-search-input" placeholder="搜索" />
+          </form>
+        </div>
+      
+
+			<ul class='switcher h-list'>
+				
+					<li><a class="s-search flat-btn fas fa-search fa-fw" target="_self" href='javascript:void(0)'></a></li>
+				
+				<li><a class="s-menu flat-btn fas fa-bars fa-fw" target="_self" href='javascript:void(0)'></a></li>
+			</ul>
+		</div>
+	</div>
+</header>
+<ul class="menu-phone navigation white-box">
+  
+  
+    <li>
+      <a class="flat-box" href=/haoge744.github.io/
+        
+        
+        
+          id="haoge744.github.io"
+        >
+        
+          <i class='fas fa-rss fa-fw'></i>
+        
+        博客
+      </a>
+    </li>
+  
+    <li>
+      <a class="flat-box" href=/haoge744.github.io/categories/
+        
+        
+        
+          id="haoge744.github.iocategories"
+        >
+        
+          <i class='fas fa-folder-open fa-fw'></i>
+        
+        分类
+      </a>
+    </li>
+  
+    <li>
+      <a class="flat-box" href=/haoge744.github.io/tags/
+        
+        
+        
+          id="haoge744.github.iotags"
+        >
+        
+          <i class='fas fa-tags fa-fw'></i>
+        
+        标签
+      </a>
+    </li>
+  
+    <li>
+      <a class="flat-box" href=/haoge744.github.io/archives/
+        
+        
+        
+          id="haoge744.github.ioarchives"
+        >
+        
+          <i class='fas fa-archive fa-fw'></i>
+        
+        归档
+      </a>
+    </li>
+  
+    <li>
+      <a class="flat-box" href=/haoge744.github.io/friends/
+        
+        
+        
+          id="haoge744.github.iofriends"
+        >
+        
+          <i class='fas fa-link fa-fw'></i>
+        
+        友链
+      </a>
+    </li>
+  
+    <li>
+      <a class="flat-box" href=/haoge744.github.io/about/
+        
+        
+        
+          id="haoge744.github.ioabout"
+        >
+        
+          <i class='fas fa-info-circle fa-fw'></i>
+        
+        关于
+      </a>
+    </li>
+  
+</ul>
+<script>setLoadingBarProgress(40);</script>
+
+
+
+  <div class="l_body nocover">
+    <div class='body-wrapper'>
+      
+
+<div class='l_main'>
+  
+
+  
+    <article id="post" class="post white-box shadow article-type-post" itemscope itemprop="blogPost">
+      
+
+
+  <section class='meta'>
     
     
-      <header class="article-header">
+    <div class="meta" id="header-meta">
+      
         
   
-    <h1 class="article-title" itemprop="name">
-      webpack基础使用及配置
+    <h1 class="title">
+      <a href="/haoge744.github.io/2019/10/07/webpack%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8%E5%8F%8A%E9%85%8D%E7%BD%AE/">
+        webpack基础使用及配置
+      </a>
     </h1>
   
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
+
       
-        <p>VueCli用的比较多了，但是没有系统性的学过webpack,今天不基于任何脚手架工具单纯用webpack搭建一个小项目,加深自己对webpack的理解,以及一些常用配置。另外本文使用的是<code>webpack4.41.0</code>,在一些插件的使用上用了最新的方案。</p>
+      <div class='new-meta-box'>
+        
+          
+        
+          
+            
+<div class='new-meta-item author'>
+  <a href="https://xaoxuu.com" target="_blank" rel="nofollow noopener">
+    <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/avatar/avatar.png">
+    <p>Mr. X</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  
+  <div class='new-meta-item category'>
+    <a href='/haoge744.github.io/categories/webpack/' rel="nofollow">
+      <i class="fas fa-folder-open" aria-hidden="true"></i>
+      <p>webpack</p>
+    </a>
+  </div>
+
+
+          
+        
+          
+            <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-edit" aria-hidden="true"></i>
+    <p>发布于：2019年10月7日</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+
+          
+        
+      </div>
+      
+        <hr>
+      
+    </div>
+  </section>
+
+
+      <section class="article typo">
+        <div class="article-entry" itemprop="articleBody">
+          
+          <p>VueCli用的比较多了，但是没有系统性的学过webpack,今天不基于任何脚手架工具单纯用webpack搭建一个小项目,加深自己对webpack的理解,以及一些常用配置。另外本文使用的是<code>webpack4.41.0</code>,在一些插件的使用上用了最新的方案。</p>
 <a id="more"></a>
 
 <h2 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">-- 创建一个项目文件夹名字任意</span><br><span class="line">-- 新建src/main.js</span><br><span class="line">-- 新建src/index.html</span><br><span class="line"><span class="built_in">cd</span> 项目文件夹</span><br><span class="line">-- 初始化package.json</span><br><span class="line">npm init -y </span><br><span class="line"></span><br><span class="line">-- 安装相关组件</span><br><span class="line">yarn</span><br><span class="line">yarn add webpack --dev</span><br><span class="line">yarn add html-webpack-plugin --dev</span><br><span class="line">yarn add webpack-dev-server --dev</span><br><span class="line">yarn add webpack-cli --dev</span><br></pre></td></tr></table></figure>
 
 <h2 id="创建配置文件"><a href="#创建配置文件" class="headerlink" title="创建配置文件"></a>创建配置文件</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建webpack.config.js</span></span><br><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>)</span><br><span class="line"><span class="keyword">const</span> htmlWebpackPlugin = <span class="built_in">require</span>(<span class="string">'html-webpack-plugin'</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    entry:  path.join(__dirname, <span class="string">'./src/index.js'</span>),<span class="comment">// 入口文件</span></span><br><span class="line">    output: &#123; <span class="comment">// 输出文件</span></span><br><span class="line">      path: path.join(__dirname, <span class="string">'./dist'</span>),</span><br><span class="line">      filename: <span class="string">'bundle.js'</span></span><br><span class="line">    &#125;,</span><br><span class="line">    plugins: [ <span class="comment">// 插件</span></span><br><span class="line">        <span class="keyword">new</span> htmlWebpackPlugin(&#123;</span><br><span class="line">            template: path.join(__dirname, <span class="string">'./src/index.html'</span>),</span><br><span class="line">            filename: <span class="string">'index.html'</span></span><br><span class="line">        &#125;)</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h3 id="配置启动命令行"><a href="#配置启动命令行" class="headerlink" title="配置启动命令行"></a>配置启动命令行</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">// package.json</span><br><span class="line">&#123;</span><br><span class="line">  ...</span><br><span class="line">  "scripts": &#123;</span><br><span class="line">    "test": "echo \"Error: no test specified\" &amp;&amp; exit 1",</span><br><span class="line">      // --open自动打开浏览器 端口 3000, 热修复</span><br><span class="line">    "dev": "webpack-dev-server --open --port 3000 --hot"</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="配置启动命令行"><a href="#配置启动命令行" class="headerlink" title="配置启动命令行"></a>配置启动命令行</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// package.json</span></span><br><span class="line">&#123;</span><br><span class="line">  ...</span><br><span class="line">  "scripts": &#123;</span><br><span class="line">    "test": "echo \"Error: no test specified\" &amp;&amp; exit 1",</span><br><span class="line">      <span class="comment">// --open自动打开浏览器 端口 3000, 热修复</span></span><br><span class="line">    "dev": "webpack-dev-server --open --port 3000 --hot"</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h3 id="添加模式"><a href="#添加模式" class="headerlink" title="添加模式"></a>添加模式</h3><p>作用是为了区分生产环境和测试环境</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">// package.json</span><br><span class="line">&#123;</span><br><span class="line">  ...</span><br><span class="line">  &quot;scripts&quot;: &#123;</span><br><span class="line">    &quot;dev&quot;: &quot;webpack-dev-server --open --port 3000 --hot --mode development&quot;,</span><br><span class="line">    &quot;prod&quot;: &quot;&quot;webpack-dev-server --open --port 3000 --hot --mode production&quot;</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; package.json</span><br><span class="line">&#123;</span><br><span class="line">  ...</span><br><span class="line">  &quot;scripts&quot;: &#123;</span><br><span class="line">    &quot;dev&quot;: &quot;webpack-dev-server --open --port 3000 --hot --mode development&quot;,</span><br><span class="line">    &quot;prod&quot;: &quot;&quot;webpack-dev-server --open --port 3000 --hot --mode production&quot;</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>mode属性是<code>webpack4.0.0</code>后增加的，内容可以是<code>development</code>和<code>production</code>,在dev和prod环境下<code>process.env.NODE_ENV</code>打印的值分别为development和production。</p>
 <p>项目是可以跑起来了,但是还有一些欠缺，没有对css/scss、图片资源等资源进行处理；还有没有对es6语法进行兼容性问题处理。这个时候就需要用到webpack的loader了。</p>
 <h2 id="添加loader"><a href="#添加loader" class="headerlink" title="添加loader"></a>添加loader</h2><p>在src中新建<code>css/index.scss</code>文件和目录,然后给一个div设置背景图片</p>
-<p><img src="/haoge744.github.io/2019/10/07/webpack基础使用及配置/scss.png" alt="比如这样"></p>
+<p><img src="/haoge744.github.io/2019/10/07/webpack%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8%E5%8F%8A%E9%85%8D%E7%BD%AE/scss.png" alt="比如这样"></p>
 <p>在main.js中引入</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">import &apos;./css/index.scss&apos;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">import &#39;.&#x2F;css&#x2F;index.scss&#39;</span><br></pre></td></tr></table></figure>
 
 <p>然后运行后设置的css是无效的，因为没有给css和scss配置对应的loader，代码没有转换，所以会出现错误。</p>
-<p><img src="/haoge744.github.io/2019/10/07/webpack基础使用及配置/error.png" alt="error"></p>
+<p><img src="/haoge744.github.io/2019/10/07/webpack%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8%E5%8F%8A%E9%85%8D%E7%BD%AE/error.png" alt="error"></p>
 <h3 id="配置样式loader"><a href="#配置样式loader" class="headerlink" title="配置样式loader"></a><strong>配置样式loader</strong></h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn add style-loader css-loader sass-loader node-sass url-loader file-loader --dev</span><br></pre></td></tr></table></figure>
-
 <p>修改<code>webpack.config.js</code></p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    <span class="comment">// 入口、输出、插件等配置在这里省略...</span></span><br><span class="line">    <span class="built_in">module</span>: &#123;</span><br><span class="line">        rules: [</span><br><span class="line">           <span class="comment">//some rule loaders... ,</span></span><br><span class="line">            &#123; <span class="attr">test</span>: <span class="regexp">/\.css$/</span>, <span class="attr">use</span>: [<span class="string">'style-loader'</span>, <span class="string">'css-loader'</span>] &#125;,</span><br><span class="line">            &#123; <span class="attr">test</span>: <span class="regexp">/\.scss$/</span>, <span class="attr">use</span>: [<span class="string">'style-loader'</span>, <span class="string">'css-loader'</span>, <span class="string">'sass-loader'</span>] &#125;,</span><br><span class="line">            &#123; <span class="attr">test</span>: <span class="regexp">/\.(png|gif|bmp|jpg)$/</span>, <span class="attr">use</span>: [<span class="string">'url-loader?limit=5000'</span>]&#125;,</span><br><span class="line">        ]</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h3 id="配置babel"><a href="#配置babel" class="headerlink" title="配置babel"></a><strong>配置babel</strong></h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn add babel-core babel-loader babel-plugin-transform-runtime babel-preset-env babel-preset-stage-0 --dev</span><br></pre></td></tr></table></figure>
-
 <p>修改<code>webpack.config.js</code></p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    <span class="comment">// 入口、输出、插件等配置在这里省略...</span></span><br><span class="line">    <span class="built_in">module</span>: &#123;</span><br><span class="line">        rules: [</span><br><span class="line">           <span class="comment">//some rule loaders... ,</span></span><br><span class="line">           <span class="comment">// 对js文件使用babel-loader, 排除node_modules中的文件</span></span><br><span class="line">           &#123; <span class="attr">test</span>: <span class="regexp">/\.js$/</span>, use <span class="string">'babel-loader'</span>, <span class="attr">exclude</span>: <span class="regexp">/node_modules/</span> &#125;</span><br><span class="line">        ]</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>在根目录新建<code>.babelrc</code>文件</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">// json格式</span><br><span class="line">&#123;	</span><br><span class="line">    // 刚刚装的babel-preset-x 在这里写上</span><br><span class="line">    "presets": ["env", "stage-0"],</span><br><span class="line">    // 使用的插件 babel-plugin-transform-runtime</span><br><span class="line">    "plugins": ["transform-runtime"]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// json格式</span></span><br><span class="line">&#123;	</span><br><span class="line">    <span class="comment">// 刚刚装的babel-preset-x 在这里写上</span></span><br><span class="line">    <span class="attr">"presets"</span>: [<span class="string">"env"</span>, <span class="string">"stage-0"</span>],</span><br><span class="line">    <span class="comment">// 使用的插件 babel-plugin-transform-runtime</span></span><br><span class="line">    <span class="attr">"plugins"</span>: [<span class="string">"transform-runtime"</span>]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>关于babel相关的配置及.babelrc文件的编写可以查看<a href="https://excaliburhan.com/post/babel-preset-and-plugins.html" target="_blank" rel="noopener">这篇文章</a></p>
 <p>配置完后就可以使用scss、图片、es6等最新语法了</p>
 <hr>
@@ -143,7 +453,7 @@
 <h3 id="打包相关配置优化"><a href="#打包相关配置优化" class="headerlink" title="打包相关配置优化"></a>打包相关配置优化</h3><p>很多时候我们开发和打包的相关配置希望单独存放</p>
 <p>复制<code>webpack.config.js</code>重命名<code>webpack.config.build.js</code></p>
 <p>在<code>package.json</code>中添加<code>build</code>命令</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    // ... </span><br><span class="line">    "scripts": &#123;</span><br><span class="line">        // ... some scripts</span><br><span class="line">        // 自定义设置文件</span><br><span class="line">        "build": "webpack --config webpack.config.build.js --mode production"</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="comment">// ... </span></span><br><span class="line">    <span class="attr">"scripts"</span>: &#123;</span><br><span class="line">        <span class="comment">// ... some scripts</span></span><br><span class="line">        <span class="comment">// 自定义设置文件</span></span><br><span class="line">        <span class="attr">"build"</span>: <span class="string">"webpack --config webpack.config.build.js --mode production"</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>然后运行 <code>npm run build</code>就okl了</p>
 <h4 id="优化图片路径及名称"><a href="#优化图片路径及名称" class="headerlink" title="优化图片路径及名称"></a>优化图片路径及名称</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123; <span class="attr">test</span>: <span class="regexp">/\.(png|gif|bpm|jpg)$/</span>, <span class="attr">use</span>: [<span class="string">'url-loader?limit=5000] &#125;</span></span><br><span class="line"><span class="string">// 改为</span></span><br><span class="line"><span class="string">// 图片名称改为8为哈希值-图片名.后缀名, 路径生成到images下面                              </span></span><br><span class="line"><span class="string">&#123; test: /\.(png|gif|bpm|jpg)$/, use: ['</span>url-loader?limit=<span class="number">5000</span>&amp;name=images/[hash:<span class="number">8</span>]-[name].[ext]<span class="string">'] &#125;</span></span><br></pre></td></tr></table></figure>
@@ -158,9 +468,9 @@
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 修改webpack.config.build.js文件</span></span><br><span class="line"><span class="keyword">const</span> webpack = <span class="built_in">require</span>(<span class="string">'webpack'</span>) <span class="comment">// 导入webpack</span></span><br><span class="line"><span class="comment">// 修改entry入口节点 把原来的入口文件改为对象</span></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    entry: &#123; <span class="comment">// 配置入口节点</span></span><br><span class="line">        app: path.join(__dirname, <span class="string">'./src/main.js'</span>),</span><br><span class="line">        <span class="comment">// 这个名字要和chunk插件中的name对应</span></span><br><span class="line">        vendors: [<span class="string">'jquery'</span>,<span class="string">'moment'</span>] <span class="comment">// 数组内为要分割的第三方包</span></span><br><span class="line">    &#125;,</span><br><span class="line"><span class="comment">// 修改plugins</span></span><br><span class="line"><span class="comment">// ------------------ 这是 webpack 3.x.x的写法 -----------------------</span></span><br><span class="line">    plugins: [</span><br><span class="line">        ...</span><br><span class="line">        <span class="keyword">new</span> webpack.optimize.CommonsChunkPlugin(&#123;</span><br><span class="line">            name: <span class="string">'vendors'</span>, <span class="comment">// 指定要抽离的入口名称</span></span><br><span class="line">            filename: <span class="string">'vendors.js'</span> <span class="comment">// 打包时除了会有一个bundle.js还有一个vendors.js文件里面存放了第三方包</span></span><br><span class="line">        &#125;)</span><br><span class="line">    ]</span><br><span class="line"><span class="comment">// ------------------  webpack 4.x.x的写法 -----------------------</span></span><br><span class="line">    <span class="comment">// 配置optimization(和entry同级的属性)</span></span><br><span class="line">    optimization: &#123;</span><br><span class="line">        splitChunks: &#123;</span><br><span class="line">            cacheGroups: &#123;</span><br><span class="line">                commons: &#123;</span><br><span class="line">                    name: <span class="string">"vendors"</span>,</span><br><span class="line">                    chunks: <span class="string">"initial"</span>,</span><br><span class="line">                    minChunks: <span class="number">2</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>随着webpack4升级chunk得配置也发生了变化</p>
-<p><img src="/haoge744.github.io/2019/10/07/webpack基础使用及配置/chunk.png" alt="chunk"></p>
+<p><img src="/haoge744.github.io/2019/10/07/webpack%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8%E5%8F%8A%E9%85%8D%E7%BD%AE/chunk.png" alt="chunk"></p>
 <p><a href="https://webpack.docschina.org/plugins/split-chunks-plugin/" target="_blank" rel="noopener">相关链接</a></p>
-<h3 id="html-webpack-plugin的优化"><a href="#html-webpack-plugin的优化" class="headerlink" title="html-webpack-plugin的优化"></a>html-webpack-plugin的优化</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">// 修改打包配置文件</span><br><span class="line">&#123;</span><br><span class="line">	plugins: [</span><br><span class="line">        new htmlWebpackPlugin(&#123;</span><br><span class="line">            template: path.join(__dirname, &apos;./src/index.html&apos;),</span><br><span class="line">            filename: &apos;index.html&apos;,</span><br><span class="line">            minify: &#123; // html优化项</span><br><span class="line">                collapseWhitespace: true,// 清除多余的空格</span><br><span class="line">                removeComments: true, // 清除注释</span><br><span class="line">                removeAttributeQuotes: true // 清除属性上的双引号</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;),</span><br><span class="line">	]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="html-webpack-plugin的优化"><a href="#html-webpack-plugin的优化" class="headerlink" title="html-webpack-plugin的优化"></a>html-webpack-plugin的优化</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 修改打包配置文件</span><br><span class="line">&#123;</span><br><span class="line">	plugins: [</span><br><span class="line">        new htmlWebpackPlugin(&#123;</span><br><span class="line">            template: path.join(__dirname, &#39;.&#x2F;src&#x2F;index.html&#39;),</span><br><span class="line">            filename: &#39;index.html&#39;,</span><br><span class="line">            minify: &#123; &#x2F;&#x2F; html优化项</span><br><span class="line">                collapseWhitespace: true,&#x2F;&#x2F; 清除多余的空格</span><br><span class="line">                removeComments: true, &#x2F;&#x2F; 清除注释</span><br><span class="line">                removeAttributeQuotes: true &#x2F;&#x2F; 清除属性上的双引号</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;),</span><br><span class="line">	]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>还有更多选项<a href="https://github.com/kangax/html-minifier#options-quick-reference" target="_blank" rel="noopener">Github</a></p>
 <h3 id="css相关优化"><a href="#css相关优化" class="headerlink" title="css相关优化"></a>css相关优化</h3><h4 id="抽取css文件"><a href="#抽取css文件" class="headerlink" title="抽取css文件"></a>抽取css文件</h4><h5 id="安装插件"><a href="#安装插件" class="headerlink" title="安装插件"></a>安装插件</h5><p>webpack 3.x.x使用<strong>extract-text-webpack-plugin</strong>(这里不做介绍)</p>
@@ -174,147 +484,507 @@
 <h5 id="修改配置文件"><a href="#修改配置文件" class="headerlink" title="修改配置文件"></a>修改配置文件</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// webpack.build.config.js</span></span><br><span class="line"><span class="keyword">const</span> MiniCssExtractPlugin = <span class="built_in">require</span>(<span class="string">'mini-css-extract-plugin'</span>) <span class="comment">// 引入插件</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    plugins: [</span><br><span class="line">        <span class="comment">// ... some another plugins</span></span><br><span class="line">        <span class="keyword">new</span> MiniCssExtractPlugin(&#123; </span><br><span class="line">            filename: <span class="string">'[hash:8]-[name].css'</span>,</span><br><span class="line">            chunkFilename: <span class="string">'[id],css'</span>,</span><br><span class="line">            ignoreOrder: <span class="literal">false</span>, <span class="comment">// Enable to remove warnings about conflicting order</span></span><br><span class="line">        &#125;)</span><br><span class="line">    ],</span><br><span class="line">    <span class="built_in">module</span>: &#123;</span><br><span class="line">        rules: [        </span><br><span class="line">        	&#123; </span><br><span class="line">                test: <span class="regexp">/\.css$/</span>, </span><br><span class="line">                <span class="comment">// use: ['style-loader', 'css-loader'] // 注释之前的loader</span></span><br><span class="line">                use: [</span><br><span class="line">                    &#123;</span><br><span class="line">                        loader: MiniCssExtractPlugin.loader,</span><br><span class="line">                        options: &#123;</span><br><span class="line">                            publicPath: <span class="function">(<span class="params">resourcePath, context</span>) =&gt;</span> &#123;</span><br><span class="line">                                <span class="comment">// 资源路径，如果你的css打包至css/xxx.css中，那么要返回../</span></span><br><span class="line">                                <span class="keyword">return</span> <span class="string">'./'</span>;</span><br><span class="line">                            &#125;,</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;,</span><br><span class="line">                    <span class="comment">// style-loader不能引入否则会报错</span></span><br><span class="line">                    <span class="string">'css-loader'</span></span><br><span class="line">                ]</span><br><span class="line">            &#125;,</span><br><span class="line">            &#123; </span><br><span class="line">                test: <span class="regexp">/\.scss$/</span>, <span class="comment">// 配置scss</span></span><br><span class="line">                <span class="comment">// use: ['style-loader', 'css-loader', 'sass-loader']</span></span><br><span class="line">                use: [</span><br><span class="line">                    &#123;</span><br><span class="line">                        loader:MiniCssExtractPlugin.loader,</span><br><span class="line">                        options: &#123;</span><br><span class="line">                            publicPath: <span class="function">(<span class="params">resourcePath, context</span>) =&gt;</span> &#123;</span><br><span class="line">                                <span class="keyword">return</span> <span class="string">'./'</span>;</span><br><span class="line">                            &#125;,</span><br><span class="line">                            hmr: process.env.NODE_ENV === <span class="string">'development'</span></span><br><span class="line">                        &#125;,</span><br><span class="line">                    &#125;,</span><br><span class="line">                    <span class="comment">// style-loader不能引入否则会报错</span></span><br><span class="line">                    <span class="string">'css-loader'</span>,</span><br><span class="line">                    <span class="string">'sass-loader'</span></span><br><span class="line">                ]</span><br><span class="line">            &#125;,</span><br><span class="line">        ]</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://haoge744.github.io/2019/10/07/webpack基础使用及配置/" data-id="ck7q78ec7002dlkujcjusbnfg" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/haoge744.github.io/tags/webpack/">webpack</a></li></ul>
-
-    </footer>
-  </div>
+          
+            <br>
+            
   
     
-<nav id="article-nav">
-  
-    <a href="/haoge744.github.io/2019/10/10/win10更新后提示未安装任何音频设备/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          win10更新后提示未安装任何音频设备
-        
-      </div>
-    </a>
-  
-  
-    <a href="/haoge744.github.io/2019/10/02/typescript随手笔记1/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">typescript随手笔记1</div>
-    </a>
-  
-</nav>
+    
 
-  
-</article>
+<section class="widget copyright  desktop mobile">
+  <div class='content'>
+    
+      <blockquote>
+        
+          
+            <p>博客内容遵循 署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</p>
 
+          
+        
+          
+            <p>本文永久链接是：<a href=https://haoge744.github.io/2019/10/07/webpack%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8%E5%8F%8A%E9%85%8D%E7%BD%AE/>https://haoge744.github.io/2019/10/07/webpack%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8%E5%8F%8A%E9%85%8D%E7%BD%AE/</a></p>
+          
+        
+      </blockquote>
+    
+  </div>
 </section>
-        
-          <aside id="sidebar">
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">分类</h3>
-    <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/haoge744.github.io/categories/css/">css</a></li><li class="category-list-item"><a class="category-list-link" href="/haoge744.github.io/categories/echarts/">echarts</a></li><li class="category-list-item"><a class="category-list-link" href="/haoge744.github.io/categories/hexo/">hexo</a></li><li class="category-list-item"><a class="category-list-link" href="/haoge744.github.io/categories/html/">html</a></li><li class="category-list-item"><a class="category-list-link" href="/haoge744.github.io/categories/javascript/">javascript</a></li><li class="category-list-item"><a class="category-list-link" href="/haoge744.github.io/categories/nginx/">nginx</a></li><li class="category-list-item"><a class="category-list-link" href="/haoge744.github.io/categories/typescript/">typescript</a></li><li class="category-list-item"><a class="category-list-link" href="/haoge744.github.io/categories/uni-app/">uni-app</a></li><li class="category-list-item"><a class="category-list-link" href="/haoge744.github.io/categories/vue/">vue</a></li><li class="category-list-item"><a class="category-list-link" href="/haoge744.github.io/categories/webpack/">webpack</a></li><li class="category-list-item"><a class="category-list-link" href="/haoge744.github.io/categories/生活/">生活</a></li><li class="category-list-item"><a class="category-list-link" href="/haoge744.github.io/categories/生活记事/">生活记事</a></li></ul>
-    </div>
-  </div>
 
+  
 
   
     
-  <div class="widget-wrap">
-    <h3 class="widget-title">标签</h3>
-    <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/haoge744.github.io/tags/css/">css</a></li><li class="tag-list-item"><a class="tag-list-link" href="/haoge744.github.io/tags/echarts/">echarts</a></li><li class="tag-list-item"><a class="tag-list-link" href="/haoge744.github.io/tags/hexo/">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/haoge744.github.io/tags/html/">html</a></li><li class="tag-list-item"><a class="tag-list-link" href="/haoge744.github.io/tags/javascript/">javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/haoge744.github.io/tags/moment/">moment</a></li><li class="tag-list-item"><a class="tag-list-link" href="/haoge744.github.io/tags/nginx/">nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/haoge744.github.io/tags/typescript/">typescript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/haoge744.github.io/tags/uni-app/">uni-app</a></li><li class="tag-list-item"><a class="tag-list-link" href="/haoge744.github.io/tags/vue/">vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/haoge744.github.io/tags/webpack/">webpack</a></li><li class="tag-list-item"><a class="tag-list-link" href="/haoge744.github.io/tags/前端构建化/">前端构建化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/haoge744.github.io/tags/围棋/">围棋</a></li><li class="tag-list-item"><a class="tag-list-link" href="/haoge744.github.io/tags/生活/">生活</a></li><li class="tag-list-item"><a class="tag-list-link" href="/haoge744.github.io/tags/生活记事/">生活记事</a></li><li class="tag-list-item"><a class="tag-list-link" href="/haoge744.github.io/tags/移动开发/">移动开发</a></li><li class="tag-list-item"><a class="tag-list-link" href="/haoge744.github.io/tags/读后感/">读后感</a></li></ul>
-    </div>
-  </div>
+    
 
+<section class="widget qrcode  desktop mobile">
+  
+
+  <div class='content article-entry'>
+    
+      
+        <fancybox><img src='https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/qrcode/wiki_volantis.png'
+        
+          height='64px'
+        ></fancybox>
+      
+    
+      
+        <fancybox><img src='https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/qrcode/wiki_volantis.png'
+        
+          height='64px'
+        ></fancybox>
+      
+    
+  </div>
+</section>
+
+  
+
+
+          
+        </div>
+        
+          
+
+
+  <section class='meta' id="footer-meta">
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2019-10-07T01:00:46+08:00">
+  <a class='notlink'>
+    <i class="fas fa-save" aria-hidden="true"></i>
+    <p>更新于：2019年10月7日</p>
+  </a>
+</div>
+
+        
+      
+        
+          
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/haoge744.github.io/tags/webpack/" rel="nofollow"><i class="fas fa-hashtag" aria-hidden="true"></i><p>webpack</p></a></div>
+
+
+        
+      
+        
+          
+
+        
+      
+        
+          
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
+    
+      
+        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer"
+          
+          href="http://connect.qq.com/widget/shareqq/index.html?url=https://haoge744.github.io/2019/10/07/webpack%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8%E5%8F%8A%E9%85%8D%E7%BD%AE/&title=webpack基础使用及配置 - lelouch‘s blog&summary=VueCli用的比较多了，但是没有系统性的学过webpack,今天不基于任何脚手架工具单纯用webpack搭建一个小项目,加深自己对webpack的理解,以及一些常用配置。另外本文使用的是webpack4.41.0,在一些插件的使用上用了最新的方案。"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/qq.png">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer"
+          
+          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://haoge744.github.io/2019/10/07/webpack%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8%E5%8F%8A%E9%85%8D%E7%BD%AE/&title=webpack基础使用及配置 - lelouch‘s blog&summary=VueCli用的比较多了，但是没有系统性的学过webpack,今天不基于任何脚手架工具单纯用webpack搭建一个小项目,加深自己对webpack的理解,以及一些常用配置。另外本文使用的是webpack4.41.0,在一些插件的使用上用了最新的方案。"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/qzone.png">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer"
+          
+          href="http://service.weibo.com/share/share.php?url=https://haoge744.github.io/2019/10/07/webpack%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8%E5%8F%8A%E9%85%8D%E7%BD%AE/&title=webpack基础使用及配置 - lelouch‘s blog&summary=VueCli用的比较多了，但是没有系统性的学过webpack,今天不基于任何脚手架工具单纯用webpack搭建一个小项目,加深自己对webpack的理解,以及一些常用配置。另外本文使用的是webpack4.41.0,在一些插件的使用上用了最新的方案。"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/weibo.png">
+          
+        </a>
+      
+    
+  </div>
+</div>
+
+
+
+        
+      
+    </div>
+  </section>
+
+
+        
+        
+          <div class="prev-next">
+            
+              <a class='prev' href='/haoge744.github.io/2019/10/10/win10%E6%9B%B4%E6%96%B0%E5%90%8E%E6%8F%90%E7%A4%BA%E6%9C%AA%E5%AE%89%E8%A3%85%E4%BB%BB%E4%BD%95%E9%9F%B3%E9%A2%91%E8%AE%BE%E5%A4%87/'>
+                <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>win10更新后提示未安装任何音频设备</p>
+                <p class='content'>某天正常开启自己的笔记本电脑发现右上角的音量图标划伤了叉号，明明前几天用的好好的，最多就是windows自动更新了下系统，没想到就给更新挂了!!!∑(ﾟДﾟノ)ノ 
+点击了音量图标，然后弹出个框...</p>
+              </a>
+            
+            
+              <a class='next' href='/haoge744.github.io/2019/10/02/typescript%E9%9A%8F%E6%89%8B%E7%AC%94%E8%AE%B01/'>
+                <p class='title'>typescript随手笔记1<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+                <p class='content'>介绍TypeScript是Javascript的超集，具有静态类型特性，旨在简化大型JavaScript应用程序的开发，也被称为Javascript that scales(可扩展的JavaSc...</p>
+              </a>
+            
+          </div>
+        
+      </section>
+    </article>
+  
+
+  
+    <!-- 显示推荐文章和评论 -->
+
+
+
+  
+
+
+  
+
+
+
+
+<!-- 根据页面mathjax变量决定是否加载MathJax数学公式js -->
+
+
+
+  <script>
+    window.subData = {
+      title: 'webpack基础使用及配置',
+      tools: true
+    }
+  </script>
+
+
+</div>
+<aside class='l_side'>
+  
+  
 
   
     
-  <div class="widget-wrap">
-    <h3 class="widget-title">标签云</h3>
-    <div class="widget tagcloud">
-      <a href="/haoge744.github.io/tags/css/" style="font-size: 10px;">css</a> <a href="/haoge744.github.io/tags/echarts/" style="font-size: 10px;">echarts</a> <a href="/haoge744.github.io/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/haoge744.github.io/tags/html/" style="font-size: 10px;">html</a> <a href="/haoge744.github.io/tags/javascript/" style="font-size: 10px;">javascript</a> <a href="/haoge744.github.io/tags/moment/" style="font-size: 10px;">moment</a> <a href="/haoge744.github.io/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/haoge744.github.io/tags/typescript/" style="font-size: 10px;">typescript</a> <a href="/haoge744.github.io/tags/uni-app/" style="font-size: 12px;">uni-app</a> <a href="/haoge744.github.io/tags/vue/" style="font-size: 20px;">vue</a> <a href="/haoge744.github.io/tags/webpack/" style="font-size: 14px;">webpack</a> <a href="/haoge744.github.io/tags/前端构建化/" style="font-size: 10px;">前端构建化</a> <a href="/haoge744.github.io/tags/围棋/" style="font-size: 10px;">围棋</a> <a href="/haoge744.github.io/tags/生活/" style="font-size: 10px;">生活</a> <a href="/haoge744.github.io/tags/生活记事/" style="font-size: 18px;">生活记事</a> <a href="/haoge744.github.io/tags/移动开发/" style="font-size: 16px;">移动开发</a> <a href="/haoge744.github.io/tags/读后感/" style="font-size: 14px;">读后感</a>
-    </div>
-  </div>
-
-  
     
-  <div class="widget-wrap">
-    <h3 class="widget-title">归档</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/haoge744.github.io/archives/2020/01/">一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/haoge744.github.io/archives/2019/12/">十二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/haoge744.github.io/archives/2019/11/">十一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/haoge744.github.io/archives/2019/10/">十月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/haoge744.github.io/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/haoge744.github.io/archives/2019/08/">八月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/haoge744.github.io/archives/2019/07/">七月 2019</a></li></ul>
-    </div>
-  </div>
 
 
-  
+  <section class="widget toc-wrapper shadow desktop mobile">
     
-  <div class="widget-wrap">
-    <h3 class="widget-title">最新文章</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/haoge744.github.io/2020/01/05/css选择器的命名是一个哲学问题/">css选择器的命名是一个哲学问题</a>
-          </li>
-        
-          <li>
-            <a href="/haoge744.github.io/2020/01/02/nginx部署vue项目及配置路由模式/">nginx部署vue项目及配置路由模式</a>
-          </li>
-        
-          <li>
-            <a href="/haoge744.github.io/2019/12/28/vue-cli2-x及3-x多环境打包配置/">vue cli2.x及3.x多环境打包配置</a>
-          </li>
-        
-          <li>
-            <a href="/haoge744.github.io/2019/12/22/Notification的使用/">Notification的使用</a>
-          </li>
-        
-          <li>
-            <a href="/haoge744.github.io/2019/12/07/vue全局注册filters骚操作/">vue全局注册filters骚操作</a>
-          </li>
-        
-      </ul>
+  <header>
+    
+      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
+    
+  </header>
+
+
+    <div class='content'>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#初始化"><span class="toc-text">初始化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#创建配置文件"><span class="toc-text">创建配置文件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#配置启动命令行"><span class="toc-text">配置启动命令行</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#添加模式"><span class="toc-text">添加模式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#添加loader"><span class="toc-text">添加loader</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#配置样式loader"><span class="toc-text">配置样式loader</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#配置babel"><span class="toc-text">配置babel</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#打包"><span class="toc-text">打包</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#打包相关配置优化"><span class="toc-text">打包相关配置优化</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#优化图片路径及名称"><span class="toc-text">优化图片路径及名称</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#每次打包前删除dist文件"><span class="toc-text">每次打包前删除dist文件</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#抽取第三方包"><span class="toc-text">抽取第三方包</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#html-webpack-plugin的优化"><span class="toc-text">html-webpack-plugin的优化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#css相关优化"><span class="toc-text">css相关优化</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#抽取css文件"><span class="toc-text">抽取css文件</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#安装插件"><span class="toc-text">安装插件</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#修改配置文件"><span class="toc-text">修改配置文件</span></a></li></ol></li></ol></li></ol></li></ol>
     </div>
-  </div>
+  </section>
+
 
   
+
+
 </aside>
-        
-      </div>
-      <footer id="footer">
+
+
   
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      &copy; 2020 lelouch<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
-</footer>
-    </div>
-    <nav id="mobile-nav">
-  
-    <a href="/haoge744.github.io/" class="mobile-nav-link">Home</a>
-  
-    <a href="/haoge744.github.io/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
+  <footer class="clearfix ">
+    <br><br>
     
+      
+        <div class="aplayer-container">
+          
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+  
+    <meting-js
+      theme='#1BCDFC'
+      autoplay='false'
+      volume='0.7'
+      loop='all'
+      order='list'
+      fixed='false'
+      list-max-height='340px'
+      server='netease'
+      type='playlist'
+      id='3175833810'
+      list-folded='true'>
+    </meting-js>
+  
 
 
-  <link rel="stylesheet" href="/haoge744.github.io/fancybox/jquery.fancybox.css">
-  <script src="/haoge744.github.io/fancybox/jquery.fancybox.pack.js"></script>
+        </div>
+      
+    
+      
+        <br>
+        <div class="social-wrapper">
+          
+            
+              <a href="/haoge744.github.io/atom.xml"
+                class="social fas fa-rss flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+            
+              <a href="mailto:me@xaoxuu.com"
+                class="social fas fa-envelope flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+            
+              <a href="https://github.com/xaoxuu"
+                class="social fab fa-github flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+            
+              <a href="https://music.163.com/#/user/home?id=63035382"
+                class="social fas fa-headphones-alt flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+        </div>
+      
+    
+      
+        <div><p>博客内容遵循 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener">署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</a></p>
+</div>
+      
+    
+      
+        本站使用
+        <a href="https://volantis.js.org/" target="_blank" class="codename">Volantis</a>
+        作为主题
+        
+          ，
+          总访问量为
+          <span id="busuanzi_value_site_pv"><i class="fas fa-spinner fa-spin fa-fw" aria-hidden="true"></i></span>
+          次
+        
+      
+    
+      
+        <div class='copyright'>
+        <p><a href="https://xaoxuu.com" target="_blank" rel="noopener">Copyright © 2017-2020 Mr. X</a></p>
+
+        </div>
+      
+    
+  </footer>
+
+<script>setLoadingBarProgress(80);</script>
 
 
-<script src="/haoge744.github.io/js/script.js"></script>
-
-
-
+      <script>setLoadingBarProgress(60);</script>
+    </div>
+    <a class="s-top fas fa-arrow-up fa-fw" href='javascript:void(0)'></a>
   </div>
+  
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4/dist/jquery.min.js"></script>
+
+
+  <script>
+    
+    var SEARCH_SERVICE = "hexo" || "hexo";
+    var ROOT = "/haoge744.github.io/" || "/";
+    if (!ROOT.endsWith('/')) ROOT += '/';
+  </script>
+
+
+  <script async src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@2/js/instant_page.js" type="module" defer integrity="sha384-OeDn4XE77tdHo8pGtE1apMPmAipjoxUQ++eeJa6EtJCfHlvijigWiJpD7VDPWXV1"></script>
+
+
+
+  
+<script src="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.js"></script>
+
+  <script type="text/javascript">
+    $(function() {
+      Waves.attach('.flat-btn', ['waves-button']);
+      Waves.attach('.float-btn', ['waves-button', 'waves-float']);
+      Waves.attach('.float-btn-light', ['waves-button', 'waves-float', 'waves-light']);
+      Waves.attach('.flat-box', ['waves-block']);
+      Waves.attach('.float-box', ['waves-block', 'waves-float']);
+      Waves.attach('.waves-image');
+      Waves.init();
+    });
+  </script>
+
+
+  <script async src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-busuanzi@2.3/js/busuanzi.pure.mini.js"></script>
+
+
+
+  
+  
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/jquery-backstretch@2.1.18/jquery.backstretch.min.js"></script>
+
+    <script type="text/javascript">
+      $(function(){
+        var imgs=["https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/41F215B9-261F-48B4-80B5-4E86E165259E.jpeg"];
+        if ('true' == 'true') {
+          function shuffle(arr){
+            /*From countercurrent-time*/
+            var n = arr.length;
+            while(n--) {
+              var index = Math.floor(Math.random() * n);
+              var temp = arr[index];
+              arr[index] = arr[n];
+              arr[n] = temp;
+            }
+          }
+          shuffle(imgs);
+        }
+        if ('.cover') {
+          $('.cover').backstretch(
+            imgs,
+          {
+            duration: "20000",
+            fade: "1500"
+          });
+        } else {
+          $.backstretch(
+            imgs,
+          {
+            duration: "20000",
+            fade: "1500"
+          });
+        }
+      });
+    </script>
+  
+
+
+
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.js" async></script>
+
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/meting@2.0/dist/Meting.min.js" async></script>
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+<script src="/haoge744.github.io/js/app.js"></script>
+
+
+
+  
+<script src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@2.1/js/search.js"></script>
+
+
+
+  
+<script src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@2/js/comment_typing.js"></script>
+
+
+
+<!-- 复制 -->
+
+  <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="fas fa-copy"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copyed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('fa-copy');
+        $icon.addClass('fa-clipboard-check');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPYED';
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('fa-copy');
+        $icon.addClass('fa-exclamation-triangle');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+
+
+
+
+<!-- fancybox -->
+
+  <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+<script>
+  let LAZY_LOAD_IMAGE = "";
+  $(".article-entry").find("fancybox").find("img").each(function () {
+      var element = document.createElement("a");
+      $(element).attr("data-fancybox", "gallery");
+      $(element).attr("href", $(this).attr("src"));
+      /* 图片采用懒加载处理时,
+       * 一般图片标签内会有个属性名来存放图片的真实地址，比如 data-original,
+       * 那么此处将原本的属性名src替换为对应属性名data-original,
+       * 修改如下
+       */
+       if (LAZY_LOAD_IMAGE) {
+         $(element).attr("href", $(this).attr("data-original"));
+       }
+      $(this).wrap(element);
+  });
+</script>
+
+
+
+
+
+
+  <script>setLoadingBarProgress(100);</script>
 <script src="/haoge744.github.io/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/haoge744.github.io/live2dw/assets/z16.model.json"},"display":{"position":"right","width":250,"height":500,"hOffset":30,"vOffset":0},"react":{"opacity":0.7},"mobile":{"show":true}});</script></body>
 </html>
