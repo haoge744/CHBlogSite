@@ -1,0 +1,1047 @@
+<!DOCTYPE html>
+<html>
+<head hexo-theme='https://volantis.js.org/#fighting'>
+  <meta charset="utf-8">
+  <!-- SEO相关 -->
+  
+    
+  
+  <!-- 渲染优化 -->
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <!-- 页面元数据 -->
+  
+    <title>uni随手笔记一 - cch‘s blog</title>
+  
+    <meta name="keywords" content="移动开发,uni-app">
+  
+  
+    <meta name="description" content="自己看官方文档做的一些笔记，记了一些和vue差异的地方和印象较深的地方。看看就好哈哈。">
+  
+
+  <!-- feed -->
+  
+
+  <!-- import meta -->
+  
+
+  <!-- link -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css">
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.css">
+
+  
+
+  
+  <link rel="shortcut icon" type='image/x-icon' href="https://cdn.jsdelivr.net/gh/haoge744/cdn-rob/blog/favicon.ico">
+  
+
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.css">
+  
+
+  <!-- import link -->
+  
+
+  
+    
+<link rel="stylesheet" href="/haoge744.github.io/css/style.css">
+
+  
+
+  <script>
+    function setLoadingBarProgress(num) {
+      document.getElementById('loading-bar').style.width=num+"%";
+    }
+  </script>
+
+  
+  
+</head>
+
+<body>
+  
+  <div id="loading-bar-wrapper">
+  <div id="loading-bar"></div>
+</div>
+<header class="l_header shadow blur">
+
+  <div class='wrapper'>
+    <div class='nav-sub container--flex'>
+      <a class="logo flat-box"></a>
+      <ul class='switcher h-list'>
+        <li><a class="s-comment flat-btn fas fa-comments fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+          <li><a class="s-toc flat-btn fas fa-list fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+      </ul>
+    </div>
+		<div class="nav-main container container--flex">
+      
+        
+        <a class="logo flat-box" target="_self" href='/haoge744.github.io/'>
+          
+          
+          
+          
+            CCH‘BLOG <b><sup style='color:#3AA757'>fighting</sup></b>
+          
+        </a>
+      
+
+			<div class='menu navigation'>
+				<ul class='h-list'>
+          
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/haoge744.github.io/
+                  
+                  
+                  
+                    id="haoge744.github.io"
+                  >
+                  
+                    <i class='fas fa-rss fa-fw'></i>
+                  
+                  博客
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/haoge744.github.io/categories/
+                  
+                  
+                  
+                    id="haoge744.github.iocategories"
+                  >
+                  
+                    <i class='fas fa-folder-open fa-fw'></i>
+                  
+                  分类
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/haoge744.github.io/tags/
+                  
+                  
+                  
+                    id="haoge744.github.iotags"
+                  >
+                  
+                    <i class='fas fa-tags fa-fw'></i>
+                  
+                  标签
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/haoge744.github.io/archives/
+                  
+                  
+                  
+                    id="haoge744.github.ioarchives"
+                  >
+                  
+                    <i class='fas fa-archive fa-fw'></i>
+                  
+                  归档
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/haoge744.github.io/friends/
+                  
+                  
+                  
+                    id="haoge744.github.iofriends"
+                  >
+                  
+                    <i class='fas fa-link fa-fw'></i>
+                  
+                  友链
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/haoge744.github.io/about/
+                  
+                  
+                  
+                    id="haoge744.github.ioabout"
+                  >
+                  
+                    <i class='fas fa-info-circle fa-fw'></i>
+                  
+                  关于
+                </a>
+                
+              </li>
+            
+          
+          
+				</ul>
+			</div>
+
+      
+        <div class="m_search">
+          <form name="searchform" class="form u-search-form">
+            <i class="icon fas fa-search fa-fw"></i>
+            <input type="text" class="input u-search-input" placeholder="搜索" />
+          </form>
+        </div>
+      
+
+			<ul class='switcher h-list'>
+				
+					<li><a class="s-search flat-btn fas fa-search fa-fw" target="_self" href='javascript:void(0)'></a></li>
+				
+				<li><a class="s-menu flat-btn fas fa-bars fa-fw" target="_self" href='javascript:void(0)'></a></li>
+			</ul>
+		</div>
+	</div>
+</header>
+<ul class="menu-phone navigation white-box">
+  
+  
+    <li>
+      <a class="flat-box" href=/haoge744.github.io/
+        
+        
+        
+          id="haoge744.github.io"
+        >
+        
+          <i class='fas fa-rss fa-fw'></i>
+        
+        博客
+      </a>
+    </li>
+  
+    <li>
+      <a class="flat-box" href=/haoge744.github.io/categories/
+        
+        
+        
+          id="haoge744.github.iocategories"
+        >
+        
+          <i class='fas fa-folder-open fa-fw'></i>
+        
+        分类
+      </a>
+    </li>
+  
+    <li>
+      <a class="flat-box" href=/haoge744.github.io/tags/
+        
+        
+        
+          id="haoge744.github.iotags"
+        >
+        
+          <i class='fas fa-tags fa-fw'></i>
+        
+        标签
+      </a>
+    </li>
+  
+    <li>
+      <a class="flat-box" href=/haoge744.github.io/archives/
+        
+        
+        
+          id="haoge744.github.ioarchives"
+        >
+        
+          <i class='fas fa-archive fa-fw'></i>
+        
+        归档
+      </a>
+    </li>
+  
+    <li>
+      <a class="flat-box" href=/haoge744.github.io/friends/
+        
+        
+        
+          id="haoge744.github.iofriends"
+        >
+        
+          <i class='fas fa-link fa-fw'></i>
+        
+        友链
+      </a>
+    </li>
+  
+    <li>
+      <a class="flat-box" href=/haoge744.github.io/about/
+        
+        
+        
+          id="haoge744.github.ioabout"
+        >
+        
+          <i class='fas fa-info-circle fa-fw'></i>
+        
+        关于
+      </a>
+    </li>
+  
+</ul>
+<script>setLoadingBarProgress(40);</script>
+
+
+
+  <div class="l_body nocover">
+    <div class='body-wrapper'>
+      
+
+<div class='l_main'>
+  
+
+  
+    <article id="post" class="post white-box shadow article-type-post" itemscope itemprop="blogPost">
+      
+
+
+  <section class='meta'>
+    
+    
+    <div class="meta" id="header-meta">
+      
+        
+  
+    <h1 class="title">
+      <a href="/haoge744.github.io/2019/08/04/uni%E9%9A%8F%E6%89%8B%E7%AC%94%E8%AE%B0%E4%B8%80/">
+        uni随手笔记一
+      </a>
+    </h1>
+  
+
+
+      
+      <div class='new-meta-box'>
+        
+          
+        
+          
+            
+<div class='new-meta-item author'>
+  <a href="http://www.cch.zone" target="_blank" rel="nofollow noopener">
+    <img src="https://cdn.jsdelivr.net/gh/haoge744/cdn-rob/blog/myAvatar.png">
+    <p>cch</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  
+  <div class='new-meta-item category'>
+    <a href='/haoge744.github.io/categories/uni-app/' rel="nofollow">
+      <i class="fas fa-folder-open" aria-hidden="true"></i>
+      <p>uni-app</p>
+    </a>
+  </div>
+
+
+          
+        
+          
+            <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-edit" aria-hidden="true"></i>
+    <p>发布于：2019年8月4日</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+
+          
+        
+      </div>
+      
+        <hr>
+      
+    </div>
+  </section>
+
+
+      <section class="article typo">
+        <div class="article-entry" itemprop="articleBody">
+          
+          <p>自己看官方文档做的一些笔记，记了一些和vue差异的地方和印象较深的地方。看看就好哈哈。</p>
+<a id="more"></a>
+
+<h3 id="编写uni注意事项"><a href="#编写uni注意事项" class="headerlink" title="编写uni注意事项"></a>编写uni注意事项</h3><p>用uni-app想兼容多端，不能使用带dom、window操作的库，并且最好是纯flex布局，如果只开发h5端，推荐还是用vue-cli构建项目。</p>
+<h3 id="新老编译模式"><a href="#新老编译模式" class="headerlink" title="新老编译模式:"></a>新老编译模式:</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">在manifast.json中配置&#123;</span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">	app-plus: &#123; <span class="comment">// app h5+相关</span></span><br><span class="line">		usingComponents: <span class="literal">true</span> <span class="comment">// 如果是true则是自定义组件模式/否则不是 </span></span><br><span class="line">	&#125;,</span><br><span class="line">	wp-wexin: &#123; <span class="comment">// 微信小程序相关</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>最新版本的XHbuilder默认是自定义组件模式</strong><br><strong>不支持v-slot新语法 // vue2.6新增</strong></p>
+<h3 id="npm支持情况"><a href="#npm支持情况" class="headerlink" title="npm支持情况"></a>npm支持情况</h3><p>初始化项目</p>
+<p>初始化 package.json文件 npm init -y</p>
+<p>安装依赖 npm install packageName –save</p>
+<p>使用</p>
+<figure class="highlight plain"><figcaption><span>package from 'packageName'</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">const package &#x3D; require(&#39;packageName&#39;)</span><br><span class="line">* 注意非H5端不支持使用含有dom、window等操作的vue组件和js模块,安装的模块及其依赖的模块使用的api必须是uni-app已有的api, 说明npm 的插件极其难找</span><br><span class="line">* 支持安装 mpvue组件，但npm方式不支持小程序自定义组件(如wxml格式的vant-weapp)</span><br></pre></td></tr></table></figure>
+
+<h2 id="生命周期"><a href="#生命周期" class="headerlink" title="生命周期:"></a>生命周期:</h2><p>全局生命周期:</p>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>类型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>onLaunch</td>
+<td>当uni-app 初始化完成时触发（全局只触发一次）</td>
+</tr>
+<tr>
+<td>onShow</td>
+<td>当uni-app 启动，或从后台进入前台显示</td>
+</tr>
+<tr>
+<td>onHide</td>
+<td>当uni-app 从前台进入后台</td>
+</tr>
+<tr>
+<td>onUniNViewMessage</td>
+<td>对 nvue 页面发送的数据进行监听，可参考 nvue 向 vue 通讯</td>
+</tr>
+</tbody></table>
+<pre><code>组建中新增 onBackPress(event) -- 返回 event ={form: backbutton | navigateBack}
+自定义返回键可以看这篇文章:http://ask.dcloud.net.cn/article/35120</code></pre><p>组件生命周期除了vue的基本生命周期额外增加了一些生命周期<br> 建议使用 uni-app 的 onReady代替 vue 的 mounted。<br> 建议使用 uni-app 的 onLoad 代替 vue 的 created。</p>
+<p><code>static</code> 目录下的 <code>js</code> 文件不会被编译，如果里面有 <code>es6</code> 的代码，不经过转换直接运行，在手机设备上会报错。</p>
+<h2 id="条件编译及判断运行环境"><a href="#条件编译及判断运行环境" class="headerlink" title="条件编译及判断运行环境"></a>条件编译及判断运行环境</h2><p>判断开发环境和生产环境: (方便切换生产环境和正式环境 后台url)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; uEnvDev</span><br><span class="line">if(process.env.NODE_ENV &#x3D;&#x3D;&#x3D; &#39;development&#39;)&#123;</span><br><span class="line">    console.log(&#39;开发环境&#39;)</span><br><span class="line">&#125;else&#123;</span><br><span class="line">    console.log(&#39;生产环境&#39;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>平台条件编译 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; #ifdef H5</span><br><span class="line">    alert(&quot;只有h5平台才有alert方法&quot;)</span><br><span class="line">&#x2F;&#x2F; #endif</span><br></pre></td></tr></table></figure>
+
+<p><strong>注意在css或scss等其他样式中，要使用/* #ifdef MP-WEIXIN */代替</strong><br>ifdef的可取值如下<br>    APP-PLUS、APP-PLUS-NVUE（Weex）、H5、MP-WEIXIN、MP-ALIPAY、MP-BAIDU、MP-TOUTIAO、MP-QQ(qq小程序目前仅cli版支持)、MP(非h5和app+/weex)</p>
+<h4 id="样式导入"><a href="#样式导入" class="headerlink" title="样式导入:"></a>样式导入:</h4><p>​    使用@import 语句导入<br>​    @import “../../common/uni.css”;<br>内联样式以及动态样式<br>​    <view :style="color: color"><br>​    注意:<br>​        page相当于body节点，例如:<br>​        page {  background-color: #ccc }</view></p>
+<h4 id="css-内置变量-快捷键hei"><a href="#css-内置变量-快捷键hei" class="headerlink" title="css 内置变量 快捷键hei"></a>css 内置变量 快捷键<code>hei</code></h4><pre><code>var(--status-bar-height)  //系统状态栏高度
+var(--window-top) //内容区域距离顶部的距离 -- NavagationBar的高度
+var(--window-bottom) // 内容区域距离底部的距离 -- tabBar的高度</code></pre><p>注意导航栏和底部选项卡最好用px作为单位<br>    ##注意:背景图片仅支持以 ~@ 开头的绝对路径(不支持相对路径!)</p>
+<h4 id="字体图标"><a href="#字体图标" class="headerlink" title="字体图标"></a>字体图标</h4><pre><code>支持网络路径图标，网络路径必须加协议头https</code></pre><h3 id="vue-使用注意"><a href="#vue-使用注意" class="headerlink" title="vue 使用注意"></a>vue 使用注意</h3><pre><code>1.1建议使用 uni-app 的 onReady代替 vue 的 mounted。
+1.2建议使用 uni-app 的 onLoad 代替 vue 的 created。</code></pre><p>事件处理:<br>    // 事件映射表，左侧为 WEB 事件，右侧为 <code>uni-app</code> 对应事件</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    click: <span class="string">'tap'</span>,</span><br><span class="line">    touchstart: <span class="string">'touchstart'</span>,</span><br><span class="line">    touchmove: <span class="string">'touchmove'</span>,</span><br><span class="line">    touchcancel: <span class="string">'touchcancel'</span>,</span><br><span class="line">    touchend: <span class="string">'touchend'</span>,</span><br><span class="line">    tap: <span class="string">'tap'</span>,</span><br><span class="line">    longtap: <span class="string">'longtap'</span>,</span><br><span class="line">    input: <span class="string">'input'</span>,</span><br><span class="line">    change: <span class="string">'change'</span>,</span><br><span class="line">    submit: <span class="string">'submit'</span>,</span><br><span class="line">    blur: <span class="string">'blur'</span>,</span><br><span class="line">    focus: <span class="string">'focus'</span>,</span><br><span class="line">    reset: <span class="string">'reset'</span>,</span><br><span class="line">    confirm: <span class="string">'confirm'</span>,</span><br><span class="line">    columnchange: <span class="string">'columnchange'</span>,</span><br><span class="line">    linechange: <span class="string">'linechange'</span>,</span><br><span class="line">    error: <span class="string">'error'</span>,</span><br><span class="line">    scrolltoupper: <span class="string">'scrolltoupper'</span>,</span><br><span class="line">    scrolltolower: <span class="string">'scrolltolower'</span>,</span><br><span class="line">    scroll: <span class="string">'scroll'</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="基本元素"><a href="#基本元素" class="headerlink" title="基本元素:"></a>基本元素:</h3><p>uni-app推荐使用<code>view</code>、<code>text</code>等元素替代原来的html元素 用<code>navigator</code>替代 <code>a</code> ,虽然写<code>div</code>或者<code>a</code>之类的h5标签也不影响使用但是推荐按照官方的来</p>
+<p>元素 共同属性类型</p>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>id</td>
+<td>String</td>
+<td>组件的唯一标示    保持整个页面唯一</td>
+</tr>
+<tr>
+<td>class</td>
+<td>String</td>
+<td>组件的样式类    在对应的 css 中定义的样式类</td>
+</tr>
+<tr>
+<td>style</td>
+<td>String</td>
+<td>组件的内联样式    可以动态设置的内联样式</td>
+</tr>
+<tr>
+<td>hidden</td>
+<td>Boolean</td>
+<td>组件是否隐藏    所有组件默认是显示的</td>
+</tr>
+<tr>
+<td>data-*</td>
+<td>Any</td>
+<td>自定义属性    组件上触发的事件时，会发送给事件处理函数</td>
+</tr>
+<tr>
+<td>@*</td>
+<td>EventHandler</td>
+<td>组件的事件    详见各组件详细文档，事件绑定参考 事件处理器</td>
+</tr>
+</tbody></table>
+
+          
+            <br>
+            
+  
+    
+    
+
+<section class="widget copyright  desktop mobile">
+  <div class='content'>
+    
+      <blockquote>
+        
+          
+            <p>博客内容遵循 署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</p>
+
+          
+        
+          
+            <p>本文永久链接是：<a href=https://haoge744.github.io/2019/08/04/uni%E9%9A%8F%E6%89%8B%E7%AC%94%E8%AE%B0%E4%B8%80/>https://haoge744.github.io/2019/08/04/uni%E9%9A%8F%E6%89%8B%E7%AC%94%E8%AE%B0%E4%B8%80/</a></p>
+          
+        
+      </blockquote>
+    
+  </div>
+</section>
+
+  
+
+  
+    
+    
+
+<section class="widget qrcode  desktop mobile">
+  
+
+  <div class='content article-entry'>
+    
+      
+        <fancybox><img src='https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/qrcode/wiki_volantis.png'
+        
+          height='64px'
+        ></fancybox>
+      
+    
+      
+        <fancybox><img src='https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/qrcode/wiki_volantis.png'
+        
+          height='64px'
+        ></fancybox>
+      
+    
+  </div>
+</section>
+
+  
+
+
+          
+        </div>
+        
+          
+
+
+  <section class='meta' id="footer-meta">
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2019-08-23T15:45:11+08:00">
+  <a class='notlink'>
+    <i class="fas fa-save" aria-hidden="true"></i>
+    <p>更新于：2019年8月23日</p>
+  </a>
+</div>
+
+        
+      
+        
+          
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/haoge744.github.io/tags/%E7%A7%BB%E5%8A%A8%E5%BC%80%E5%8F%91/" rel="nofollow"><i class="fas fa-hashtag" aria-hidden="true"></i><p>移动开发</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/haoge744.github.io/tags/uni-app/" rel="nofollow"><i class="fas fa-hashtag" aria-hidden="true"></i><p>uni-app</p></a></div>
+
+
+        
+      
+        
+          
+
+        
+      
+        
+          
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
+    
+      
+        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer"
+          
+          href="http://connect.qq.com/widget/shareqq/index.html?url=https://haoge744.github.io/2019/08/04/uni%E9%9A%8F%E6%89%8B%E7%AC%94%E8%AE%B0%E4%B8%80/&title=uni随手笔记一 - cch‘s blog&summary=自己看官方文档做的一些笔记，记了一些和vue差异的地方和印象较深的地方。看看就好哈哈。"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/qq.png">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer"
+          
+          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://haoge744.github.io/2019/08/04/uni%E9%9A%8F%E6%89%8B%E7%AC%94%E8%AE%B0%E4%B8%80/&title=uni随手笔记一 - cch‘s blog&summary=自己看官方文档做的一些笔记，记了一些和vue差异的地方和印象较深的地方。看看就好哈哈。"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/qzone.png">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer"
+          
+          href="http://service.weibo.com/share/share.php?url=https://haoge744.github.io/2019/08/04/uni%E9%9A%8F%E6%89%8B%E7%AC%94%E8%AE%B0%E4%B8%80/&title=uni随手笔记一 - cch‘s blog&summary=自己看官方文档做的一些笔记，记了一些和vue差异的地方和印象较深的地方。看看就好哈哈。"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/weibo.png">
+          
+        </a>
+      
+    
+  </div>
+</div>
+
+
+
+        
+      
+    </div>
+  </section>
+
+
+        
+        
+          <div class="prev-next">
+            
+              <a class='prev' href='/haoge744.github.io/2019/08/08/vue%E9%A1%B9%E7%9B%AE%E4%BD%BF%E7%94%A8lottie%E5%8A%A8%E7%94%BB/'>
+                <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>vue项目使用lottie动画</p>
+                <p class='content'>Lottie是一个开源动画框架，支持Android，IOS，ReactNative以及web开发，这篇文章主要讲Lottie在vue项目中如何使用。GitHub地址,我在官方社区看了一下，交互性...</p>
+              </a>
+            
+            
+              <a class='next' href='/haoge744.github.io/2019/08/01/vue3-0-%E6%96%B0%E7%89%B9%E6%80%A7/'>
+                <p class='title'>vue3.0 新特性<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+                <p class='content'>目前vue最新的版本是19年2月份发布的2.6.x,更新了一些插槽、动态参数等，据说3.0也会在下半年发布，下面根据尤大的视频分享总结3.0的新特性。
+
+
+Vue3.0即将带来哪些新东西:
+更快...</p>
+              </a>
+            
+          </div>
+        
+      </section>
+    </article>
+  
+
+  
+    <!-- 显示推荐文章和评论 -->
+
+
+
+  <article class="post white-box comments shadow">
+    <section class="article typo">
+      <p ct><i class='fas fa-comments'></i> 评论</p>
+      
+      
+      
+        <section id="comments">
+          <div id="lv-container" data-id="city" data-uid="MTAyMC80NjQ3NC8yMjk4NQ==">
+            <noscript><div><i class='fas fa-exclamation-triangle'>&nbsp;无法加载Livere评论系统，请确保您的网络能够正常访问。</div></noscript>
+          </div>
+        </section>
+      
+      
+      
+    </section>
+  </article>
+
+
+  
+
+
+
+
+<!-- 根据页面mathjax变量决定是否加载MathJax数学公式js -->
+
+
+
+  <script>
+    window.subData = {
+      title: 'uni随手笔记一',
+      tools: true
+    }
+  </script>
+
+
+</div>
+<aside class='l_side'>
+  
+  
+
+  
+    
+    
+
+
+  <section class="widget toc-wrapper shadow desktop mobile">
+    
+  <header>
+    
+      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
+    
+  </header>
+
+
+    <div class='content'>
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#编写uni注意事项"><span class="toc-text">编写uni注意事项</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#新老编译模式"><span class="toc-text">新老编译模式:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#npm支持情况"><span class="toc-text">npm支持情况</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#生命周期"><span class="toc-text">生命周期:</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#条件编译及判断运行环境"><span class="toc-text">条件编译及判断运行环境</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#样式导入"><span class="toc-text">样式导入:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#css-内置变量-快捷键hei"><span class="toc-text">css 内置变量 快捷键hei</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#字体图标"><span class="toc-text">字体图标</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#vue-使用注意"><span class="toc-text">vue 使用注意</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#基本元素"><span class="toc-text">基本元素:</span></a></li></ol>
+    </div>
+  </section>
+
+
+  
+
+
+</aside>
+
+
+  
+  <footer class="clearfix ">
+    <br><br>
+    
+      
+        <div class="aplayer-container">
+          
+
+  
+    <meting-js
+      theme='#1BCDFC'
+      autoplay='false'
+      volume='0.7'
+      loop='all'
+      order='list'
+      fixed='false'
+      list-max-height='340px'
+      server='netease'
+      type='playlist'
+      id='3175833810'
+      list-folded='true'>
+    </meting-js>
+  
+
+
+        </div>
+      
+    
+      
+        <br>
+        <div class="social-wrapper">
+          
+            
+              <a href="/haoge744.github.io/atom.xml"
+                class="social fas fa-rss flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+            
+              <a href="mailto:cch_it@sina.com"
+                class="social fas fa-envelope flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+            
+              <a href="https://github.com/haoge744"
+                class="social fab fa-github flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+            
+              <a href="https://music.163.com/#/user/home?id=303461483"
+                class="social fas fa-headphones-alt flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+        </div>
+      
+    
+      
+        <div><p>博客内容遵循 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener">署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</a></p>
+</div>
+      
+    
+      
+        本站使用
+        <a href="https://volantis.js.org/" target="_blank" class="codename">cch‘blog</a>
+        作为主题
+        
+          ，
+          总访问量为
+          <span id="busuanzi_value_site_pv"><i class="fas fa-spinner fa-spin fa-fw" aria-hidden="true"></i></span>
+          次
+        
+      
+    
+      
+        <div class='copyright'>
+        <p><a href="https://xaoxuu.com" target="_blank" rel="noopener">Copyright © 2017-2020 Mr. X</a></p>
+
+        </div>
+      
+    
+  </footer>
+
+<script>setLoadingBarProgress(80);</script>
+
+
+      <script>setLoadingBarProgress(60);</script>
+    </div>
+    <a class="s-top fas fa-arrow-up fa-fw" href='javascript:void(0)'></a>
+  </div>
+  
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4/dist/jquery.min.js"></script>
+
+
+  <script>
+    
+    var SEARCH_SERVICE = "hexo" || "hexo";
+    var ROOT = "/haoge744.github.io/" || "/";
+    if (!ROOT.endsWith('/')) ROOT += '/';
+  </script>
+
+
+  <script async src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@2/js/instant_page.js" type="module" defer integrity="sha384-OeDn4XE77tdHo8pGtE1apMPmAipjoxUQ++eeJa6EtJCfHlvijigWiJpD7VDPWXV1"></script>
+
+
+
+  
+<script src="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.js"></script>
+
+  <script type="text/javascript">
+    $(function() {
+      Waves.attach('.flat-btn', ['waves-button']);
+      Waves.attach('.float-btn', ['waves-button', 'waves-float']);
+      Waves.attach('.float-btn-light', ['waves-button', 'waves-float', 'waves-light']);
+      Waves.attach('.flat-box', ['waves-block']);
+      Waves.attach('.float-box', ['waves-block', 'waves-float']);
+      Waves.attach('.waves-image');
+      Waves.init();
+    });
+  </script>
+
+
+  <script async src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-busuanzi@2.3/js/busuanzi.pure.mini.js"></script>
+
+
+
+  
+  
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/jquery-backstretch@2.1.18/jquery.backstretch.min.js"></script>
+
+    <script type="text/javascript">
+      $(function(){
+        var imgs=["https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/BBC19066-E176-47C2-9D22-48C81EE5DF6B.jpeg"];
+        if ('true' == 'true') {
+          function shuffle(arr){
+            /*From countercurrent-time*/
+            var n = arr.length;
+            while(n--) {
+              var index = Math.floor(Math.random() * n);
+              var temp = arr[index];
+              arr[index] = arr[n];
+              arr[n] = temp;
+            }
+          }
+          shuffle(imgs);
+        }
+        if ('.cover') {
+          $('.cover').backstretch(
+            imgs,
+          {
+            duration: "20000",
+            fade: "1500"
+          });
+        } else {
+          $.backstretch(
+            imgs,
+          {
+            duration: "20000",
+            fade: "1500"
+          });
+        }
+      });
+    </script>
+  
+
+
+
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.js" async></script>
+
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/meting@2.0/dist/Meting.min.js" async></script>
+
+  
+
+
+
+
+
+  <script type="text/javascript">
+    (function(d, s) {
+      var j, e = d.getElementsByTagName(s)[0];
+      if (typeof LivereTower === 'function') { return; }
+      j = d.createElement(s);
+      j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+      j.async = true;
+      e.parentNode.insertBefore(j, e);
+    })(document, 'script');
+  </script>
+
+
+
+
+
+
+  
+<script src="/haoge744.github.io/js/app.js"></script>
+
+
+
+  
+<script src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@2.1/js/search.js"></script>
+
+
+
+  
+<script src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@2/js/comment_typing.js"></script>
+
+
+
+<!-- 复制 -->
+
+  <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="fas fa-copy"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copyed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('fa-copy');
+        $icon.addClass('fa-clipboard-check');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPYED';
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('fa-copy');
+        $icon.addClass('fa-exclamation-triangle');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+
+
+
+
+<!-- fancybox -->
+
+  <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+<script>
+  let LAZY_LOAD_IMAGE = "";
+  $(".article-entry").find("fancybox").find("img").each(function () {
+      var element = document.createElement("a");
+      $(element).attr("data-fancybox", "gallery");
+      $(element).attr("href", $(this).attr("src"));
+      /* 图片采用懒加载处理时,
+       * 一般图片标签内会有个属性名来存放图片的真实地址，比如 data-original,
+       * 那么此处将原本的属性名src替换为对应属性名data-original,
+       * 修改如下
+       */
+       if (LAZY_LOAD_IMAGE) {
+         $(element).attr("href", $(this).attr("data-original"));
+       }
+      $(this).wrap(element);
+  });
+</script>
+
+
+
+
+
+
+  <script>setLoadingBarProgress(100);</script>
+<script src="/haoge744.github.io/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/haoge744.github.io/live2dw/assets/z16.model.json"},"display":{"position":"right","width":250,"height":500,"hOffset":30,"vOffset":0},"react":{"opacity":0.7},"mobile":{"show":true}});</script></body>
+</html>

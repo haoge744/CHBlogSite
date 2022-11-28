@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+<html>
+<head hexo-theme='https://volantis.js.org/#fighting'>
+  <meta charset="utf-8">
+  <!-- SEO相关 -->
+  
+    
+  
+  <!-- 渲染优化 -->
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <!-- 页面元数据 -->
+  
+    <title>echarts地图钻取位置异常的解决办法 - cch‘s blog</title>
+  
+    <meta name="keywords" content="echarts,移动开发">
+  
+  
+    <meta name="description" content="因为有需求要做一个中国地图下钻到市的功能，但是在钻取中放大的时候碰到了地图位置显示异常的问题，切换地图的时候偶尔会出现地图找不到的问题，如下图:
+">
+  
+
+  <!-- feed -->
+  
+
+  <!-- import meta -->
+  
+
+  <!-- link -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css">
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.css">
+
+  
+
+  
+  <link rel="shortcut icon" type='image/x-icon' href="https://cdn.jsdelivr.net/gh/haoge744/cdn-rob/blog/favicon.ico">
+  
+
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.css">
+  
+
+  <!-- import link -->
+  
+
+  
+    
+<link rel="stylesheet" href="/haoge744.github.io/css/style.css">
+
+  
+
+  <script>
+    function setLoadingBarProgress(num) {
+      document.getElementById('loading-bar').style.width=num+"%";
+    }
+  </script>
+
+  
+  
+</head>
+
+<body>
+  
+  <div id="loading-bar-wrapper">
+  <div id="loading-bar"></div>
+</div>
+<header class="l_header shadow blur">
+
+  <div class='wrapper'>
+    <div class='nav-sub container--flex'>
+      <a class="logo flat-box"></a>
+      <ul class='switcher h-list'>
+        <li><a class="s-comment flat-btn fas fa-comments fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+          <li><a class="s-toc flat-btn fas fa-list fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+      </ul>
+    </div>
+		<div class="nav-main container container--flex">
+      
+        
+        <a class="logo flat-box" target="_self" href='/haoge744.github.io/'>
+          
+          
+          
+          
+            CCH‘BLOG <b><sup style='color:#3AA757'>fighting</sup></b>
+          
+        </a>
+      
+
+			<div class='menu navigation'>
+				<ul class='h-list'>
+          
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/haoge744.github.io/
+                  
+                  
+                  
+                    id="haoge744.github.io"
+                  >
+                  
+                    <i class='fas fa-rss fa-fw'></i>
+                  
+                  博客
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/haoge744.github.io/categories/
+                  
+                  
+                  
+                    id="haoge744.github.iocategories"
+                  >
+                  
+                    <i class='fas fa-folder-open fa-fw'></i>
+                  
+                  分类
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/haoge744.github.io/tags/
+                  
+                  
+                  
+                    id="haoge744.github.iotags"
+                  >
+                  
+                    <i class='fas fa-tags fa-fw'></i>
+                  
+                  标签
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/haoge744.github.io/archives/
+                  
+                  
+                  
+                    id="haoge744.github.ioarchives"
+                  >
+                  
+                    <i class='fas fa-archive fa-fw'></i>
+                  
+                  归档
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/haoge744.github.io/friends/
+                  
+                  
+                  
+                    id="haoge744.github.iofriends"
+                  >
+                  
+                    <i class='fas fa-link fa-fw'></i>
+                  
+                  友链
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/haoge744.github.io/about/
+                  
+                  
+                  
+                    id="haoge744.github.ioabout"
+                  >
+                  
+                    <i class='fas fa-info-circle fa-fw'></i>
+                  
+                  关于
+                </a>
+                
+              </li>
+            
+          
+          
+				</ul>
+			</div>
+
+      
+        <div class="m_search">
+          <form name="searchform" class="form u-search-form">
+            <i class="icon fas fa-search fa-fw"></i>
+            <input type="text" class="input u-search-input" placeholder="搜索" />
+          </form>
+        </div>
+      
+
+			<ul class='switcher h-list'>
+				
+					<li><a class="s-search flat-btn fas fa-search fa-fw" target="_self" href='javascript:void(0)'></a></li>
+				
+				<li><a class="s-menu flat-btn fas fa-bars fa-fw" target="_self" href='javascript:void(0)'></a></li>
+			</ul>
+		</div>
+	</div>
+</header>
+<ul class="menu-phone navigation white-box">
+  
+  
+    <li>
+      <a class="flat-box" href=/haoge744.github.io/
+        
+        
+        
+          id="haoge744.github.io"
+        >
+        
+          <i class='fas fa-rss fa-fw'></i>
+        
+        博客
+      </a>
+    </li>
+  
+    <li>
+      <a class="flat-box" href=/haoge744.github.io/categories/
+        
+        
+        
+          id="haoge744.github.iocategories"
+        >
+        
+          <i class='fas fa-folder-open fa-fw'></i>
+        
+        分类
+      </a>
+    </li>
+  
+    <li>
+      <a class="flat-box" href=/haoge744.github.io/tags/
+        
+        
+        
+          id="haoge744.github.iotags"
+        >
+        
+          <i class='fas fa-tags fa-fw'></i>
+        
+        标签
+      </a>
+    </li>
+  
+    <li>
+      <a class="flat-box" href=/haoge744.github.io/archives/
+        
+        
+        
+          id="haoge744.github.ioarchives"
+        >
+        
+          <i class='fas fa-archive fa-fw'></i>
+        
+        归档
+      </a>
+    </li>
+  
+    <li>
+      <a class="flat-box" href=/haoge744.github.io/friends/
+        
+        
+        
+          id="haoge744.github.iofriends"
+        >
+        
+          <i class='fas fa-link fa-fw'></i>
+        
+        友链
+      </a>
+    </li>
+  
+    <li>
+      <a class="flat-box" href=/haoge744.github.io/about/
+        
+        
+        
+          id="haoge744.github.ioabout"
+        >
+        
+          <i class='fas fa-info-circle fa-fw'></i>
+        
+        关于
+      </a>
+    </li>
+  
+</ul>
+<script>setLoadingBarProgress(40);</script>
+
+
+
+  <div class="l_body nocover">
+    <div class='body-wrapper'>
+      
+
+<div class='l_main'>
+  
+
+  
+    <article id="post" class="post white-box shadow article-type-post" itemscope itemprop="blogPost">
+      
+
+
+  <section class='meta'>
+    
+    
+    <div class="meta" id="header-meta">
+      
+        
+  
+    <h1 class="title">
+      <a href="/haoge744.github.io/2019/08/08/echarts%E5%9C%B0%E5%9B%BE%E9%92%BB%E5%8F%96%E4%BD%8D%E7%BD%AE%E5%BC%82%E5%B8%B8%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/">
+        echarts地图钻取位置异常的解决办法
+      </a>
+    </h1>
+  
+
+
+      
+      <div class='new-meta-box'>
+        
+          
+        
+          
+            
+<div class='new-meta-item author'>
+  <a href="http://www.cch.zone" target="_blank" rel="nofollow noopener">
+    <img src="https://cdn.jsdelivr.net/gh/haoge744/cdn-rob/blog/myAvatar.png">
+    <p>cch</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  
+  <div class='new-meta-item category'>
+    <a href='/haoge744.github.io/categories/echarts/' rel="nofollow">
+      <i class="fas fa-folder-open" aria-hidden="true"></i>
+      <p>echarts</p>
+    </a>
+  </div>
+
+
+          
+        
+          
+            <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-edit" aria-hidden="true"></i>
+    <p>发布于：2019年8月8日</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+
+          
+        
+      </div>
+      
+        <hr>
+      
+    </div>
+  </section>
+
+
+      <section class="article typo">
+        <div class="article-entry" itemprop="articleBody">
+          
+          <p>因为有需求要做一个中国地图下钻到市的功能，但是在钻取中放大的时候碰到了地图位置显示异常的问题，切换地图的时候偶尔会出现地图找不到的问题，如下图:</p>
+<p><img src="/haoge744.github.io/2019/08/08/echarts%E5%9C%B0%E5%9B%BE%E9%92%BB%E5%8F%96%E4%BD%8D%E7%BD%AE%E5%BC%82%E5%B8%B8%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/map1.gif" alt="错误图"></p>
+<a id="more"></a>
+<p>地图下钻逻辑，初始化的时候缓存全国的地图，省的多次加载，我这里实现echarts下钻的核心方法是 <code>registerMap(mapName,geoJson,specialAreas)</code>作用是向echarts内注册一个地图，这个地图的第一个参数是地图名字，可以自定义，第二个是geoJson，可以自己画geojson的数据也可以在echarts的github地址里找到关于中国省市区的地图数据(echarts官网已经下载不了了),访问这个<a href="https://github.com/apache/incubator-echarts/tree/master/map" target="_blank" rel="noopener">链接</a>可以下载到。第三个是可选参数，具体参考文档。</p>
+<p>在官网上看到了地图的series中可以设置<code>center</code>参数，然后在地图json中看到了每个城市也有经纬度的数据所以可以每次钻取的时候给series设置当前城市的中心点来避免问题发生。<br><img src="/haoge744.github.io/2019/08/08/echarts%E5%9C%B0%E5%9B%BE%E9%92%BB%E5%8F%96%E4%BD%8D%E7%BD%AE%E5%BC%82%E5%B8%B8%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/json1.png" alt="广东省地图geoJSON数据"></p>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码:"></a>代码:</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">    <span class="comment">// ... somecode</span></span><br><span class="line">    methods: &#123;</span><br><span class="line">        <span class="comment">// ...somecode</span></span><br><span class="line">        init () &#123; <span class="comment">// 地图初始化，把画布大小调整为全屏以及注册点击事件</span></span><br><span class="line">          <span class="keyword">const</span> dom = <span class="built_in">document</span>.getElementById(<span class="string">'map-wrapper'</span>)</span><br><span class="line">          dom.style.width = <span class="built_in">document</span>.body.clientWidth + <span class="string">'px'</span></span><br><span class="line">          dom.style.height = <span class="built_in">document</span>.body.clientHeight + <span class="string">'px'</span></span><br><span class="line">          <span class="keyword">this</span>.chartInstance = echarts.init(dom)</span><br><span class="line">          <span class="keyword">this</span>.chartInstance.on(<span class="string">'click'</span>, <span class="keyword">this</span>.chartClickHandler)</span><br><span class="line">        &#125;,</span><br><span class="line">        chartClickHandler (params) &#123; <span class="comment">// 地图点击事件</span></span><br><span class="line">          <span class="keyword">if</span> (params.name <span class="keyword">in</span> provinces) &#123; <span class="comment">// 点省级或者直辖市</span></span><br><span class="line">            <span class="keyword">if</span> (special.indexOf(params.name) &gt;= <span class="number">0</span>) &#123;</span><br><span class="line">              <span class="keyword">this</span>.$toast(<span class="string">'直辖市不支持放大'</span>)</span><br><span class="line">              <span class="keyword">return</span></span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">this</span>.isNational = <span class="literal">false</span> </span><br><span class="line">            <span class="keyword">const</span> key = provinces[params.name]</span><br><span class="line">            <span class="keyword">const</span> name = params.name</span><br><span class="line">            <span class="keyword">this</span>.$toast.loading(&#123;</span><br><span class="line">              mask: <span class="literal">true</span>,</span><br><span class="line">              duration: <span class="number">0</span></span><br><span class="line">            &#125;)</span><br><span class="line">            <span class="comment">// 请求static路径下城市的geoJSON.json数据</span></span><br><span class="line">            getMapJson(<span class="string">`./static/map/province/<span class="subst">$&#123;key&#125;</span>.json`</span>).then(<span class="keyword">async</span> response =&gt; &#123;</span><br><span class="line">              <span class="keyword">let</span> cityData = []</span><br><span class="line">              <span class="keyword">let</span> cityMap = &#123;&#125;</span><br><span class="line">              <span class="built_in">console</span>.log(response.data.features[<span class="number">0</span>].properties.name)</span><br><span class="line">              <span class="keyword">const</span> lat = response.data.features[<span class="number">0</span>].properties.cp <span class="comment">// 获取json里第一个城市的经纬度</span></span><br><span class="line">              response.data.features.forEach(<span class="function"><span class="params">item</span> =&gt;</span> &#123; <span class="comment">// 没有数据的展示零</span></span><br><span class="line">                cityMap[item.properties.name] = <span class="number">0</span></span><br><span class="line">              &#125;)</span><br><span class="line">              <span class="keyword">try</span> &#123;</span><br><span class="line">                <span class="keyword">if</span> (<span class="keyword">this</span>.provIdKeyMap.get(name)) &#123;</span><br><span class="line">                    <span class="comment">// 根据省的id拿到后台数据展示</span></span><br><span class="line">                  <span class="keyword">let</span> cData = <span class="keyword">await</span> getCityData(<span class="keyword">this</span>.provIdKeyMap.get(name).split(<span class="string">'_'</span>)[<span class="number">0</span>]) <span class="comment">// 根据省id 获取市的数据</span></span><br><span class="line">                  <span class="keyword">if</span> (cData.status === <span class="number">200</span>) &#123;</span><br><span class="line">                    cData.data.forEach(<span class="function"><span class="params">item</span> =&gt;</span> &#123;</span><br><span class="line">                      cityMap[item.cityname] = item.ftreermb</span><br><span class="line">                    &#125;)</span><br><span class="line">                  &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">this</span>.$toast.clear()</span><br><span class="line">              &#125; <span class="keyword">catch</span> (error) &#123;</span><br><span class="line">                <span class="keyword">this</span>.$toast(<span class="string">'加载地图数据失败'</span>)</span><br><span class="line">              &#125;</span><br><span class="line">              <span class="keyword">for</span> (<span class="keyword">let</span> a <span class="keyword">in</span> cityMap) &#123; <span class="comment">// 遍历组装所有市的数据</span></span><br><span class="line">                <span class="keyword">let</span> showLabel = cityMap[a] ? <span class="literal">true</span> : <span class="literal">false</span> </span><br><span class="line">                cityData.push(&#123;</span><br><span class="line">                  name: a,</span><br><span class="line">                  value: cityMap[a],</span><br><span class="line">                  label: &#123;</span><br><span class="line">                    show: showLabel</span><br><span class="line">                  &#125;</span><br><span class="line">                &#125;)</span><br><span class="line">              &#125;</span><br><span class="line">              echarts.registerMap(name, response.data) <span class="comment">// 注册地图</span></span><br><span class="line">              <span class="keyword">this</span>.renderMap(name, cityData, lat) <span class="comment">// 渲染</span></span><br><span class="line">            &#125;)</span><br><span class="line">          &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">this</span>.isNational = <span class="literal">true</span></span><br><span class="line">            <span class="keyword">this</span>.renderMap(<span class="string">'china'</span>, <span class="keyword">this</span>.nationalData)</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="comment">// 渲染地图</span></span><br><span class="line">        renderMap (map, data, lat = [<span class="number">103.754</span>, <span class="number">34.452</span>]) &#123; <span class="comment">// 地图名字, 数据, 经纬度</span></span><br><span class="line">          <span class="keyword">this</span>.$<span class="keyword">set</span>(this.option.title, 'subtext', map)</span><br><span class="line">          const series = [&#123;</span><br><span class="line">            name: map,</span><br><span class="line">            type: <span class="string">'map'</span>,</span><br><span class="line">            mapType: map,</span><br><span class="line">            roam: <span class="literal">true</span>,</span><br><span class="line">            zoom: <span class="number">2</span>,</span><br><span class="line">            nameMap: &#123;<span class="string">'china'</span>: <span class="string">'中国'</span>&#125;,</span><br><span class="line">            left: <span class="number">20</span>,</span><br><span class="line">            top: <span class="string">'30%'</span>,</span><br><span class="line">            center: lat, <span class="comment">// 设置中心点 默认中国的中心点</span></span><br><span class="line">            showLegendSymbol: <span class="literal">false</span>,</span><br><span class="line">            label: &#123;</span><br><span class="line">              normal: &#123;</span><br><span class="line">                show: <span class="literal">true</span>,</span><br><span class="line">                textStyle: &#123;<span class="attr">color</span>: <span class="string">'#000'</span>, <span class="attr">fontSize</span>: <span class="number">14</span>&#125;</span><br><span class="line">              &#125;,</span><br><span class="line">              emphasis: &#123;</span><br><span class="line">                show: <span class="literal">true</span>,</span><br><span class="line">                textStyle: &#123;<span class="attr">color</span>: <span class="string">'#999'</span>, <span class="attr">fontSize</span>: <span class="number">14</span>&#125;</span><br><span class="line">              &#125;</span><br><span class="line">            &#125;,</span><br><span class="line">            itemStyle: &#123;</span><br><span class="line">              normal: &#123;</span><br><span class="line">                areaColor: <span class="string">'#E6E6FA'</span>,</span><br><span class="line">                borderColor: <span class="string">'dodgerblue'</span>,</span><br><span class="line">                label: &#123;</span><br><span class="line">                  show: <span class="literal">true</span>,</span><br><span class="line">                  formatter: <span class="string">'&#123;b&#125;\n&#123;c&#125; '</span></span><br><span class="line">                &#125;&#125;,</span><br><span class="line">              emphasis: &#123;</span><br><span class="line">                areaColor: <span class="string">'darkorange'</span></span><br><span class="line">              &#125;</span><br><span class="line">            &#125;,</span><br><span class="line">            data: data</span><br><span class="line">          &#125;]</span><br><span class="line">          <span class="comment">//设置option</span></span><br><span class="line">          <span class="keyword">this</span>.$<span class="keyword">set</span>(this.option, 'series', series)</span><br><span class="line">          this.chartInstance.setOption(this.option)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>完成后效果如下:</p>
+<p><img src="/haoge744.github.io/2019/08/08/echarts%E5%9C%B0%E5%9B%BE%E9%92%BB%E5%8F%96%E4%BD%8D%E7%BD%AE%E5%BC%82%E5%B8%B8%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/map2.gif" alt="虽然有点瑕疵,但好歹还是解决了问题"></p>
+<h3 id="不显示数据为零的地名"><a href="#不显示数据为零的地名" class="headerlink" title="不显示数据为零的地名"></a>不显示数据为零的地名</h3><p>series里的data也可以设置label的样式和隐藏显示,设置标签位置等等等。详细配置请访问<a href="https://echarts.baidu.com/option.html#series-map.map" target="_blank" rel="noopener">链接</a></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    name: a,</span><br><span class="line">        value: cityMap[a],</span><br><span class="line">            label: &#123;</span><br><span class="line">                show: showLabel <span class="comment">// 判断数据是否为空或者零</span></span><br><span class="line">            &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+          
+            <br>
+            
+  
+    
+    
+
+<section class="widget copyright  desktop mobile">
+  <div class='content'>
+    
+      <blockquote>
+        
+          
+            <p>博客内容遵循 署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</p>
+
+          
+        
+          
+            <p>本文永久链接是：<a href=https://haoge744.github.io/2019/08/08/echarts%E5%9C%B0%E5%9B%BE%E9%92%BB%E5%8F%96%E4%BD%8D%E7%BD%AE%E5%BC%82%E5%B8%B8%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/>https://haoge744.github.io/2019/08/08/echarts%E5%9C%B0%E5%9B%BE%E9%92%BB%E5%8F%96%E4%BD%8D%E7%BD%AE%E5%BC%82%E5%B8%B8%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</a></p>
+          
+        
+      </blockquote>
+    
+  </div>
+</section>
+
+  
+
+  
+    
+    
+
+<section class="widget qrcode  desktop mobile">
+  
+
+  <div class='content article-entry'>
+    
+      
+        <fancybox><img src='https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/qrcode/wiki_volantis.png'
+        
+          height='64px'
+        ></fancybox>
+      
+    
+      
+        <fancybox><img src='https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/qrcode/wiki_volantis.png'
+        
+          height='64px'
+        ></fancybox>
+      
+    
+  </div>
+</section>
+
+  
+
+
+          
+        </div>
+        
+          
+
+
+  <section class='meta' id="footer-meta">
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2019-08-15T18:24:29+08:00">
+  <a class='notlink'>
+    <i class="fas fa-save" aria-hidden="true"></i>
+    <p>更新于：2019年8月15日</p>
+  </a>
+</div>
+
+        
+      
+        
+          
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/haoge744.github.io/tags/echarts/" rel="nofollow"><i class="fas fa-hashtag" aria-hidden="true"></i><p>echarts</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/haoge744.github.io/tags/%E7%A7%BB%E5%8A%A8%E5%BC%80%E5%8F%91/" rel="nofollow"><i class="fas fa-hashtag" aria-hidden="true"></i><p>移动开发</p></a></div>
+
+
+        
+      
+        
+          
+
+        
+      
+        
+          
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
+    
+      
+        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer"
+          
+          href="http://connect.qq.com/widget/shareqq/index.html?url=https://haoge744.github.io/2019/08/08/echarts%E5%9C%B0%E5%9B%BE%E9%92%BB%E5%8F%96%E4%BD%8D%E7%BD%AE%E5%BC%82%E5%B8%B8%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/&title=echarts地图钻取位置异常的解决办法 - cch‘s blog&summary=因为有需求要做一个中国地图下钻到市的功能，但是在钻取中放大的时候碰到了地图位置显示异常的问题，切换地图的时候偶尔会出现地图找不到的问题，如下图:
+"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/qq.png">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer"
+          
+          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://haoge744.github.io/2019/08/08/echarts%E5%9C%B0%E5%9B%BE%E9%92%BB%E5%8F%96%E4%BD%8D%E7%BD%AE%E5%BC%82%E5%B8%B8%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/&title=echarts地图钻取位置异常的解决办法 - cch‘s blog&summary=因为有需求要做一个中国地图下钻到市的功能，但是在钻取中放大的时候碰到了地图位置显示异常的问题，切换地图的时候偶尔会出现地图找不到的问题，如下图:
+"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/qzone.png">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer"
+          
+          href="http://service.weibo.com/share/share.php?url=https://haoge744.github.io/2019/08/08/echarts%E5%9C%B0%E5%9B%BE%E9%92%BB%E5%8F%96%E4%BD%8D%E7%BD%AE%E5%BC%82%E5%B8%B8%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/&title=echarts地图钻取位置异常的解决办法 - cch‘s blog&summary=因为有需求要做一个中国地图下钻到市的功能，但是在钻取中放大的时候碰到了地图位置显示异常的问题，切换地图的时候偶尔会出现地图找不到的问题，如下图:
+"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/weibo.png">
+          
+        </a>
+      
+    
+  </div>
+</div>
+
+
+
+        
+      
+    </div>
+  </section>
+
+
+        
+        
+          <div class="prev-next">
+            
+              <a class='prev' href='/haoge744.github.io/2019/08/12/v-slot%E7%9A%84%E4%BD%BF%E7%94%A8/'>
+                <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>v-slot的使用</p>
+                <p class='content'>v-slot介绍vue2.6.x开始，vue为具名和范围插槽引入了一个全新的语法,即v-slot。目的就是想统一slot和scope-slot语法，使代码更加规范和清晰。
+还在2.5.x的小伙伴...</p>
+              </a>
+            
+            
+              <a class='next' href='/haoge744.github.io/2019/08/08/vue%E9%A1%B9%E7%9B%AE%E4%BD%BF%E7%94%A8lottie%E5%8A%A8%E7%94%BB/'>
+                <p class='title'>vue项目使用lottie动画<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+                <p class='content'>Lottie是一个开源动画框架，支持Android，IOS，ReactNative以及web开发，这篇文章主要讲Lottie在vue项目中如何使用。GitHub地址,我在官方社区看了一下，交互性...</p>
+              </a>
+            
+          </div>
+        
+      </section>
+    </article>
+  
+
+  
+    <!-- 显示推荐文章和评论 -->
+
+
+
+  <article class="post white-box comments shadow">
+    <section class="article typo">
+      <p ct><i class='fas fa-comments'></i> 评论</p>
+      
+      
+      
+        <section id="comments">
+          <div id="lv-container" data-id="city" data-uid="MTAyMC80NjQ3NC8yMjk4NQ==">
+            <noscript><div><i class='fas fa-exclamation-triangle'>&nbsp;无法加载Livere评论系统，请确保您的网络能够正常访问。</div></noscript>
+          </div>
+        </section>
+      
+      
+      
+    </section>
+  </article>
+
+
+  
+
+
+
+
+<!-- 根据页面mathjax变量决定是否加载MathJax数学公式js -->
+
+
+
+  <script>
+    window.subData = {
+      title: 'echarts地图钻取位置异常的解决办法',
+      tools: true
+    }
+  </script>
+
+
+</div>
+<aside class='l_side'>
+  
+  
+
+  
+    
+    
+
+
+  <section class="widget toc-wrapper shadow desktop mobile">
+    
+  <header>
+    
+      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
+    
+  </header>
+
+
+    <div class='content'>
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#代码"><span class="toc-text">代码:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#不显示数据为零的地名"><span class="toc-text">不显示数据为零的地名</span></a></li></ol>
+    </div>
+  </section>
+
+
+  
+
+
+</aside>
+
+
+  
+  <footer class="clearfix ">
+    <br><br>
+    
+      
+        <div class="aplayer-container">
+          
+
+  
+    <meting-js
+      theme='#1BCDFC'
+      autoplay='false'
+      volume='0.7'
+      loop='all'
+      order='list'
+      fixed='false'
+      list-max-height='340px'
+      server='netease'
+      type='playlist'
+      id='3175833810'
+      list-folded='true'>
+    </meting-js>
+  
+
+
+        </div>
+      
+    
+      
+        <br>
+        <div class="social-wrapper">
+          
+            
+              <a href="/haoge744.github.io/atom.xml"
+                class="social fas fa-rss flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+            
+              <a href="mailto:cch_it@sina.com"
+                class="social fas fa-envelope flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+            
+              <a href="https://github.com/haoge744"
+                class="social fab fa-github flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+            
+              <a href="https://music.163.com/#/user/home?id=303461483"
+                class="social fas fa-headphones-alt flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+        </div>
+      
+    
+      
+        <div><p>博客内容遵循 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener">署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</a></p>
+</div>
+      
+    
+      
+        本站使用
+        <a href="https://volantis.js.org/" target="_blank" class="codename">cch‘blog</a>
+        作为主题
+        
+          ，
+          总访问量为
+          <span id="busuanzi_value_site_pv"><i class="fas fa-spinner fa-spin fa-fw" aria-hidden="true"></i></span>
+          次
+        
+      
+    
+      
+        <div class='copyright'>
+        <p><a href="https://xaoxuu.com" target="_blank" rel="noopener">Copyright © 2017-2020 Mr. X</a></p>
+
+        </div>
+      
+    
+  </footer>
+
+<script>setLoadingBarProgress(80);</script>
+
+
+      <script>setLoadingBarProgress(60);</script>
+    </div>
+    <a class="s-top fas fa-arrow-up fa-fw" href='javascript:void(0)'></a>
+  </div>
+  
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4/dist/jquery.min.js"></script>
+
+
+  <script>
+    
+    var SEARCH_SERVICE = "hexo" || "hexo";
+    var ROOT = "/haoge744.github.io/" || "/";
+    if (!ROOT.endsWith('/')) ROOT += '/';
+  </script>
+
+
+  <script async src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@2/js/instant_page.js" type="module" defer integrity="sha384-OeDn4XE77tdHo8pGtE1apMPmAipjoxUQ++eeJa6EtJCfHlvijigWiJpD7VDPWXV1"></script>
+
+
+
+  
+<script src="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.js"></script>
+
+  <script type="text/javascript">
+    $(function() {
+      Waves.attach('.flat-btn', ['waves-button']);
+      Waves.attach('.float-btn', ['waves-button', 'waves-float']);
+      Waves.attach('.float-btn-light', ['waves-button', 'waves-float', 'waves-light']);
+      Waves.attach('.flat-box', ['waves-block']);
+      Waves.attach('.float-box', ['waves-block', 'waves-float']);
+      Waves.attach('.waves-image');
+      Waves.init();
+    });
+  </script>
+
+
+  <script async src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-busuanzi@2.3/js/busuanzi.pure.mini.js"></script>
+
+
+
+  
+  
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/jquery-backstretch@2.1.18/jquery.backstretch.min.js"></script>
+
+    <script type="text/javascript">
+      $(function(){
+        var imgs=["https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/BBC19066-E176-47C2-9D22-48C81EE5DF6B.jpeg"];
+        if ('true' == 'true') {
+          function shuffle(arr){
+            /*From countercurrent-time*/
+            var n = arr.length;
+            while(n--) {
+              var index = Math.floor(Math.random() * n);
+              var temp = arr[index];
+              arr[index] = arr[n];
+              arr[n] = temp;
+            }
+          }
+          shuffle(imgs);
+        }
+        if ('.cover') {
+          $('.cover').backstretch(
+            imgs,
+          {
+            duration: "20000",
+            fade: "1500"
+          });
+        } else {
+          $.backstretch(
+            imgs,
+          {
+            duration: "20000",
+            fade: "1500"
+          });
+        }
+      });
+    </script>
+  
+
+
+
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.js" async></script>
+
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/meting@2.0/dist/Meting.min.js" async></script>
+
+  
+
+
+
+
+
+  <script type="text/javascript">
+    (function(d, s) {
+      var j, e = d.getElementsByTagName(s)[0];
+      if (typeof LivereTower === 'function') { return; }
+      j = d.createElement(s);
+      j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+      j.async = true;
+      e.parentNode.insertBefore(j, e);
+    })(document, 'script');
+  </script>
+
+
+
+
+
+
+  
+<script src="/haoge744.github.io/js/app.js"></script>
+
+
+
+  
+<script src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@2.1/js/search.js"></script>
+
+
+
+  
+<script src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@2/js/comment_typing.js"></script>
+
+
+
+<!-- 复制 -->
+
+  <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="fas fa-copy"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copyed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('fa-copy');
+        $icon.addClass('fa-clipboard-check');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPYED';
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('fa-copy');
+        $icon.addClass('fa-exclamation-triangle');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+
+
+
+
+<!-- fancybox -->
+
+  <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+<script>
+  let LAZY_LOAD_IMAGE = "";
+  $(".article-entry").find("fancybox").find("img").each(function () {
+      var element = document.createElement("a");
+      $(element).attr("data-fancybox", "gallery");
+      $(element).attr("href", $(this).attr("src"));
+      /* 图片采用懒加载处理时,
+       * 一般图片标签内会有个属性名来存放图片的真实地址，比如 data-original,
+       * 那么此处将原本的属性名src替换为对应属性名data-original,
+       * 修改如下
+       */
+       if (LAZY_LOAD_IMAGE) {
+         $(element).attr("href", $(this).attr("data-original"));
+       }
+      $(this).wrap(element);
+  });
+</script>
+
+
+
+
+
+
+  <script>setLoadingBarProgress(100);</script>
+<script src="/haoge744.github.io/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/haoge744.github.io/live2dw/assets/z16.model.json"},"display":{"position":"right","width":250,"height":500,"hOffset":30,"vOffset":0},"react":{"opacity":0.7},"mobile":{"show":true}});</script></body>
+</html>

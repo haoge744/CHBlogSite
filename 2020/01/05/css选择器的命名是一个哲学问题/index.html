@@ -1,0 +1,1090 @@
+<!DOCTYPE html>
+<html>
+<head hexo-theme='https://volantis.js.org/#fighting'>
+  <meta charset="utf-8">
+  <!-- SEO相关 -->
+  
+    
+  
+  <!-- 渲染优化 -->
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <!-- 页面元数据 -->
+  
+    <title>css选择器的命名是一个哲学问题 - cch‘s blog</title>
+  
+    <meta name="keywords" content="css">
+  
+  
+    <meta name="description" content="
+以下内容摘抄、总结于《CSS选择器世界》
+
+不推荐的命名方法根据单词命名:12345.title &#123;&#125;.red &#123;&#125;.box &#123;&#125;.success &#123;&#125;.red &#123;&#125;
+
+以上命名虽然简短，语义也更易懂，但是重名频...">
+  
+
+  <!-- feed -->
+  
+
+  <!-- import meta -->
+  
+
+  <!-- link -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css">
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.css">
+
+  
+
+  
+  <link rel="shortcut icon" type='image/x-icon' href="https://cdn.jsdelivr.net/gh/haoge744/cdn-rob/blog/favicon.ico">
+  
+
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.css">
+  
+
+  <!-- import link -->
+  
+
+  
+    
+<link rel="stylesheet" href="/haoge744.github.io/css/style.css">
+
+  
+
+  <script>
+    function setLoadingBarProgress(num) {
+      document.getElementById('loading-bar').style.width=num+"%";
+    }
+  </script>
+
+  
+  
+</head>
+
+<body>
+  
+  <div id="loading-bar-wrapper">
+  <div id="loading-bar"></div>
+</div>
+<header class="l_header shadow blur">
+
+  <div class='wrapper'>
+    <div class='nav-sub container--flex'>
+      <a class="logo flat-box"></a>
+      <ul class='switcher h-list'>
+        <li><a class="s-comment flat-btn fas fa-comments fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+          <li><a class="s-toc flat-btn fas fa-list fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+      </ul>
+    </div>
+		<div class="nav-main container container--flex">
+      
+        
+        <a class="logo flat-box" target="_self" href='/haoge744.github.io/'>
+          
+          
+          
+          
+            CCH‘BLOG <b><sup style='color:#3AA757'>fighting</sup></b>
+          
+        </a>
+      
+
+			<div class='menu navigation'>
+				<ul class='h-list'>
+          
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/haoge744.github.io/
+                  
+                  
+                  
+                    id="haoge744.github.io"
+                  >
+                  
+                    <i class='fas fa-rss fa-fw'></i>
+                  
+                  博客
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/haoge744.github.io/categories/
+                  
+                  
+                  
+                    id="haoge744.github.iocategories"
+                  >
+                  
+                    <i class='fas fa-folder-open fa-fw'></i>
+                  
+                  分类
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/haoge744.github.io/tags/
+                  
+                  
+                  
+                    id="haoge744.github.iotags"
+                  >
+                  
+                    <i class='fas fa-tags fa-fw'></i>
+                  
+                  标签
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/haoge744.github.io/archives/
+                  
+                  
+                  
+                    id="haoge744.github.ioarchives"
+                  >
+                  
+                    <i class='fas fa-archive fa-fw'></i>
+                  
+                  归档
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/haoge744.github.io/friends/
+                  
+                  
+                  
+                    id="haoge744.github.iofriends"
+                  >
+                  
+                    <i class='fas fa-link fa-fw'></i>
+                  
+                  友链
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/haoge744.github.io/about/
+                  
+                  
+                  
+                    id="haoge744.github.ioabout"
+                  >
+                  
+                    <i class='fas fa-info-circle fa-fw'></i>
+                  
+                  关于
+                </a>
+                
+              </li>
+            
+          
+          
+				</ul>
+			</div>
+
+      
+        <div class="m_search">
+          <form name="searchform" class="form u-search-form">
+            <i class="icon fas fa-search fa-fw"></i>
+            <input type="text" class="input u-search-input" placeholder="搜索" />
+          </form>
+        </div>
+      
+
+			<ul class='switcher h-list'>
+				
+					<li><a class="s-search flat-btn fas fa-search fa-fw" target="_self" href='javascript:void(0)'></a></li>
+				
+				<li><a class="s-menu flat-btn fas fa-bars fa-fw" target="_self" href='javascript:void(0)'></a></li>
+			</ul>
+		</div>
+	</div>
+</header>
+<ul class="menu-phone navigation white-box">
+  
+  
+    <li>
+      <a class="flat-box" href=/haoge744.github.io/
+        
+        
+        
+          id="haoge744.github.io"
+        >
+        
+          <i class='fas fa-rss fa-fw'></i>
+        
+        博客
+      </a>
+    </li>
+  
+    <li>
+      <a class="flat-box" href=/haoge744.github.io/categories/
+        
+        
+        
+          id="haoge744.github.iocategories"
+        >
+        
+          <i class='fas fa-folder-open fa-fw'></i>
+        
+        分类
+      </a>
+    </li>
+  
+    <li>
+      <a class="flat-box" href=/haoge744.github.io/tags/
+        
+        
+        
+          id="haoge744.github.iotags"
+        >
+        
+          <i class='fas fa-tags fa-fw'></i>
+        
+        标签
+      </a>
+    </li>
+  
+    <li>
+      <a class="flat-box" href=/haoge744.github.io/archives/
+        
+        
+        
+          id="haoge744.github.ioarchives"
+        >
+        
+          <i class='fas fa-archive fa-fw'></i>
+        
+        归档
+      </a>
+    </li>
+  
+    <li>
+      <a class="flat-box" href=/haoge744.github.io/friends/
+        
+        
+        
+          id="haoge744.github.iofriends"
+        >
+        
+          <i class='fas fa-link fa-fw'></i>
+        
+        友链
+      </a>
+    </li>
+  
+    <li>
+      <a class="flat-box" href=/haoge744.github.io/about/
+        
+        
+        
+          id="haoge744.github.ioabout"
+        >
+        
+          <i class='fas fa-info-circle fa-fw'></i>
+        
+        关于
+      </a>
+    </li>
+  
+</ul>
+<script>setLoadingBarProgress(40);</script>
+
+
+
+  <div class="l_body nocover">
+    <div class='body-wrapper'>
+      
+
+<div class='l_main'>
+  
+
+  
+    <article id="post" class="post white-box shadow article-type-post" itemscope itemprop="blogPost">
+      
+
+
+  <section class='meta'>
+    
+    
+    <div class="meta" id="header-meta">
+      
+        
+  
+    <h1 class="title">
+      <a href="/haoge744.github.io/2020/01/05/css%E9%80%89%E6%8B%A9%E5%99%A8%E7%9A%84%E5%91%BD%E5%90%8D%E6%98%AF%E4%B8%80%E4%B8%AA%E5%93%B2%E5%AD%A6%E9%97%AE%E9%A2%98/">
+        css选择器的命名是一个哲学问题
+      </a>
+    </h1>
+  
+
+
+      
+      <div class='new-meta-box'>
+        
+          
+        
+          
+            
+<div class='new-meta-item author'>
+  <a href="http://www.cch.zone" target="_blank" rel="nofollow noopener">
+    <img src="https://cdn.jsdelivr.net/gh/haoge744/cdn-rob/blog/myAvatar.png">
+    <p>cch</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  
+  <div class='new-meta-item category'>
+    <a href='/haoge744.github.io/categories/css/' rel="nofollow">
+      <i class="fas fa-folder-open" aria-hidden="true"></i>
+      <p>css</p>
+    </a>
+  </div>
+
+
+          
+        
+          
+            <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-edit" aria-hidden="true"></i>
+    <p>发布于：2020年1月5日</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+
+          
+        
+      </div>
+      
+        <hr>
+      
+    </div>
+  </section>
+
+
+      <section class="article typo">
+        <div class="article-entry" itemprop="articleBody">
+          
+          <blockquote>
+<p>以下内容摘抄、总结于《CSS选择器世界》</p>
+</blockquote>
+<h2 id="不推荐的命名方法"><a href="#不推荐的命名方法" class="headerlink" title="不推荐的命名方法"></a>不推荐的命名方法</h2><h3 id="根据单词命名"><a href="#根据单词命名" class="headerlink" title="根据单词命名:"></a>根据单词命名:</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.title</span> &#123;&#125;</span><br><span class="line"><span class="selector-class">.red</span> &#123;&#125;</span><br><span class="line"><span class="selector-class">.box</span> &#123;&#125;</span><br><span class="line"><span class="selector-class">.success</span> &#123;&#125;</span><br><span class="line"><span class="selector-class">.red</span> &#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>以上命名虽然简短，语义也更易懂，但是重名频率太高，<strong>不推荐</strong>。</p>
+<h3 id="使用拼音命名"><a href="#使用拼音命名" class="headerlink" title="使用拼音命名"></a>使用拼音命名</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.cs-tou</span> &#123;&#125;</span><br><span class="line"><span class="selector-class">.cs-hezi</span> &#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>试用拼音虽然胜利，对功能也没有影响，但却是一个比较傻的行为，因为他会让人感觉你比较业余。你自己命名是省力了，但这样的命名对其他同事而言却苦不堪言，因为可读性较差。</p>
+<h3 id="使用id选择器"><a href="#使用id选择器" class="headerlink" title="使用id选择器"></a>使用id选择器</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-id">#box</span> &#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>id选择器虽然性能很不错，可以和类选择器分庭抗礼，但是他存在以下两个巨大缺陷    </p>
+<a id="more"></a>
+
+<pre><code>- 优先级太高，如果需要重置某些样式，必须要对id选择器选择覆盖，再多的类名都没有用，这会使得项目选择器的优先级变得非常混乱。如果非要使用元素的id选择器作为标识，可以用属性选择器替代:`[id=&quot;box&quot;]`
+- 和Javascript耦合,实际开发时，元素的ID主要用在Javascript中，以方便Dom元素快速获取它，如果ID同时和样式关联，它的可维护性会大打折扣，一旦ID变化，需要同时修改CSS和Javascript，然而实际上开发只会修改一处，这就是很多后期bug产生的原因。</code></pre><h3 id="使用嵌套选择器"><a href="#使用嵌套选择器" class="headerlink" title="使用嵌套选择器"></a>使用嵌套选择器</h3><p>以下选择器在项目中经常出现的:</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.nav</span> <span class="selector-tag">a</span> &#123;&#125;</span><br><span class="line"><span class="selector-class">.box</span> &gt; <span class="selector-tag">div</span> &#123;&#125;</span><br><span class="line"><span class="selector-class">.avatar</span> <span class="selector-tag">img</span> &#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.box</span> <span class="selector-class">.pic</span> <span class="selector-class">.icon</span> &#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>特别是在有了Scss、Less、Stylus之类的预编译工具出现后，5、6层嵌套的css选择器也大量出现，这太糟糕了！他们都是特别差的代码，其性质比Javascript使用全局变量还要糟。除了在书写时省电力其他全是缺点，包括:</p>
+<ul>
+<li>渲染性能糟糕</li>
+<li>优先级混乱</li>
+<li>样式布局脆弱</li>
+</ul>
+<h4 id="1-渲染性能糟糕"><a href="#1-渲染性能糟糕" class="headerlink" title="1. 渲染性能糟糕"></a>1. 渲染性能糟糕</h4><p>过深的嵌套会对性能产生影响，因为每加深一层嵌套，浏览器在进行选择器匹配的时候回多一层计算，一两个嵌套对性能自然毫无影响，但是，如果数千行CSS都才用了多层嵌套，量变引起质变，此时，光CSS样式的解析就可以到达百毫秒级别。</p>
+<h4 id="2-优先级混乱"><a href="#2-优先级混乱" class="headerlink" title="2. 优先级混乱"></a>2. 优先级混乱</h4><p>书写选择器尽量遵循一个原则，那就是尽可能保持比较低的优先级，这样方便以后以较低的成本重置一些样式。<br>然而，一旦选择器开始嵌套，优先级规则就会变得复杂，当我们想要重置某些样式的时候，你会发现一个类名不管用，两个类名也不管用，打开控制台一看，你希望重置的样式居然有6个选择器依次嵌套。如:</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.layer_send_video_v3</span> <span class="selector-class">.video_upbox</span> <span class="selector-tag">dd</span> <span class="selector-class">.dd_succ</span> <span class="selector-class">.pic_default</span> <span class="selector-tag">img</span> &#123;&#125;</span><br></pre></td></tr></table></figure>
+<p>此时如果想要重置img的样式，只有这几种方法：1.使用同一优先级的选择器，但这个选择器的位置在需要重置的CSS代码后面；2.使用更深的层级，例如 使用7层选择器 这是最常用的方法 3. 使用Id选择器或者!important。他们都是很糟糕的解决方法。</p>
+<h4 id="3-样式布局脆弱"><a href="#3-样式布局脆弱" class="headerlink" title="3. 样式布局脆弱"></a>3. 样式布局脆弱</h4><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.layer_end_video_v3</span> <span class="selector-class">.video_upbox</span> <span class="selector-tag">dd</span> <span class="selector-class">.dd_succ</span> <span class="selector-class">.pic_default</span> <span class="selector-tag">img</span> &#123;&#125;</span><br></pre></td></tr></table></figure>
+<p>在实际开发维护的过程中，调整HTML标签是非常常见的事情，例如，将<dd>元素换成语义更好的<section>。但是如果使用的是dd和img选择器,HTML标签是不能换的,因为如果标签换了，整个样式都会无效，你必须去CSS文件中找到对应的标签选择器进行同步修改，维护成本巨大。</section></dd></p>
+<h2 id="推荐的命名方法"><a href="#推荐的命名方法" class="headerlink" title="推荐的命名方法"></a>推荐的命名方法</h2><h3 id="使用类选择器"><a href="#使用类选择器" class="headerlink" title="使用类选择器"></a>使用类选择器</h3><p>不要使用以下的嵌套选择器和标签选择器了:</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">nav</span> <span class="attr">class</span>=<span class="string">"nav"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">a</span>&gt;</span>链接1<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">a</span>&gt;</span>链接2<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">a</span>&gt;</span>链接3<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">nav</span>&gt;</span></span><br><span class="line">.nav &#123;&#125;</span><br><span class="line">.nav a &#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>请换成:</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">nav</span> <span class="attr">class</span>=<span class="string">"cs-nav"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">a</span> <span class="attr">class</span>=<span class="string">"cs-nav-a"</span>&gt;</span>链接1<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">a</span> <span class="attr">class</span>=<span class="string">"cs-nav-a"</span>&gt;</span>链接2<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">a</span> <span class="attr">class</span>=<span class="string">"cs-nav-a"</span>&gt;</span>链接3<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">nav</span>&gt;</span></span><br><span class="line">.cs-nav &#123;&#125;</span><br><span class="line">.cs-nav-a &#123;&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="好的命名方法"><a href="#好的命名方法" class="headerlink" title="好的命名方法"></a>好的命名方法</h3><h4 id="CSS命名结构"><a href="#CSS命名结构" class="headerlink" title="CSS命名结构"></a>CSS命名结构</h4><p>我们使用一些第三方UI时可以看到别人会以项目名开头去命名css，比如element-ui以<strong>el</strong>开头,vant-ui使用<strong>van</strong>开头等等，这种命名方式有效的防止了和我们自己书写的css命名冲突的问题。所以我们也可以效仿。以项目名或者公司名来开头。<br>比如以下格式:</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">projectname-module-title</span></span><br><span class="line"><span class="selector-tag">business-module-footer</span></span><br></pre></td></tr></table></figure>
+<p>示例:</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.cs-shop-panel-header</span>&#123;&#125;</span><br><span class="line"><span class="selector-class">.cs-shop-panel-header-title</span>&#123;&#125;</span><br><span class="line"><span class="selector-class">.cs-dialog-header</span>&#123;&#125;</span><br><span class="line"><span class="selector-class">.cs-dialog-footer</span>&#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="不要歧视使用面向属性的命名"><a href="#不要歧视使用面向属性的命名" class="headerlink" title="不要歧视使用面向属性的命名"></a>不要歧视使用面向属性的命名</h4><p>不少开发者是不认可下面这种基于css属性本身的命名方式的，尤其是Web标准刚兴起的那段时期。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.dn</span> &#123;<span class="attribute">display</span>: none;&#125;</span><br><span class="line"><span class="selector-class">.db</span> &#123;<span class="attribute">display</span>: block;&#125;</span><br><span class="line"><span class="selector-class">.dib</span> &#123;<span class="attribute">display</span>: inline-block;&#125;</span><br><span class="line">...</span><br><span class="line"><span class="selector-class">.ml20</span> &#123;<span class="attribute">margin-left</span>:<span class="number">20px</span>;&#125;</span><br><span class="line">...</span><br><span class="line"><span class="selector-class">.vt</span> &#123;<span class="attribute">vertial-align</span>: top;&#125;</span><br><span class="line"><span class="selector-class">.text-ell</span> &#123;<span class="attribute">text-overflow</span>:ellipsis;<span class="attribute">white-space</span>:nowrap;<span class="attribute">overflow</span>:hidden;&#125;</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<p>为什么呢?因为这类命名本质上和html元素上写style属性没有什么不同。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">span</span> <span class="attr">style</span>=<span class="string">"display:inline-block;margin-left:20px"</span>&gt;</span>文字<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>效果是一样的，只是前者在书写上更为简洁，优先级更低。</p>
+<p>但是我们需要调整样式的时候，改动的是HTML，而非CSS，这不等于HTML和CSS耦合在一起了吗。于是很多人就接受不了了，尤其在推崇内容和样式分离的年代。我们做技术，一定要保持理性，要有自己的思考，最合适的才是最好的。技术的发展也想流行趋势一样是一个圈，转了一圈又回来了。随着React等框架的星期，”CSS in JavaScript”的概念居然也出现了(类似styled-components)。</p>
+<p>在某个很深的角落里里有一张图片，你希望这张图片的display设置为block,就算你专门给他命名一个语义化的CSS也没有意义。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.pic_default_img</span> &#123;<span class="attribute">display</span>:block;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>类名的意义在于重复利用，如果他只是为了解决某一个单独的问题，那么还不如写style内联样式。</p>
+<h4 id="正确使用状态类名"><a href="#正确使用状态类名" class="headerlink" title="正确使用状态类名"></a>正确使用状态类名</h4><p>页面的交互总是伴随着各种状态变化，包括禁用状态、选中状态、激活状态等</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.cs-content</span><span class="selector-class">.active</span>&#123;&#125;</span><br><span class="line"><span class="selector-class">.cs-check-item</span><span class="selector-class">.checked</span>&#123;&#125;</span><br><span class="line"><span class="selector-class">.cs-input-item</span><span class="selector-class">.disabled</span>&#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>.active</code>类名本身没有样式，就是一个状态标识符，用来与其他类名发生关系，让其他类名的样式发生变化。并且与JavaScript代码逻辑分离，可以有效降低日后维护成本。可读性强。</p>
+<h2 id="最佳实践"><a href="#最佳实践" class="headerlink" title="最佳实践"></a>最佳实践</h2><h4 id="1-命名书写"><a href="#1-命名书写" class="headerlink" title="1. 命名书写"></a>1. 命名书写</h4><p>(1) 命名建议小写，使用英文单词或缩写，对于专有名词，可以使用拼音，例如:</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.cs-logo-youku</span> &#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>不建议使用驼峰命名，驼峰命名建议专门给JavaScript DOM用，以便和CSS样式类名区分开。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.csLogoYouku</span>&#123;&#125; <span class="comment">/* 不建议 */</span></span><br></pre></td></tr></table></figure>
+
+<p>(2) 对于组合命名，可以短横线或下划线连接，可以组合使用短横线和下划线，也可以连续短横线或下划线连接，任何方式都可以，只要在项目中保持一致就可以:</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.cs-logo-youku</span> &#123;&#125;</span><br><span class="line"><span class="selector-class">.cs_logo_youku</span> &#123;&#125;</span><br><span class="line"><span class="selector-class">.cs-logo--youku</span> &#123;&#125;</span><br><span class="line"><span class="selector-class">.cs-logo__youku</span> &#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>组合格式没有必要超过5个，5个是极限。</p>
+<p>(3) 设置统一前缀，强化品牌同时避免样式冲突:</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.cs-header</span> &#123;&#125;</span><br><span class="line"><span class="selector-class">.cs-log</span> &#123;&#125;</span><br><span class="line"><span class="selector-class">.cs-logo-a</span> &#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这样，CSS代码的美观度也会提升很多</p>
+<h4 id="2-选择器类型"><a href="#2-选择器类型" class="headerlink" title="2. 选择器类型"></a>2. 选择器类型</h4><p>根据选择器的使用类型，我将网站CSS分成3个部分，分别是CSS重置样式，CSS基础样式和CSS交互变化样式。</p>
+<p>无论那种样式都不推荐使用ID选择器，实在要用，使用属性选择器代替，他的优先级和类选择器一模一样。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-attr">[id=<span class="string">"someId"</span>]</span> &#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>CSS样式的重置可以使用标签选择器或者属性选择器:</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">body</span>,<span class="selector-tag">p</span> &#123;<span class="attribute">margin</span>:<span class="number">0</span>;&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-attr">[type=<span class="string">"radio"</span>]</span>,</span><br><span class="line"><span class="selector-attr">[type=<span class="string">"checkbox"</span>]</span> &#123;</span><br><span class="line">    <span class="attribute">position</span>:absolute;</span><br><span class="line">    <span class="attribute">clip</span>: <span class="built_in">rect</span>(<span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>所有CSS基础样式全部使用类选择器，没有层级，没有标签。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.cs-module</span> <span class="selector-class">.img</span> &#123;&#125; <span class="comment">/* 不推荐*/</span></span><br><span class="line"><span class="selector-class">.cs-module-ul</span> &gt; <span class="selector-tag">li</span> &#123;&#125; <span class="comment">/* 不推荐*/</span></span><br></pre></td></tr></table></figure>
+
+<p>在所有HTML的标签上都写上不会冲突的类名</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.cs-module-img</span> &#123;&#125;</span><br><span class="line"><span class="selector-class">.cs-module-li</span> &#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>所有HTML都需要重新命名的问题可以通过面向属性命名的CSS样式库得到解决。</p>
+<p>所有选择器嵌套或者级联，所有的伪类全部都在CSS交互样式发生变化的时候使用。例如:</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.cs-content</span><span class="selector-class">.active</span>&#123;</span><br><span class="line">    <span class="attribute">height</span>: auto;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.active</span> &gt; <span class="selector-class">.cs-content-more</span>&#123;</span><br><span class="line">    <span class="attribute">display</span>: none;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>例如</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.cs-button</span><span class="selector-pseudo">:active</span>&#123;</span><br><span class="line">    <span class="attribute">filter</span>: <span class="built_in">hue-rotate</span>(<span class="number">5deg</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.cs-input</span><span class="selector-pseudo">:focus</span> &#123;</span><br><span class="line">    <span class="attribute">border-color</span>: <span class="built_in">var</span>(--blue);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>状态类名本身不包含任何CSS样式，他就是一个标识符。</p>
+<p>如果我们无法修改HTML。例如无法通过修改class属性添加新的类名，则级联、嵌套，以及各种高级伪类的使用都不受上面使用规则的限制。</p>
+<p>再和目前很多人的实现对比一下，最佳实践的不同之处在于：</p>
+<ul>
+<li>无标签，无层级；</li>
+<li>状态类名标识符；</li>
+<li>面向属性命名的CSS样式库。</li>
+</ul>
+
+          
+            <br>
+            
+  
+    
+    
+
+<section class="widget copyright  desktop mobile">
+  <div class='content'>
+    
+      <blockquote>
+        
+          
+            <p>博客内容遵循 署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</p>
+
+          
+        
+          
+            <p>本文永久链接是：<a href=https://haoge744.github.io/2020/01/05/css%E9%80%89%E6%8B%A9%E5%99%A8%E7%9A%84%E5%91%BD%E5%90%8D%E6%98%AF%E4%B8%80%E4%B8%AA%E5%93%B2%E5%AD%A6%E9%97%AE%E9%A2%98/>https://haoge744.github.io/2020/01/05/css%E9%80%89%E6%8B%A9%E5%99%A8%E7%9A%84%E5%91%BD%E5%90%8D%E6%98%AF%E4%B8%80%E4%B8%AA%E5%93%B2%E5%AD%A6%E9%97%AE%E9%A2%98/</a></p>
+          
+        
+      </blockquote>
+    
+  </div>
+</section>
+
+  
+
+  
+    
+    
+
+<section class="widget qrcode  desktop mobile">
+  
+
+  <div class='content article-entry'>
+    
+      
+        <fancybox><img src='https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/qrcode/wiki_volantis.png'
+        
+          height='64px'
+        ></fancybox>
+      
+    
+      
+        <fancybox><img src='https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/qrcode/wiki_volantis.png'
+        
+          height='64px'
+        ></fancybox>
+      
+    
+  </div>
+</section>
+
+  
+
+
+          
+        </div>
+        
+          
+
+
+  <section class='meta' id="footer-meta">
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-03-14T09:37:26+08:00">
+  <a class='notlink'>
+    <i class="fas fa-save" aria-hidden="true"></i>
+    <p>更新于：2020年3月14日</p>
+  </a>
+</div>
+
+        
+      
+        
+          
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/haoge744.github.io/tags/css/" rel="nofollow"><i class="fas fa-hashtag" aria-hidden="true"></i><p>css</p></a></div>
+
+
+        
+      
+        
+          
+
+        
+      
+        
+          
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
+    
+      
+        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer"
+          
+          href="http://connect.qq.com/widget/shareqq/index.html?url=https://haoge744.github.io/2020/01/05/css%E9%80%89%E6%8B%A9%E5%99%A8%E7%9A%84%E5%91%BD%E5%90%8D%E6%98%AF%E4%B8%80%E4%B8%AA%E5%93%B2%E5%AD%A6%E9%97%AE%E9%A2%98/&title=css选择器的命名是一个哲学问题 - cch‘s blog&summary=
+以下内容摘抄、总结于《CSS选择器世界》
+
+不推荐的命名方法根据单词命名:12345.title &#123;&#125;.red &#123;&#125;.box &#123;&#125;.success &#123;&#125;.red &#123;&#125;
+
+以上命名虽然简短，语义也更易懂，但是重名频率太高，不推荐。
+使用拼音命名12.cs-tou &#123;&#125;.cs-hezi &#123;&#125;
+
+试用拼音虽然胜利，对功能也没有影响，但却是一个比较傻的行为，因为他会让人感觉你比较业余。你自己命名是省力了，但这样的命名对其他同事而言却苦不堪言，因为可读性较差。
+使用id选择器1#box &#123;&#125;
+
+id选择器虽然性能很不错，可以和类选择器分庭抗礼，但是他存在以下两个巨大缺陷    "
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/qq.png">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer"
+          
+          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://haoge744.github.io/2020/01/05/css%E9%80%89%E6%8B%A9%E5%99%A8%E7%9A%84%E5%91%BD%E5%90%8D%E6%98%AF%E4%B8%80%E4%B8%AA%E5%93%B2%E5%AD%A6%E9%97%AE%E9%A2%98/&title=css选择器的命名是一个哲学问题 - cch‘s blog&summary=
+以下内容摘抄、总结于《CSS选择器世界》
+
+不推荐的命名方法根据单词命名:12345.title &#123;&#125;.red &#123;&#125;.box &#123;&#125;.success &#123;&#125;.red &#123;&#125;
+
+以上命名虽然简短，语义也更易懂，但是重名频率太高，不推荐。
+使用拼音命名12.cs-tou &#123;&#125;.cs-hezi &#123;&#125;
+
+试用拼音虽然胜利，对功能也没有影响，但却是一个比较傻的行为，因为他会让人感觉你比较业余。你自己命名是省力了，但这样的命名对其他同事而言却苦不堪言，因为可读性较差。
+使用id选择器1#box &#123;&#125;
+
+id选择器虽然性能很不错，可以和类选择器分庭抗礼，但是他存在以下两个巨大缺陷    "
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/qzone.png">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer"
+          
+          href="http://service.weibo.com/share/share.php?url=https://haoge744.github.io/2020/01/05/css%E9%80%89%E6%8B%A9%E5%99%A8%E7%9A%84%E5%91%BD%E5%90%8D%E6%98%AF%E4%B8%80%E4%B8%AA%E5%93%B2%E5%AD%A6%E9%97%AE%E9%A2%98/&title=css选择器的命名是一个哲学问题 - cch‘s blog&summary=
+以下内容摘抄、总结于《CSS选择器世界》
+
+不推荐的命名方法根据单词命名:12345.title &#123;&#125;.red &#123;&#125;.box &#123;&#125;.success &#123;&#125;.red &#123;&#125;
+
+以上命名虽然简短，语义也更易懂，但是重名频率太高，不推荐。
+使用拼音命名12.cs-tou &#123;&#125;.cs-hezi &#123;&#125;
+
+试用拼音虽然胜利，对功能也没有影响，但却是一个比较傻的行为，因为他会让人感觉你比较业余。你自己命名是省力了，但这样的命名对其他同事而言却苦不堪言，因为可读性较差。
+使用id选择器1#box &#123;&#125;
+
+id选择器虽然性能很不错，可以和类选择器分庭抗礼，但是他存在以下两个巨大缺陷    "
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/weibo.png">
+          
+        </a>
+      
+    
+  </div>
+</div>
+
+
+
+        
+      
+    </div>
+  </section>
+
+
+        
+        
+          <div class="prev-next">
+            
+              <a class='prev' href='/haoge744.github.io/2020/01/18/jsTips/'>
+                <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>jsTips</p>
+                <p class='content'>小本本记录了一些关于js的小tips，下面整理一下发出来，内容可能会有过时。
+
+
+
+打印变量类型判断是否是对象
+1Object.prototype.toString.call(obj) === ...</p>
+              </a>
+            
+            
+              <a class='next' href='/haoge744.github.io/2020/01/02/nginx%E9%83%A8%E7%BD%B2vue%E9%A1%B9%E7%9B%AE%E5%8F%8A%E9%85%8D%E7%BD%AE%E8%B7%AF%E7%94%B1%E6%A8%A1%E5%BC%8F/'>
+                <p class='title'>nginx部署vue项目及配置路由模式<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+                <p class='content'>vue的默认路由模式采用的是hash模式，使用URL的hash值来模拟路径，于是url改变时，页面不会重载。如果不想要很丑的#号，可以使用路由的history模式,但是部署至服务器后，刷新页面会...</p>
+              </a>
+            
+          </div>
+        
+      </section>
+    </article>
+  
+
+  
+    <!-- 显示推荐文章和评论 -->
+
+
+
+  <article class="post white-box comments shadow">
+    <section class="article typo">
+      <p ct><i class='fas fa-comments'></i> 评论</p>
+      
+      
+      
+        <section id="comments">
+          <div id="lv-container" data-id="city" data-uid="MTAyMC80NjQ3NC8yMjk4NQ==">
+            <noscript><div><i class='fas fa-exclamation-triangle'>&nbsp;无法加载Livere评论系统，请确保您的网络能够正常访问。</div></noscript>
+          </div>
+        </section>
+      
+      
+      
+    </section>
+  </article>
+
+
+  
+
+
+
+
+<!-- 根据页面mathjax变量决定是否加载MathJax数学公式js -->
+
+
+
+  <script>
+    window.subData = {
+      title: 'css选择器的命名是一个哲学问题',
+      tools: true
+    }
+  </script>
+
+
+</div>
+<aside class='l_side'>
+  
+  
+
+  
+    
+    
+
+
+  <section class="widget toc-wrapper shadow desktop mobile">
+    
+  <header>
+    
+      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
+    
+  </header>
+
+
+    <div class='content'>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#不推荐的命名方法"><span class="toc-text">不推荐的命名方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#根据单词命名"><span class="toc-text">根据单词命名:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用拼音命名"><span class="toc-text">使用拼音命名</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用id选择器"><span class="toc-text">使用id选择器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用嵌套选择器"><span class="toc-text">使用嵌套选择器</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-渲染性能糟糕"><span class="toc-text">1. 渲染性能糟糕</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-优先级混乱"><span class="toc-text">2. 优先级混乱</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-样式布局脆弱"><span class="toc-text">3. 样式布局脆弱</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#推荐的命名方法"><span class="toc-text">推荐的命名方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#使用类选择器"><span class="toc-text">使用类选择器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#好的命名方法"><span class="toc-text">好的命名方法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#CSS命名结构"><span class="toc-text">CSS命名结构</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#不要歧视使用面向属性的命名"><span class="toc-text">不要歧视使用面向属性的命名</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#正确使用状态类名"><span class="toc-text">正确使用状态类名</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#最佳实践"><span class="toc-text">最佳实践</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-命名书写"><span class="toc-text">1. 命名书写</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-选择器类型"><span class="toc-text">2. 选择器类型</span></a></li></ol></li></ol></li></ol>
+    </div>
+  </section>
+
+
+  
+
+
+</aside>
+
+
+  
+  <footer class="clearfix ">
+    <br><br>
+    
+      
+        <div class="aplayer-container">
+          
+
+  
+    <meting-js
+      theme='#1BCDFC'
+      autoplay='false'
+      volume='0.7'
+      loop='all'
+      order='list'
+      fixed='false'
+      list-max-height='340px'
+      server='netease'
+      type='playlist'
+      id='3175833810'
+      list-folded='true'>
+    </meting-js>
+  
+
+
+        </div>
+      
+    
+      
+        <br>
+        <div class="social-wrapper">
+          
+            
+              <a href="/haoge744.github.io/atom.xml"
+                class="social fas fa-rss flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+            
+              <a href="mailto:cch_it@sina.com"
+                class="social fas fa-envelope flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+            
+              <a href="https://github.com/haoge744"
+                class="social fab fa-github flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+            
+              <a href="https://music.163.com/#/user/home?id=303461483"
+                class="social fas fa-headphones-alt flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+        </div>
+      
+    
+      
+        <div><p>博客内容遵循 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener">署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</a></p>
+</div>
+      
+    
+      
+        本站使用
+        <a href="https://volantis.js.org/" target="_blank" class="codename">cch‘blog</a>
+        作为主题
+        
+          ，
+          总访问量为
+          <span id="busuanzi_value_site_pv"><i class="fas fa-spinner fa-spin fa-fw" aria-hidden="true"></i></span>
+          次
+        
+      
+    
+      
+        <div class='copyright'>
+        <p><a href="https://xaoxuu.com" target="_blank" rel="noopener">Copyright © 2017-2020 Mr. X</a></p>
+
+        </div>
+      
+    
+  </footer>
+
+<script>setLoadingBarProgress(80);</script>
+
+
+      <script>setLoadingBarProgress(60);</script>
+    </div>
+    <a class="s-top fas fa-arrow-up fa-fw" href='javascript:void(0)'></a>
+  </div>
+  
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4/dist/jquery.min.js"></script>
+
+
+  <script>
+    
+    var SEARCH_SERVICE = "hexo" || "hexo";
+    var ROOT = "/haoge744.github.io/" || "/";
+    if (!ROOT.endsWith('/')) ROOT += '/';
+  </script>
+
+
+  <script async src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@2/js/instant_page.js" type="module" defer integrity="sha384-OeDn4XE77tdHo8pGtE1apMPmAipjoxUQ++eeJa6EtJCfHlvijigWiJpD7VDPWXV1"></script>
+
+
+
+  
+<script src="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.js"></script>
+
+  <script type="text/javascript">
+    $(function() {
+      Waves.attach('.flat-btn', ['waves-button']);
+      Waves.attach('.float-btn', ['waves-button', 'waves-float']);
+      Waves.attach('.float-btn-light', ['waves-button', 'waves-float', 'waves-light']);
+      Waves.attach('.flat-box', ['waves-block']);
+      Waves.attach('.float-box', ['waves-block', 'waves-float']);
+      Waves.attach('.waves-image');
+      Waves.init();
+    });
+  </script>
+
+
+  <script async src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-busuanzi@2.3/js/busuanzi.pure.mini.js"></script>
+
+
+
+  
+  
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/jquery-backstretch@2.1.18/jquery.backstretch.min.js"></script>
+
+    <script type="text/javascript">
+      $(function(){
+        var imgs=["https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/BBC19066-E176-47C2-9D22-48C81EE5DF6B.jpeg"];
+        if ('true' == 'true') {
+          function shuffle(arr){
+            /*From countercurrent-time*/
+            var n = arr.length;
+            while(n--) {
+              var index = Math.floor(Math.random() * n);
+              var temp = arr[index];
+              arr[index] = arr[n];
+              arr[n] = temp;
+            }
+          }
+          shuffle(imgs);
+        }
+        if ('.cover') {
+          $('.cover').backstretch(
+            imgs,
+          {
+            duration: "20000",
+            fade: "1500"
+          });
+        } else {
+          $.backstretch(
+            imgs,
+          {
+            duration: "20000",
+            fade: "1500"
+          });
+        }
+      });
+    </script>
+  
+
+
+
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.js" async></script>
+
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/meting@2.0/dist/Meting.min.js" async></script>
+
+  
+
+
+
+
+
+  <script type="text/javascript">
+    (function(d, s) {
+      var j, e = d.getElementsByTagName(s)[0];
+      if (typeof LivereTower === 'function') { return; }
+      j = d.createElement(s);
+      j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+      j.async = true;
+      e.parentNode.insertBefore(j, e);
+    })(document, 'script');
+  </script>
+
+
+
+
+
+
+  
+<script src="/haoge744.github.io/js/app.js"></script>
+
+
+
+  
+<script src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@2.1/js/search.js"></script>
+
+
+
+  
+<script src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@2/js/comment_typing.js"></script>
+
+
+
+<!-- 复制 -->
+
+  <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="fas fa-copy"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copyed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('fa-copy');
+        $icon.addClass('fa-clipboard-check');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPYED';
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('fa-copy');
+        $icon.addClass('fa-exclamation-triangle');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+
+
+
+
+<!-- fancybox -->
+
+  <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+<script>
+  let LAZY_LOAD_IMAGE = "";
+  $(".article-entry").find("fancybox").find("img").each(function () {
+      var element = document.createElement("a");
+      $(element).attr("data-fancybox", "gallery");
+      $(element).attr("href", $(this).attr("src"));
+      /* 图片采用懒加载处理时,
+       * 一般图片标签内会有个属性名来存放图片的真实地址，比如 data-original,
+       * 那么此处将原本的属性名src替换为对应属性名data-original,
+       * 修改如下
+       */
+       if (LAZY_LOAD_IMAGE) {
+         $(element).attr("href", $(this).attr("data-original"));
+       }
+      $(this).wrap(element);
+  });
+</script>
+
+
+
+
+
+
+  <script>setLoadingBarProgress(100);</script>
+<script src="/haoge744.github.io/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/haoge744.github.io/live2dw/assets/z16.model.json"},"display":{"position":"right","width":250,"height":500,"hOffset":30,"vOffset":0},"react":{"opacity":0.7},"mobile":{"show":true}});</script></body>
+</html>

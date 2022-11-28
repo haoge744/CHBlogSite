@@ -1,0 +1,997 @@
+<!DOCTYPE html>
+<html>
+<head hexo-theme='https://volantis.js.org/#fighting'>
+  <meta charset="utf-8">
+  <!-- SEO相关 -->
+  
+    
+  
+  <!-- 渲染优化 -->
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <!-- 页面元数据 -->
+  
+    <title>v-slot的使用 - cch‘s blog</title>
+  
+    <meta name="keywords" content="vue">
+  
+  
+    <meta name="description" content="v-slot介绍vue2.6.x开始，vue为具名和范围插槽引入了一个全新的语法,即v-slot。目的就是想统一slot和scope-slot语法，使代码更加规范和清晰。
+还在2.5.x的小伙伴注意v-slot只支持在vue2.6以上使用，想用的同学请先升级版本哦。
+我们看看v-slot和之前的语法区别吧。">
+  
+
+  <!-- feed -->
+  
+
+  <!-- import meta -->
+  
+
+  <!-- link -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css">
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.css">
+
+  
+
+  
+  <link rel="shortcut icon" type='image/x-icon' href="https://cdn.jsdelivr.net/gh/haoge744/cdn-rob/blog/favicon.ico">
+  
+
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.css">
+  
+
+  <!-- import link -->
+  
+
+  
+    
+<link rel="stylesheet" href="/haoge744.github.io/css/style.css">
+
+  
+
+  <script>
+    function setLoadingBarProgress(num) {
+      document.getElementById('loading-bar').style.width=num+"%";
+    }
+  </script>
+
+  
+  
+</head>
+
+<body>
+  
+  <div id="loading-bar-wrapper">
+  <div id="loading-bar"></div>
+</div>
+<header class="l_header shadow blur">
+
+  <div class='wrapper'>
+    <div class='nav-sub container--flex'>
+      <a class="logo flat-box"></a>
+      <ul class='switcher h-list'>
+        <li><a class="s-comment flat-btn fas fa-comments fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+          <li><a class="s-toc flat-btn fas fa-list fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+      </ul>
+    </div>
+		<div class="nav-main container container--flex">
+      
+        
+        <a class="logo flat-box" target="_self" href='/haoge744.github.io/'>
+          
+          
+          
+          
+            CCH‘BLOG <b><sup style='color:#3AA757'>fighting</sup></b>
+          
+        </a>
+      
+
+			<div class='menu navigation'>
+				<ul class='h-list'>
+          
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/haoge744.github.io/
+                  
+                  
+                  
+                    id="haoge744.github.io"
+                  >
+                  
+                    <i class='fas fa-rss fa-fw'></i>
+                  
+                  博客
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/haoge744.github.io/categories/
+                  
+                  
+                  
+                    id="haoge744.github.iocategories"
+                  >
+                  
+                    <i class='fas fa-folder-open fa-fw'></i>
+                  
+                  分类
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/haoge744.github.io/tags/
+                  
+                  
+                  
+                    id="haoge744.github.iotags"
+                  >
+                  
+                    <i class='fas fa-tags fa-fw'></i>
+                  
+                  标签
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/haoge744.github.io/archives/
+                  
+                  
+                  
+                    id="haoge744.github.ioarchives"
+                  >
+                  
+                    <i class='fas fa-archive fa-fw'></i>
+                  
+                  归档
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/haoge744.github.io/friends/
+                  
+                  
+                  
+                    id="haoge744.github.iofriends"
+                  >
+                  
+                    <i class='fas fa-link fa-fw'></i>
+                  
+                  友链
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/haoge744.github.io/about/
+                  
+                  
+                  
+                    id="haoge744.github.ioabout"
+                  >
+                  
+                    <i class='fas fa-info-circle fa-fw'></i>
+                  
+                  关于
+                </a>
+                
+              </li>
+            
+          
+          
+				</ul>
+			</div>
+
+      
+        <div class="m_search">
+          <form name="searchform" class="form u-search-form">
+            <i class="icon fas fa-search fa-fw"></i>
+            <input type="text" class="input u-search-input" placeholder="搜索" />
+          </form>
+        </div>
+      
+
+			<ul class='switcher h-list'>
+				
+					<li><a class="s-search flat-btn fas fa-search fa-fw" target="_self" href='javascript:void(0)'></a></li>
+				
+				<li><a class="s-menu flat-btn fas fa-bars fa-fw" target="_self" href='javascript:void(0)'></a></li>
+			</ul>
+		</div>
+	</div>
+</header>
+<ul class="menu-phone navigation white-box">
+  
+  
+    <li>
+      <a class="flat-box" href=/haoge744.github.io/
+        
+        
+        
+          id="haoge744.github.io"
+        >
+        
+          <i class='fas fa-rss fa-fw'></i>
+        
+        博客
+      </a>
+    </li>
+  
+    <li>
+      <a class="flat-box" href=/haoge744.github.io/categories/
+        
+        
+        
+          id="haoge744.github.iocategories"
+        >
+        
+          <i class='fas fa-folder-open fa-fw'></i>
+        
+        分类
+      </a>
+    </li>
+  
+    <li>
+      <a class="flat-box" href=/haoge744.github.io/tags/
+        
+        
+        
+          id="haoge744.github.iotags"
+        >
+        
+          <i class='fas fa-tags fa-fw'></i>
+        
+        标签
+      </a>
+    </li>
+  
+    <li>
+      <a class="flat-box" href=/haoge744.github.io/archives/
+        
+        
+        
+          id="haoge744.github.ioarchives"
+        >
+        
+          <i class='fas fa-archive fa-fw'></i>
+        
+        归档
+      </a>
+    </li>
+  
+    <li>
+      <a class="flat-box" href=/haoge744.github.io/friends/
+        
+        
+        
+          id="haoge744.github.iofriends"
+        >
+        
+          <i class='fas fa-link fa-fw'></i>
+        
+        友链
+      </a>
+    </li>
+  
+    <li>
+      <a class="flat-box" href=/haoge744.github.io/about/
+        
+        
+        
+          id="haoge744.github.ioabout"
+        >
+        
+          <i class='fas fa-info-circle fa-fw'></i>
+        
+        关于
+      </a>
+    </li>
+  
+</ul>
+<script>setLoadingBarProgress(40);</script>
+
+
+
+  <div class="l_body nocover">
+    <div class='body-wrapper'>
+      
+
+<div class='l_main'>
+  
+
+  
+    <article id="post" class="post white-box shadow article-type-post" itemscope itemprop="blogPost">
+      
+
+
+  <section class='meta'>
+    
+    
+    <div class="meta" id="header-meta">
+      
+        
+  
+    <h1 class="title">
+      <a href="/haoge744.github.io/2019/08/12/v-slot%E7%9A%84%E4%BD%BF%E7%94%A8/">
+        v-slot的使用
+      </a>
+    </h1>
+  
+
+
+      
+      <div class='new-meta-box'>
+        
+          
+        
+          
+            
+<div class='new-meta-item author'>
+  <a href="http://www.cch.zone" target="_blank" rel="nofollow noopener">
+    <img src="https://cdn.jsdelivr.net/gh/haoge744/cdn-rob/blog/myAvatar.png">
+    <p>cch</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  
+  <div class='new-meta-item category'>
+    <a href='/haoge744.github.io/categories/vue/' rel="nofollow">
+      <i class="fas fa-folder-open" aria-hidden="true"></i>
+      <p>vue</p>
+    </a>
+  </div>
+
+
+          
+        
+          
+            <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-edit" aria-hidden="true"></i>
+    <p>发布于：2019年8月12日</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+
+          
+        
+      </div>
+      
+        <hr>
+      
+    </div>
+  </section>
+
+
+      <section class="article typo">
+        <div class="article-entry" itemprop="articleBody">
+          
+          <h2 id="v-slot介绍"><a href="#v-slot介绍" class="headerlink" title="v-slot介绍"></a>v-slot介绍</h2><p><code>vue2.6.x</code>开始，vue为具名和范围插槽引入了一个全新的语法,即<code>v-slot</code>。目的就是想统一<code>slot</code>和<code>scope-slot</code>语法，使代码更加规范和清晰。</p>
+<p>还在<code>2.5.x</code>的小伙伴注意<code>v-slot</code>只支持在<code>vue2.6</code>以上使用，想用的同学请先升级版本哦。</p>
+<p>我们看看v-slot和之前的语法区别吧。</p>
+<a id="more"></a>
+<h3 id="局名插槽"><a href="#局名插槽" class="headerlink" title="局名插槽"></a>局名插槽</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- base-layout.vue -- &gt;</span></span><br><span class="line"><span class="comment">&lt;div class="container"&gt;</span></span><br><span class="line"><span class="comment">	&lt;header&gt;</span></span><br><span class="line"><span class="comment">		&lt;slot name="header"&gt;&lt;/slot&gt;</span></span><br><span class="line"><span class="comment">	&lt;/header&gt;</span></span><br><span class="line"><span class="comment">	</span></span><br><span class="line"><span class="comment">	&lt;main&gt;</span></span><br><span class="line"><span class="comment">		&lt;slot&gt;&lt;/slot&gt;</span></span><br><span class="line"><span class="comment">	&lt;/main&gt;</span></span><br><span class="line"><span class="comment">	&lt;footer&gt;</span></span><br><span class="line"><span class="comment">		&lt;slot name="footer"&gt;&lt;/slot&gt;</span></span><br><span class="line"><span class="comment">	&lt;/footer&gt;</span></span><br><span class="line"><span class="comment">&lt;/div&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>使用</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 过时语法 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">base-layout</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">template</span> <span class="attr">slot</span>=<span class="string">"header"</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">h1</span>&gt;</span>ssss<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">p</span>&gt;</span>12125125<span class="tag">&lt;<span class="name">p</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">p</span>&gt;</span>198248924<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">template</span> <span class="attr">slot</span>=<span class="string">"footer"</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">p</span>&gt;</span>Some Description<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">base-layout</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>使用v-slot指令改写:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;base-layout&gt;</span><br><span class="line">		&lt;template v-slot:header&gt;</span><br><span class="line">			&lt;h1&gt;title&lt;&#x2F;h1&gt;</span><br><span class="line">		&lt;&#x2F;template&gt;</span><br><span class="line">		&lt;p&gt;some content&lt;&#x2F;p&gt;</span><br><span class="line">		&lt;p&gt;some content&lt;&#x2F;p&gt;</span><br><span class="line">		or</span><br><span class="line">		&lt;template v-slot:default&gt;</span><br><span class="line">		&lt;&#x2F;template&gt;</span><br><span class="line">		&lt;template v-slot:footer&gt;</span><br><span class="line">			&lt;p&gt;some content&lt;&#x2F;p&gt;</span><br><span class="line">		&lt;&#x2F;template&gt;</span><br><span class="line">	&lt;&#x2F;base-layout&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="作用域插槽"><a href="#作用域插槽" class="headerlink" title="作用域插槽:"></a>作用域插槽:</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 首先定义绑定对象 --&gt;</span><br><span class="line">&lt;span&gt;</span><br><span class="line">    &lt;slot v-bind:user&#x3D;&quot;user&quot;&gt;</span><br><span class="line">    &lt;&#x2F;slot&gt;</span><br><span class="line">&lt;&#x2F;span&gt;</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 过时语法 --&gt;</span><br><span class="line">&lt;slot-example&gt;</span><br><span class="line">  &lt;template slot-scope&#x3D;&quot;slotProps&quot;&gt;</span><br><span class="line">    &#123;&#123; slotProps.user.name &#125;&#125;</span><br><span class="line">  &lt;&#x2F;template&gt;</span><br><span class="line">&lt;&#x2F;slot-example&gt;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- v-slot的写法 --&gt;</span><br><span class="line">&lt;slot-example&gt;</span><br><span class="line">  &lt;template v-slot&#x3D;&quot;slotProps&quot;&gt;</span><br><span class="line">    &#123;&#123; slotProps.user.name &#125;&#125;</span><br><span class="line">  &lt;&#x2F;template&gt;</span><br><span class="line">&lt;&#x2F;slot-example&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- 可解构赋值改写成以下内容 --&gt;</span><br><span class="line">&lt;slot-example&gt;</span><br><span class="line">  &lt;template v-slot&#x3D;&quot;&#123;user&#125;&quot;&gt;</span><br><span class="line">    &#123;&#123; user.name &#125;&#125;</span><br><span class="line">  &lt;&#x2F;template&gt;</span><br><span class="line">&lt;&#x2F;slot-example&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- 可以给结构变量赋默认值,防止未定义 --&gt;</span><br><span class="line">v-slot&#x3D;&quot;&#123;user &#x3D; &#123;name: &#39;ghost&#39;&#125; &#125;&quot;</span><br></pre></td></tr></table></figure>
+
+<h3 id="简写形式"><a href="#简写形式" class="headerlink" title="简写形式"></a>简写形式</h3><p>事件绑定和数据绑定使用的是@和:，v-slot推出后也有一个简写符号，即使用# 代替v-slot例如</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;base-layout&gt;</span><br><span class="line">		&lt;template #header&gt;</span><br><span class="line">			&lt;h1&gt;title&lt;&#x2F;h1&gt;</span><br><span class="line">		&lt;&#x2F;template&gt;</span><br><span class="line">		&lt;p&gt;some content&lt;&#x2F;p&gt;</span><br><span class="line">		&lt;p&gt;some content&lt;&#x2F;p&gt;</span><br><span class="line">		or</span><br><span class="line">		&lt;template #default&gt;</span><br><span class="line">		&lt;&#x2F;template&gt;</span><br><span class="line">		&lt;template #footer&gt;</span><br><span class="line">			&lt;p&gt;some content&lt;&#x2F;p&gt;</span><br><span class="line">		&lt;&#x2F;template&gt;</span><br><span class="line">&lt;&#x2F;base-layout&gt;</span><br></pre></td></tr></table></figure>
+
+<p>然而，和其它指令一样，该缩写只在其有参数的时候才可用。这意味着以下语法是无效的：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 这样会触发一个警告 --&gt;</span><br><span class="line">&lt;current-user #&#x3D;&quot;&#123; user &#125;&quot;&gt;</span><br><span class="line">    &#123;&#123; user.firstName &#125;&#125;</span><br><span class="line">&lt;&#x2F;current-user&gt;</span><br></pre></td></tr></table></figure>
+
+<p>如果你希望使用缩写的话，你必须始终以明确插槽名取而代之：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">current-user</span> #<span class="attr">default</span>=<span class="string">"&#123; user &#125;"</span>&gt;</span></span><br><span class="line">    &#123;&#123; user.firstName &#125;&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">current-user</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="实际使用"><a href="#实际使用" class="headerlink" title="实际使用"></a>实际使用</h2><p>接下来写一个导航组件，每个导航可能会有图标或者badge，这个实际使用要看后台数据。首先先写两个组件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- NavList.vue 导航的父组件 --&gt;</span><br><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;nav class&#x3D;&quot;nav_wrapper&quot;&gt;</span><br><span class="line">    &lt;!-- 循环迭代导航列表，默认只显示导航的名称 --&gt;</span><br><span class="line">    &lt;slot v-for&#x3D;&quot;item in navList&quot; v-bind:item&#x3D;&quot;item&quot;&gt;</span><br><span class="line">      &lt;NavItem&gt;</span><br><span class="line">        &#123;&#123; item.name &#125;&#125;</span><br><span class="line">      &lt;&#x2F;NavItem&gt;</span><br><span class="line">    &lt;&#x2F;slot&gt;</span><br><span class="line">  &lt;&#x2F;nav&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">import NavItem from &#39;.&#x2F;NavItem&#39;</span><br><span class="line">export default &#123;</span><br><span class="line">  components: &#123;</span><br><span class="line">    NavItem</span><br><span class="line">  &#125;,</span><br><span class="line">  props: &#123;</span><br><span class="line">    navList: &#123;</span><br><span class="line">      required: true,</span><br><span class="line">      type: Array</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  name: &#39;NavList&#39;</span><br><span class="line">&#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br><span class="line"></span><br><span class="line">&lt;style scoped lang&#x3D;&quot;stylus&quot;&gt;</span><br><span class="line">.nav_wrapper</span><br><span class="line">  background-color #545c64</span><br><span class="line">  color white</span><br><span class="line">  display flex</span><br><span class="line">  flex-flow row nowrap</span><br><span class="line">  padding 0px 40px</span><br><span class="line">  height 40px</span><br><span class="line">  align-items stretch</span><br><span class="line">  &amp; &gt;&gt;&gt; .nav_item &#x2F;&#x2F; 让子组件的css生效</span><br><span class="line">    text-decoration none</span><br><span class="line">    padding 0 40px</span><br><span class="line">    cursor: pointer</span><br><span class="line">    display flex</span><br><span class="line">    align-items center</span><br><span class="line">    &amp;:hover</span><br><span class="line">      background-color black</span><br><span class="line">  &amp; &gt;&gt;&gt; .nav_item_icon img &lt;!-- 给子组件的导航图标设置的样式 --&gt;</span><br><span class="line">    width 30px</span><br><span class="line">    height 30px</span><br><span class="line">    display flex</span><br><span class="line">    align-items center</span><br><span class="line">    margin-right 10px</span><br><span class="line"></span><br><span class="line">&lt;&#x2F;style&gt;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 导航的子组件 NavItem.vue --&gt;</span><br><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;a class&#x3D;&quot;nav_item&quot;&gt;</span><br><span class="line">    &lt;!-- 导航的图标,默认没有, 在slot标签上设置class不生效,所以用span包裹一下 --&gt;</span><br><span class="line">    &lt;span class&#x3D;&quot;nav_item_icon&quot;&gt; </span><br><span class="line">      &lt;slot name&#x3D;&quot;icon&quot;&gt;&lt;&#x2F;slot&gt;</span><br><span class="line">    &lt;&#x2F;span&gt;</span><br><span class="line">    &lt;slot&gt;&lt;&#x2F;slot&gt;</span><br><span class="line">    &lt;slot name&#x3D;&quot;badge&quot; class&#x3D;&quot;nav_item_badge&quot;&gt;&lt;&#x2F;slot&gt;</span><br><span class="line">  &lt;&#x2F;a&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">export default &#123;</span><br><span class="line">  name: &#39;NavItem&#39;</span><br><span class="line">&#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br><span class="line"></span><br><span class="line">&lt;style scoped&gt;</span><br><span class="line">&lt;&#x2F;style&gt;</span><br></pre></td></tr></table></figure>
+
+<p>两个相互搭配的组件写好了，接下来开始使用了:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- index.vue --&gt;</span><br><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    &lt;NavList :navList&#x3D;&quot;navList&quot;&gt;</span><br><span class="line">      &lt;template v-slot&#x3D;&quot;&#123;item&#125;&quot;&gt;</span><br><span class="line">        &lt;NavItem&gt;</span><br><span class="line">          &lt;!-- 菜单项中有图标则显示、没有则隐藏 --&gt;</span><br><span class="line">          &lt;template v-slot:icon v-if&#x3D;&quot;item.icon&quot;&gt;  </span><br><span class="line">            &lt;img :src&#x3D;&quot;item.icon&quot; alt&#x3D;&quot;&quot; &gt;</span><br><span class="line">          &lt;&#x2F;template&gt;</span><br><span class="line">          &#123;&#123; getName(item) &#125;&#125;</span><br><span class="line">		  &lt;!-- 菜单项中有badge则显示、没有则隐藏 --&gt;</span><br><span class="line">          &lt;template v-slot:badge v-if&#x3D;&quot;item.badge&quot;&gt;</span><br><span class="line">			&lt;!-- badge的样式是在父组件中定义的， --&gt;</span><br><span class="line">            &lt;span class&#x3D;&quot;nav_item_badge&quot;&gt;</span><br><span class="line">              &#123;&#123; item.badge &#125;&#125;</span><br><span class="line">            &lt;&#x2F;span&gt;</span><br><span class="line">          &lt;&#x2F;template&gt;</span><br><span class="line">        &lt;&#x2F;NavItem&gt;</span><br><span class="line">      &lt;&#x2F;template&gt;</span><br><span class="line">      </span><br><span class="line">    &lt;&#x2F;NavList&gt;</span><br><span class="line">  &lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">import NavList from &#39;@&#x2F;components&#x2F;NavList&#39;</span><br><span class="line">import NavItem from &#39;@&#x2F;components&#x2F;NavItem&#39;</span><br><span class="line">export default &#123;</span><br><span class="line">  name: &#39;index&#39;,</span><br><span class="line">  components: &#123;</span><br><span class="line">    NavList,</span><br><span class="line">    NavItem</span><br><span class="line">  &#125;,</span><br><span class="line">  data () &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      navList: [&#123; &#x2F;&#x2F; 导航菜单的列表</span><br><span class="line">        name: &#39;home&#39;,</span><br><span class="line">        icon: require(&#39;..&#x2F;..&#x2F;assets&#x2F;icon.png&#39;)</span><br><span class="line">      &#125;,&#123;</span><br><span class="line">        name: &#39;news&#39;,</span><br><span class="line">        badge: 2</span><br><span class="line">      &#125;,&#123;</span><br><span class="line">        name: &#39;tags&#39;</span><br><span class="line">      &#125;,&#123;</span><br><span class="line">        name: &#39;about&#39;,</span><br><span class="line">        icon: require(&#39;..&#x2F;..&#x2F;assets&#x2F;logo.png&#39;),</span><br><span class="line">        badge: 3</span><br><span class="line">      &#125;]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    getName (item) &#123;</span><br><span class="line">      return item.name.toUpperCase()</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br><span class="line"></span><br><span class="line">&lt;style scoped lang&#x3D;&quot;stylus&quot;&gt;</span><br><span class="line">  .nav_item_badge </span><br><span class="line">    width 10px</span><br><span class="line">    height 10px</span><br><span class="line">    padding 5px</span><br><span class="line">    display flex</span><br><span class="line">    align-items center</span><br><span class="line">    justify-content center</span><br><span class="line">    margin-top -12px</span><br><span class="line">    margin-left 4px</span><br><span class="line">    font-size 10px</span><br><span class="line">    border-radius 50%</span><br><span class="line">    background-color red</span><br><span class="line">    color: white</span><br><span class="line">&lt;&#x2F;style&gt;</span><br></pre></td></tr></table></figure>
+
+<p>效果如下:</p>
+<p><img src="/haoge744.github.io/2019/08/12/v-slot%E7%9A%84%E4%BD%BF%E7%94%A8/slot.png" alt="效果"></p>
+<p>可能样式不是很完美，但是今天主题还是v-slot, 为什么不在NavItem里设置badge的样式呢？这是因为badge的宽高设定之后，父组件无法控制其隐藏。我目前暂时没有想到好的办法。另外本身badge这个东西也应该封装成一个组件的，如果在子组件里写死了那么久丧失了灵活性。另外这个导航本身实际项目中应该不会这样写，这只是一个v-slot的使用样例，仅供参考。</p>
+
+          
+            <br>
+            
+  
+    
+    
+
+<section class="widget copyright  desktop mobile">
+  <div class='content'>
+    
+      <blockquote>
+        
+          
+            <p>博客内容遵循 署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</p>
+
+          
+        
+          
+            <p>本文永久链接是：<a href=https://haoge744.github.io/2019/08/12/v-slot%E7%9A%84%E4%BD%BF%E7%94%A8/>https://haoge744.github.io/2019/08/12/v-slot%E7%9A%84%E4%BD%BF%E7%94%A8/</a></p>
+          
+        
+      </blockquote>
+    
+  </div>
+</section>
+
+  
+
+  
+    
+    
+
+<section class="widget qrcode  desktop mobile">
+  
+
+  <div class='content article-entry'>
+    
+      
+        <fancybox><img src='https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/qrcode/wiki_volantis.png'
+        
+          height='64px'
+        ></fancybox>
+      
+    
+      
+        <fancybox><img src='https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/qrcode/wiki_volantis.png'
+        
+          height='64px'
+        ></fancybox>
+      
+    
+  </div>
+</section>
+
+  
+
+
+          
+        </div>
+        
+          
+
+
+  <section class='meta' id="footer-meta">
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2019-08-26T23:05:13+08:00">
+  <a class='notlink'>
+    <i class="fas fa-save" aria-hidden="true"></i>
+    <p>更新于：2019年8月26日</p>
+  </a>
+</div>
+
+        
+      
+        
+          
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/haoge744.github.io/tags/vue/" rel="nofollow"><i class="fas fa-hashtag" aria-hidden="true"></i><p>vue</p></a></div>
+
+
+        
+      
+        
+          
+
+        
+      
+        
+          
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
+    
+      
+        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer"
+          
+          href="http://connect.qq.com/widget/shareqq/index.html?url=https://haoge744.github.io/2019/08/12/v-slot%E7%9A%84%E4%BD%BF%E7%94%A8/&title=v-slot的使用 - cch‘s blog&summary=v-slot介绍vue2.6.x开始，vue为具名和范围插槽引入了一个全新的语法,即v-slot。目的就是想统一slot和scope-slot语法，使代码更加规范和清晰。
+还在2.5.x的小伙伴注意v-slot只支持在vue2.6以上使用，想用的同学请先升级版本哦。
+我们看看v-slot和之前的语法区别吧。"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/qq.png">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer"
+          
+          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://haoge744.github.io/2019/08/12/v-slot%E7%9A%84%E4%BD%BF%E7%94%A8/&title=v-slot的使用 - cch‘s blog&summary=v-slot介绍vue2.6.x开始，vue为具名和范围插槽引入了一个全新的语法,即v-slot。目的就是想统一slot和scope-slot语法，使代码更加规范和清晰。
+还在2.5.x的小伙伴注意v-slot只支持在vue2.6以上使用，想用的同学请先升级版本哦。
+我们看看v-slot和之前的语法区别吧。"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/qzone.png">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer"
+          
+          href="http://service.weibo.com/share/share.php?url=https://haoge744.github.io/2019/08/12/v-slot%E7%9A%84%E4%BD%BF%E7%94%A8/&title=v-slot的使用 - cch‘s blog&summary=v-slot介绍vue2.6.x开始，vue为具名和范围插槽引入了一个全新的语法,即v-slot。目的就是想统一slot和scope-slot语法，使代码更加规范和清晰。
+还在2.5.x的小伙伴注意v-slot只支持在vue2.6以上使用，想用的同学请先升级版本哦。
+我们看看v-slot和之前的语法区别吧。"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/weibo.png">
+          
+        </a>
+      
+    
+  </div>
+</div>
+
+
+
+        
+      
+    </div>
+  </section>
+
+
+        
+        
+          <div class="prev-next">
+            
+              <a class='prev' href='/haoge744.github.io/2019/08/15/filco%E5%85%A5%E6%89%8B%E8%AF%84%E6%B5%8B/'>
+                <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>filco入手评测</p>
+                <p class='content'>使用感受话说花一千多块买一把键盘到底值不值？不过我为了体验顶级键盘的手感，还是忍痛割爱了。说实话这款键盘我早就看中了，犹豫了很久。最后还是没忍住哈哈。对于程序猿这种重度使用键盘的人群，给自己一把...</p>
+              </a>
+            
+            
+              <a class='next' href='/haoge744.github.io/2019/08/08/echarts%E5%9C%B0%E5%9B%BE%E9%92%BB%E5%8F%96%E4%BD%8D%E7%BD%AE%E5%BC%82%E5%B8%B8%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/'>
+                <p class='title'>echarts地图钻取位置异常的解决办法<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+                <p class='content'>因为有需求要做一个中国地图下钻到市的功能，但是在钻取中放大的时候碰到了地图位置显示异常的问题，切换地图的时候偶尔会出现地图找不到的问题，如下图:
+
+
+地图下钻逻辑，初始化的时候缓存全国的地图，省...</p>
+              </a>
+            
+          </div>
+        
+      </section>
+    </article>
+  
+
+  
+    <!-- 显示推荐文章和评论 -->
+
+
+
+  <article class="post white-box comments shadow">
+    <section class="article typo">
+      <p ct><i class='fas fa-comments'></i> 评论</p>
+      
+      
+      
+        <section id="comments">
+          <div id="lv-container" data-id="city" data-uid="MTAyMC80NjQ3NC8yMjk4NQ==">
+            <noscript><div><i class='fas fa-exclamation-triangle'>&nbsp;无法加载Livere评论系统，请确保您的网络能够正常访问。</div></noscript>
+          </div>
+        </section>
+      
+      
+      
+    </section>
+  </article>
+
+
+  
+
+
+
+
+<!-- 根据页面mathjax变量决定是否加载MathJax数学公式js -->
+
+
+
+  <script>
+    window.subData = {
+      title: 'v-slot的使用',
+      tools: true
+    }
+  </script>
+
+
+</div>
+<aside class='l_side'>
+  
+  
+
+  
+    
+    
+
+
+  <section class="widget toc-wrapper shadow desktop mobile">
+    
+  <header>
+    
+      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
+    
+  </header>
+
+
+    <div class='content'>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#v-slot介绍"><span class="toc-text">v-slot介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#局名插槽"><span class="toc-text">局名插槽</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#作用域插槽"><span class="toc-text">作用域插槽:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#简写形式"><span class="toc-text">简写形式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#实际使用"><span class="toc-text">实际使用</span></a></li></ol>
+    </div>
+  </section>
+
+
+  
+
+
+</aside>
+
+
+  
+  <footer class="clearfix ">
+    <br><br>
+    
+      
+        <div class="aplayer-container">
+          
+
+  
+    <meting-js
+      theme='#1BCDFC'
+      autoplay='false'
+      volume='0.7'
+      loop='all'
+      order='list'
+      fixed='false'
+      list-max-height='340px'
+      server='netease'
+      type='playlist'
+      id='3175833810'
+      list-folded='true'>
+    </meting-js>
+  
+
+
+        </div>
+      
+    
+      
+        <br>
+        <div class="social-wrapper">
+          
+            
+              <a href="/haoge744.github.io/atom.xml"
+                class="social fas fa-rss flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+            
+              <a href="mailto:cch_it@sina.com"
+                class="social fas fa-envelope flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+            
+              <a href="https://github.com/haoge744"
+                class="social fab fa-github flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+            
+              <a href="https://music.163.com/#/user/home?id=303461483"
+                class="social fas fa-headphones-alt flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+        </div>
+      
+    
+      
+        <div><p>博客内容遵循 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener">署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</a></p>
+</div>
+      
+    
+      
+        本站使用
+        <a href="https://volantis.js.org/" target="_blank" class="codename">cch‘blog</a>
+        作为主题
+        
+          ，
+          总访问量为
+          <span id="busuanzi_value_site_pv"><i class="fas fa-spinner fa-spin fa-fw" aria-hidden="true"></i></span>
+          次
+        
+      
+    
+      
+        <div class='copyright'>
+        <p><a href="https://xaoxuu.com" target="_blank" rel="noopener">Copyright © 2017-2020 Mr. X</a></p>
+
+        </div>
+      
+    
+  </footer>
+
+<script>setLoadingBarProgress(80);</script>
+
+
+      <script>setLoadingBarProgress(60);</script>
+    </div>
+    <a class="s-top fas fa-arrow-up fa-fw" href='javascript:void(0)'></a>
+  </div>
+  
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4/dist/jquery.min.js"></script>
+
+
+  <script>
+    
+    var SEARCH_SERVICE = "hexo" || "hexo";
+    var ROOT = "/haoge744.github.io/" || "/";
+    if (!ROOT.endsWith('/')) ROOT += '/';
+  </script>
+
+
+  <script async src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@2/js/instant_page.js" type="module" defer integrity="sha384-OeDn4XE77tdHo8pGtE1apMPmAipjoxUQ++eeJa6EtJCfHlvijigWiJpD7VDPWXV1"></script>
+
+
+
+  
+<script src="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.js"></script>
+
+  <script type="text/javascript">
+    $(function() {
+      Waves.attach('.flat-btn', ['waves-button']);
+      Waves.attach('.float-btn', ['waves-button', 'waves-float']);
+      Waves.attach('.float-btn-light', ['waves-button', 'waves-float', 'waves-light']);
+      Waves.attach('.flat-box', ['waves-block']);
+      Waves.attach('.float-box', ['waves-block', 'waves-float']);
+      Waves.attach('.waves-image');
+      Waves.init();
+    });
+  </script>
+
+
+  <script async src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-busuanzi@2.3/js/busuanzi.pure.mini.js"></script>
+
+
+
+  
+  
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/jquery-backstretch@2.1.18/jquery.backstretch.min.js"></script>
+
+    <script type="text/javascript">
+      $(function(){
+        var imgs=["https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/BBC19066-E176-47C2-9D22-48C81EE5DF6B.jpeg"];
+        if ('true' == 'true') {
+          function shuffle(arr){
+            /*From countercurrent-time*/
+            var n = arr.length;
+            while(n--) {
+              var index = Math.floor(Math.random() * n);
+              var temp = arr[index];
+              arr[index] = arr[n];
+              arr[n] = temp;
+            }
+          }
+          shuffle(imgs);
+        }
+        if ('.cover') {
+          $('.cover').backstretch(
+            imgs,
+          {
+            duration: "20000",
+            fade: "1500"
+          });
+        } else {
+          $.backstretch(
+            imgs,
+          {
+            duration: "20000",
+            fade: "1500"
+          });
+        }
+      });
+    </script>
+  
+
+
+
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.js" async></script>
+
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/meting@2.0/dist/Meting.min.js" async></script>
+
+  
+
+
+
+
+
+  <script type="text/javascript">
+    (function(d, s) {
+      var j, e = d.getElementsByTagName(s)[0];
+      if (typeof LivereTower === 'function') { return; }
+      j = d.createElement(s);
+      j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+      j.async = true;
+      e.parentNode.insertBefore(j, e);
+    })(document, 'script');
+  </script>
+
+
+
+
+
+
+  
+<script src="/haoge744.github.io/js/app.js"></script>
+
+
+
+  
+<script src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@2.1/js/search.js"></script>
+
+
+
+  
+<script src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@2/js/comment_typing.js"></script>
+
+
+
+<!-- 复制 -->
+
+  <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="fas fa-copy"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copyed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('fa-copy');
+        $icon.addClass('fa-clipboard-check');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPYED';
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('fa-copy');
+        $icon.addClass('fa-exclamation-triangle');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+
+
+
+
+<!-- fancybox -->
+
+  <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+<script>
+  let LAZY_LOAD_IMAGE = "";
+  $(".article-entry").find("fancybox").find("img").each(function () {
+      var element = document.createElement("a");
+      $(element).attr("data-fancybox", "gallery");
+      $(element).attr("href", $(this).attr("src"));
+      /* 图片采用懒加载处理时,
+       * 一般图片标签内会有个属性名来存放图片的真实地址，比如 data-original,
+       * 那么此处将原本的属性名src替换为对应属性名data-original,
+       * 修改如下
+       */
+       if (LAZY_LOAD_IMAGE) {
+         $(element).attr("href", $(this).attr("data-original"));
+       }
+      $(this).wrap(element);
+  });
+</script>
+
+
+
+
+
+
+  <script>setLoadingBarProgress(100);</script>
+<script src="/haoge744.github.io/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/haoge744.github.io/live2dw/assets/z16.model.json"},"display":{"position":"right","width":250,"height":500,"hOffset":30,"vOffset":0},"react":{"opacity":0.7},"mobile":{"show":true}});</script></body>
+</html>
